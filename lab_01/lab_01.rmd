@@ -1,0 +1,209 @@
+---
+title: "lab_01"
+author: "Derek Willis"
+date: "2023-01-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Turn off scientific notation
+options(scipen=999)
+```
+
+## About this lab
+
+To complete this lab, you need to: \* run existing code as directed (look for **Task**). \* modify existing code as directed (look for **Task**). \* write code in empty codeblocks provided to answer questions included (look for **Q**). \* write out the answer in the form of a complete sentence in the space given (look for **A**). When you are finished, commit changes and push to your personal GitHub repo, then submit the URL to this document on ELMS.
+
+Remember to add any new verbs or concepts to your class reference notebook!
+
+## Load libraries and establish settings
+
+**Task** Run the codeblock below to load the Tidyverse. To run the codeblock, hit the little green play button in the upper right corner of the gray area (the codeblock) below.
+
+```{r}
+# Load the tidyverse. If you have not installed the tidyverse already, remove the # from the next line and run it first.  
+# install.packages('tidyverse')
+library(tidyverse)
+```
+
+## Load Data
+
+We're going to load the UMD courses data.
+
+**Task** Run the codeblock below to load the data, which is contained in an RDS file.
+
+```{r}
+umd_courses <- read_rds("lab_01.rds")
+```
+
+## Answer questions
+
+**Q1** Which department has the highest mean (average) number of seats for its classes? You need to show the department with the highest average first. Which one is the most surprising/interesting to you?
+**A1**
+Engineering, Cooperative Education	15	4600	306.666667	
+First-Year Innovation & Research Experience	72	11759	163.319444	
+University Courses	165	23139	140.236364	
+
+```{r}
+```
+
+**Q2** Find out the greatest number of times any individual class has been offered in our dataset. Your code must show the greatest number of classes first. 
+**A2**
+UNIV100	16	15421	963.812500	70.0	15	2876
+ENES140	14	24451	1746.500000	2129.5	29	2500
+ENGL101	17	20115	1183.235294	1577.0	82	2052
+COMM107	22	20805	945.681818	883.5	0	1995
+```{r}
+```
+
+**Q3** Count the number of courses for each instructor and department. Which instructor has taught the most? **A3**
+Keith Yearwood
+```{r}
+```
+
+**Q4** Given the results for Q3, what would have made it easier to find the answer? You don't have to know *how* to accomplish this; I want you to describe in words what would make the answer easier to see. How confident are you that the answer you got is the right one, and why? **A4**
+Knowing how to filter and the ! Command. This was key:
+
+  filter(!is.na(instructors))  |>
+  filter(instructors!="Instructor: TBA”
+
+I’m somewhat confident, but need more practice. Maybe testing with a very small dataset would be helpful in the future.
+
+**Q5** Take one of the questions you listed in the final question of the pre_lab and try to answer it here in code. If you don't know how to fully answer it, write what code you can and describe in words what else you would need to do. If you got an answer, is it interesting? **A5**
+I really wish we could see open seats that stayed open, but I don’t that’s available here.
+
+It would be interesting to see how number of seats has changed over time. 
+
+
+
+```{r}
+```
+
+```{r}
+install.packages('tidyverse')
+```
+
+```{r}
+install.packages('tidyverse')
+library(tidyverse)
+
+```
+```{r}
+umd_courses <- read_rds("lab_01.rds")
+
+```
+```{r}
+
+```
+
+
+```{r}
+glimpse(umd_courses)
+```
+
+```{r}
+head(umd_courses)
+```
+
+```{r}
+umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats)
+  ) |>
+  arrange(desc(total_seats))
+```
+```{r}
+umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats)
+  ) |>
+  arrange(desc(total_seats))
+```
+```{r}
+umd_courses |>
+  group_by(department) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats)
+  ) |>
+  arrange(desc(total_seats))
+```
+
+```{r}
+ group_by(department) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats),
+    min_seats = min(seats),
+    max_seats = max(seats)
+  ) |>
+  arrange(desc(total_seats))
+```
+
+
+```{r}
+umd_courses |>
+  group_by(department) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats),
+    min_seats = min(seats),
+    max_seats = max(seats)
+  ) |>
+  arrange(desc(mean_seats))
+```
+```{r}
+umd_courses |>
+  arrange(desc(seats))
+```
+
+```{r}
+umd_courses |>
+  group_by(id) |>
+  summarise(
+    count_classes = n()
+  ) |>
+  arrange(desc(count_classes))
+```
+
+```{r}
+umd_courses |>
+  group_by(id) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats),
+    min_seats = min(seats),
+    max_seats = max(seats)
+  ) |>
+  arrange(desc(max_seats))
+```
+
+
+```{r}
+umd_courses |>
+  group_by(instructors, department) |>
+  summarise(
+    count_classes = n(),
+   
+  ) |>
+  arrange(desc(count_classes)) |>
+  filter(!is.na(instructors))  |>
+  filter(instructors!="Instructor: TBA")
+  
+```
+

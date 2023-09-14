@@ -125,4 +125,3 @@ umd_courses |>
 umd_courses |>
   arrange(desc(seats))
 ```
-
