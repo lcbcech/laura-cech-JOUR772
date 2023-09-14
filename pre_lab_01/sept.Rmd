@@ -20,6 +20,50 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 umd_courses <- read_rds("data/umd_courses.rds")
 ```{r}
 umd_courses <- read_rds("data/umd_courses.rds")
+glimpse(umd_courses)
+head(umd_courses)
+umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n()
+  )umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n()
+  ) |>
+  arrange(desc(count_classes))
+umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats)
+  ) |>
+  arrange(desc(total_seats))
+
+umd_courses |>
+  group_by(term) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats)
+  ) |>
+  arrange(desc(total_seats))
+
+umd_courses |>
+  group_by(department) |>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+    mean_seats = mean(seats),
+    median_seats = median(seats),
+    min_seats = min(seats),
+    max_seats = max(seats)
+  ) |>
+  arrange(desc(total_seats))
+
+umd_courses |>
+  arrange(desc(seats))
 
 ```
 
