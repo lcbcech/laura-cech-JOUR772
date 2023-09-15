@@ -1,9 +1,10 @@
 ---
 title: "lab_01"
-author: "Derek Willis"
-date: "2023-01-05"
+author: "Laura Cech"
+date: "2023-09-15"
 output: html_document
 ---
+## Note: The task are below the answers. Sorry I that I didn't realize they should be together until you mentioned it in class. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -57,12 +58,15 @@ COMM107	22	20805	945.681818	883.5	0	1995
 ```{r}
 ```
 
-**Q3** Count the number of courses for each instructor and department. Which instructor has taught the most? **A3**
+**Q3** Count the number of courses for each instructor and department. Which instructor has taught the most? 
+**A3**
 Keith Yearwood
 ```{r}
 ```
 
-**Q4** Given the results for Q3, what would have made it easier to find the answer? You don't have to know *how* to accomplish this; I want you to describe in words what would make the answer easier to see. How confident are you that the answer you got is the right one, and why? **A4**
+**Q4** Given the results for Q3, what would have made it easier to find the answer? You don't have to know *how* to accomplish this; I want you to describe in words what would make the answer easier to see. How confident are you that the answer you got is the right one, and why? 
+
+**A4**
 Knowing how to filter and the ! Command. This was key:
 
   filter(!is.na(instructors))  |>
@@ -70,11 +74,20 @@ Knowing how to filter and the ! Command. This was key:
 
 I’m somewhat confident, but need more practice. Maybe testing with a very small dataset would be helpful in the future.
 
-**Q5** Take one of the questions you listed in the final question of the pre_lab and try to answer it here in code. If you don't know how to fully answer it, write what code you can and describe in words what else you would need to do. If you got an answer, is it interesting? **A5**
-I really wish we could see open seats that stayed open, but I don’t that’s available here.
+**Q5** Take one of the questions you listed in the final question of the pre_lab and try to answer it here in code. If you don't know how to fully answer it, write what code you can and describe in words what else you would need to do. If you got an answer, is it interesting? 
+
+**A5**
+I really wish we could see open seats that weren't filled, but I don’t think that’s available here.
 
 It would be interesting to see how number of seats has changed over time. 
 
+umd_courses |>
+  group_by(department, term)|>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+  ) |>
+  arrange((total_seats))
 
 
 ```{r}
@@ -205,5 +218,15 @@ umd_courses |>
   filter(!is.na(instructors))  |>
   filter(instructors!="Instructor: TBA")
   
+```
+
+```{r}
+umd_courses |>
+  group_by(department, term)|>
+  summarise(
+    count_classes = n(),
+    total_seats = sum(seats),
+  ) |>
+  arrange((total_seats))
 ```
 
