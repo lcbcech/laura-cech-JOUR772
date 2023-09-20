@@ -127,6 +127,7 @@ nrow(and_theatre_seats_15)
 ```
 
 **Answer**
+41011
 
 When it comes to filters, OR is additive; AND is restrictive.
 
@@ -138,7 +139,7 @@ Sometimes you need to find rows that contain a certain pattern rather than an ex
 
 ```{r}
 umd_courses |>
-  filter(str_detect(title, "Shakespeare"))
+  filter(str_detect(title, "shakespeare"))
 ```
 
 The latest version of the tidyverse also has a function called `str_like` which uses the wildcard search operator % to do partial matching.
@@ -170,6 +171,7 @@ head(maryland_expenses)
 ```
 
 **Answer:**
+The date columnn has changed to from a character field to a date field.
 
 Lubridate has functions for basically any type of character date format: mdy, ymd, even datetimes like ymd_hms.
 
@@ -206,6 +208,8 @@ So the month of June 2022 had the most expenditures by far in this data.
 Describe the values in the new `month` column - what do you think is going on there?
 
 **Answer**
+The column has pulled out the year, month, and defaulted to 1 for the date. A potential issue of some months having two digits and some having one seems to be fine.
+As to why there's more expenses in June than other months, I'd guess it has to do either with the fiscal year or the primary election season.
 
 ### Task 10: Mutate
 
