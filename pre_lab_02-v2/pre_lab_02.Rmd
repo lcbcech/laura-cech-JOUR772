@@ -168,7 +168,7 @@ maryland_expenses <- maryland_expenses |> mutate(expenditure_date=mdy(expenditur
 head(maryland_expenses)
 ```
 
-**Answer:** dates are now values, rather than characters. A possible glitch of some months having one number and others having two seems fine because there's a zero placeholder.
+**Answer:** dates are now values, rather than characters. 
 
 Lubridate has functions for basically any type of character date format: mdy, ymd, even datetimes like ymd_hms.
 
@@ -202,9 +202,9 @@ maryland_expenses |>
 
 So the month of June 2022 had the most expenditures by far in this data.
 
-Describe the values in the new `month` column - what do you think is going on there?
+Describe the values in the new `month` column - what do you think is going on there? .
 
-**Answer**
+**Answer** Organized by year, month, day. A possible glitch of some months having one number and others having two seems fine because there's a zero placeholder
 
 ### Task 10: Mutate
 
@@ -234,7 +234,7 @@ general_22 <- general_22 |>
 
 Describe what you think this code is doing below.
 
-**Answer**
+**Answer** revising general_22 to include new columns of inforamtion
 
 ### Task 11: Better percentage calculation
 
@@ -261,7 +261,7 @@ general_22 <- general_22 |>
   arrange(desc(pct_moore))
 ```
 
-How did the answer change from the previous task, and why?
+How did the answer change from the previous task, and why? Yes, now in descending order
 
 **Answer**
 
