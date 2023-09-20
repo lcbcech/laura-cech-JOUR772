@@ -277,7 +277,7 @@ general_22 |>
 
 Is this a more interesting or useful answer? Why?
 
-**Answer**
+**Answer** It's interesting to see top and bottom, places where he has support and where he doesn't.
 
 ### Task 14: Standardize existing data using mutate
 
@@ -299,7 +299,44 @@ standardized_maryland_expenses <- maryland_expenses |>
 ```
 
 **Task** Search the Internet for tidyverse functions similar to str_to_upper. Name at least two and describe what they do. If you use ChatGPT for this, include the question you submitted.
+what are some tidyverse functions similar to str_to_upper?
+what's a shorter way?
+library(dplyr)
 
+# Sample data frame
+data <- data.frame(
+  text1 = c("Hello", "World"),
+  text2 = c("Tidy", "Verse")
+)
+
+# Apply str_to_upper to all character columns
+data <- data %>%
+  mutate(across(where(is.character), str_to_upper))
+
+print(data)
+
+In this example, mutate is used with across to apply the str_to_upper function to all character columns in the data frame data. This approach is shorter and more flexible when you need to apply the same transformation to multiple columns.
+
+What's another way?
+library(dplyr)
+
+# Sample data frame
+data <- data.frame(
+  text1 = c("Hello", "World"),
+  text2 = c("Tidy", "Verse")
+)
+
+# Apply str_to_upper to all character columns using mutate_all
+data <- data %>%
+  mutate_all(str_to_upper)
+
+# Alternatively, you can specify columns by name using mutate_at
+# data <- data %>%
+#   mutate_at(vars(text1, text2), str_to_upper)
+
+print(data)
+
+In this example, mutate_all applies the str_to_upper function to all columns in the data frame, and mutate_at allows you to specify columns by name or conditionally based on their properties. Both approaches are shorter and more efficient when you want to apply the same transformation to multiple columns in your data frame.
 **Answer**
 
 There are lots of potential uses for standardization - addresses, zip codes, anything that can be misspelled or abbreviated.
@@ -310,7 +347,7 @@ Mutate is even more useful when combined with some additional functions. Let's k
 
 **Task** Run the following code and look at the output. Then write a sentence or two describing what you think the mutate statement is doing step by step.
 
-**Answer**
+**Answer** In cases where you detect "Maryland" or something like it, call it "MD" and if not any of those, default to NA. Curious about why we have spaces before Maryland in quotes and if that will be resolved by the ~ 
 
 ```{r}
 maryland_expenses_with_state <- maryland_expenses |>
@@ -343,7 +380,7 @@ maryland_expenses_with_state |>
   arrange(desc(total))
 ```
 
-Does this answer make sense to you? Why or why not?
+Does this answer make sense to you? Why or why not? I think it's showing that 7,772,3145.82 was spent in MD, but there's a lot in NA so that could significantly change things
 
 **Answer**
 
