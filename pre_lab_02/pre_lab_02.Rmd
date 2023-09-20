@@ -221,10 +221,18 @@ First, we'll import a dataset of county-level gubernatorial results from Marylan
 
 ```{r}
 general_22 <- read_csv('data/md_gov_county.csv')
-
 ```
 
 Let's add a column called `percent_moore` for the percentage of votes that went to Wes Moore, the Democratic candidate who won the election, in each county. The code to calculate a percentage is pretty simple. Remember, with `summarize`, we used `n()` to count things. With `mutate`, we use very similar syntax to calculate a new value -- a new column of data -- using other values in our dataset.
+
+```{r}
+general_22 <- general_22 |>
+  mutate(
+    total_votes = cox + moore + lashar + wallace + write_ins,
+    pct_moore = moore/total_votes
+  )
+```
+
 
 To calculate a percentage, we need both the number of votes for Moore but also the total number of votes. We'll use mutate to create both columns. The first will be total votes, and the second will be the percentage for Moore. The key here is to save the dataframe to itself so that our changes stick.
 
