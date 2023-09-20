@@ -231,6 +231,8 @@ general_22 <- general_22 |>
     total_votes = cox + moore + lashar + wallace + write_ins,
     pct_moore = moore/total_votes
   )
+
+general_22
 ```
 
 
