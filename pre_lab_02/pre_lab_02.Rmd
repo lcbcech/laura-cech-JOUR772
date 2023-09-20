@@ -1,7 +1,7 @@
 ---
 title: "pre_lab_02.Rmd"
-author: "Derek Willis"
-date: "2023-09-15"
+author: "Laura Cech"
+date: "2023-09-20"
 output: html_document
 ---
 
@@ -92,6 +92,7 @@ And now we only have two columns of data for whatever analysis we might want to 
 Notice that we made a new variable to hold the result. Why is that important?
 
 **Answer**
+We created a new variable called "selected_journalism_courses" and it's important if we want to filter and sort based on the results of our previous filtering/selecting.
 
 ### Task 6: Combining filters
 
