@@ -63,11 +63,11 @@ arrange(desc(n))
 **A3.**
 
 ```{r}
-umd_courses |>
-  group_by(term) |>
-  summarise(
-    count_classes = n()
-  ) 
+
+
+courses_2023 <- umd_courses |> filter(term)
+
+head(courses_2023)
   
 
 ```
