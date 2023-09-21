@@ -44,6 +44,7 @@ umd_courses |>
 group_by (department)|>
 count()|>
 arrange(desc(n))
+
 ```
 
 **Q2.** Of the departments listed in A1, which one is the most interesting to you, and why? 
