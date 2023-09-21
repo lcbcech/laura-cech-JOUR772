@@ -1,6 +1,6 @@
 ---
 title: "pre_lab_02.Rmd"
-author: "Derek Willis"
+author: "Laura Cech"
 date: "2023-09-15"
 output: html_document
 ---
