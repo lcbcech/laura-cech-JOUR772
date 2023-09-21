@@ -63,13 +63,10 @@ arrange(desc(n))
 **A3.**
 
 ```{r}
-
-
-courses_2023 <- umd_courses |> filter(term)
+umd_courses <- read_rds("data/umd_courses.rds") 
+courses_2023 <- umd_courses |> filter(term > 202300)
 
 head(courses_2023)
-  
-
 ```
 
 **Q4.** Using the Maryland campaign expenses data, change the datatype of the expenditure_date column so that it is a date and not a chr, saving the result as a new dataframe. Then create a new column for the month based on expenditure_date. Then write code that shows total amount spent each month by Wes Moore's committee (you'll need to search the data to find the exact name, and we're not looking in payee_name). Write a sentence describing the pattern of spending over time. 
