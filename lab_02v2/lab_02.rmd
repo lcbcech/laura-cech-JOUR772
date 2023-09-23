@@ -32,14 +32,14 @@ maryland_expenses <- read_csv("data/maryland_expenses.csv")
 
 ## Answer questions
 
-**Q1.** How many departments have offered the courses with "Climate" in the title and at least one seat? Which department has offered the most? **A1.**
+**Q1.** How many departments have offered the courses with "Climate" in the title and at least one seat? Which department has offered the most? **A1.** Atmospheric and Oceanic Science
 
 ```{r}
 department <- umd_courses |> select("department")
 
 head(department)
 umd_courses |>
-  filter(str_detect(title, "Climate"))|>
+  filter(str_detect(title, "Climate"))|> filter(syllabus_count >= 1) |>
 
   
 group_by (department)|>
@@ -56,20 +56,23 @@ arrange(desc(n))
 **A3.**
 
 ```{r}
-department <- umd_courses |> select("department")
+umd_23_courses <- umd_courses |> filter(term  == 202308)
 
-head(department)
-umd_courses |>
-  
-filter(str_detect(term, "202308"))|>
-group_by (department)
+head(umd_23_courses) 
+
 
 ```
+
 
 **Q4.** Using the Maryland campaign expenses data, change the datatype of the expenditure_date column so that it is a date and not a chr, saving the result as a new dataframe. Then create a new column for the month based on expenditure_date. Then write code that shows total amount spent each month by Wes Moore's committee (you'll need to search the data to find the exact name, and we're not looking in payee_name). Write a sentence describing the pattern of spending over time. 
 **A4.**
 
 ```{r}
+glimpse(maryland_expenses)
+head(maryland_expenses)
+
+
+
 ```
 
 **Q5.** Using case_when(), create a column in the Maryland expenses data called `spending_location` indicating whether each record spent money in Maryland or outside Maryland. For records that are in Maryland, make the new column's value "In-state" and for all others, make it "Out of state". Then write code that shows the total amount of money spent in each category and describe the results. You can do this in one statement or break it up into two statements (saving the new column to your dataframe).

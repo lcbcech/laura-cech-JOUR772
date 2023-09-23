@@ -1,0 +1,57 @@
+---
+title: "R Notebook of shortcuts"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Loading/reading a file
+ex:
+umd_courses <- read_rds("umd_courses.rds")
+
+Inside of the read_rds() function, we’ve put the name of the file we want to load. Things we put inside of function, to customize what the function does, are called arguments.
+
+---
+
+If we run glimpse(umd_courses), it will give us a list of the columns, the data type for each column and and the first few values for each column.
+
+If we type head(umd_courses), it will print out the columns and the first six rows of data.
+
+----
+
+|> means “and then do this.” This is called the “pipe operator” 
+Another way of writing it is: %>%
+
+
+----
+
+count_classes = n(), says create a new field, called count_classes and set it equal to n()
+
+---
+
+== for equal to, != for not equal to, > for greater than, >= for greater than or equal to and so on.
+
+
+
+--
+change char to number
+ex:
+maryland_expenses <- maryland_expenses |> mutate(expenditure_date=mdy(expenditure_date))
+
+head(maryland_expenses)
+
+
+---
+use summary() and colnames() to get a sense of the data and the data types of each field/variable/column. 
+ex:
+summary(umd_courses)
+colnames(umd_courses)
+
+
+
+
+
+```{r}
+
+```{r}
+
