@@ -39,7 +39,7 @@ department <- umd_courses |> select("department")
 
 head(department)
 umd_courses |>
-  filter(str_detect(title, "Climate"))|> filter(syllabus_count >= 1) |>
+  filter(str_detect(title, "Climate"))|> filter(seats >= 1) |>
 
   
 group_by (department)|>
@@ -56,7 +56,7 @@ arrange(desc(n))
 **A3.**
 
 ```{r}
-umd_23_courses <- umd_courses |> filter(term  == 202308)
+umd_23_courses <- umd_courses |> filter(term  == 202308) |> filter(syllabus_count >= 1) |>
 
 head(umd_23_courses) 
 
