@@ -31,7 +31,8 @@ count_classes = n(), says create a new field, called count_classes and set it eq
 
 == for equal to, != for not equal to, > for greater than, >= for greater than or equal to and so on.
 
-
+--
+AND is `&` and OR is `|`
 
 --
 change char to number

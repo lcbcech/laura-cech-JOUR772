@@ -54,9 +54,15 @@ arrange(desc(n))
 **Q3** Which departments offered the most courses in the Fall 2023 term? And which departments in that term have at least one syllabus posted? Answer both of those questions and then compare the top five departments - how are they different?
 
 **A3.**
+```{r}
+glimpse (umd_courses)
+```
+
+
 
 ```{r}
-umd_23_courses <- umd_courses |> filter(term  == 202308) |> filter(syllabus_count >= 1) |>
+
+umd_23_courses <- umd_courses |> filter(term == 202308) |> filter(syllabus_count >= 1) |>
 
 head(umd_23_courses) 
 
@@ -71,8 +77,18 @@ head(umd_23_courses)
 glimpse(maryland_expenses)
 head(maryland_expenses)
 
+maryland_expenses_newdate <- maryland_expenses |> mutate(expenditure_date=dmy(expenditure_date))
+
+head(maryland_expenses_newdate)
 
 
+```
+```{r}
+maryland_expenses_newdate |>
+  mutate(month = floor_date(expenditure_date, "month")) |>
+  group_by(month) |>
+  summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount))
 ```
 
 **Q5.** Using case_when(), create a column in the Maryland expenses data called `spending_location` indicating whether each record spent money in Maryland or outside Maryland. For records that are in Maryland, make the new column's value "In-state" and for all others, make it "Out of state". Then write code that shows the total amount of money spent in each category and describe the results. You can do this in one statement or break it up into two statements (saving the new column to your dataframe).
