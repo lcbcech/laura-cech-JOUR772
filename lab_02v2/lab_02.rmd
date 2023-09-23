@@ -119,29 +119,19 @@ arrange(desc(total_amount))
 **Q6.** Choose your own adventure: using either the UMD courses or campaign expenses data, ask and answer a question that is different than the previous ones. You can use one of the ones you provided in the pre_lab. 
 **A6.**
 
-What does Wes Moore spend in each state?
+How much did Wes Moore spend on salaries? 3,428,264
 
 ```{r}
-spending_states <- maryland_expenses |>
-  mutate(
-    state = case_when(
-        str_detect(address, " Maryland ") ~ "MD",
-        str_detect(address, " California ") ~ "CA",
-        str_detect(address, " Washington ") ~ "WA",
-        str_detect(address, " Louisiana ") ~ "LA",
-        str_detect(address, " Florida ") ~ "FL",
-        str_detect(address, " North Carolina ") ~ "NC",
-        str_detect(address, " Massachusetts ") ~ "MA",
-        str_detect(address, " West Virginia ") ~ "WV",
-        str_detect(address, " Virginia ") ~ "VA",
-        .default = NA
-      )
-  ) |>
-group_by(state) |>
-summarise(total_amount = sum(amount)) |>
-arrange(desc(total_amount))
+maryland_expenses <- read_csv("data/maryland_expenses.csv")
+head (maryland_expenses)
 ```
 
 
 ```{r}
+selfexpenses <- maryland_expenses |> filter(committee_name =="Moore  Wes For Maryland") |> filter(expense_category == "Salaries and Other compensation") |>
+ summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount))
+
+head(selfexpenses)
+
 ```
