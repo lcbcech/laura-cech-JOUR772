@@ -57,7 +57,8 @@ problems(payments)
 
 ### Task 4: Examine the data with glimpse
 
-**Task** Run the following codeblock to glimpse the data. What data type is the "Vendor Name" field? What data type is the "Amount" field? What data type is the "Date" column? Answer below. **Answer**
+**Task** Run the following codeblock to glimpse the data. What data type is the "Vendor Name" field? What data type is the "Amount" field? What data type is the "Date" column? Answer below. **Answer** 
+vendor is character type, amount is number, date is a character 
 
 ```{r}
 glimpse(payments)
@@ -71,8 +72,8 @@ The second smell we can find in code is **wrong spatial data**. Spatial data mea
 
 We can check to see if any of the zip codes are less than five characters by using [a function called `str_length`](https://stringr.tidyverse.org/reference/str_length.html) inside a filter.
 
-**Task** Run the following codeblock to group by the vendor's zip code and show any that are less than five characters in length. How many zip codes do not have five characters? What do you think explains those records? 
-**Answer**
+**Task** Run the following codeblock to group by the vendor's zip code and show any that are less than five characters in length. How many zip codes do not have five characters? What do you think explains those records?
+**Answer**  549
 
 ```{r}
 payments |>
