@@ -197,7 +197,7 @@ cleaned_md_grants_loans
 ### Task 6: Check for duplicate rows
 
 **Task** Run the following codeblock to check for duplicate rows using get_dupes(). How many duplicates are possible? 
-**Answer**
+**Answer** As many as 50
 
 ```{r}
 cleaned_md_grants_loans |>
@@ -207,7 +207,7 @@ cleaned_md_grants_loans |>
 ### Task 7: Get rid of duplicate rows
 
 **Task** Run the following codeblock to use distinct() to get rid of duplicate rows. How many rows does the new dataframe have? Answer below. 
-**Answer**
+**Answer** 10
 
 ```{r}
 # cleaning function
@@ -230,7 +230,7 @@ Let's start by cleaning up the zip field. Remember, some of the rows had a five-
 We're going to write code that tells R to make a new column for our zips, keeping the first five digits on the left, and get rid of anything after that by using `mutate()` in concert with `str_sub()`, from the `stringr` package.
 
 **Task** Run the following codeblock to use str_sub() to convert the ZIP codes that have nine digits to five digits, creating a new column. Look at the difference in the result - what changed? 
-**Answer**
+**Answer** It created a new zip5 column with 5-digit zip codes
 
 ```{r}
 # cleaning function
