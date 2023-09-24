@@ -100,7 +100,7 @@ Each row represents a recipient of state grant or loan, along with information a
 ### Task 7: Looking at categories
 
 **Task** Run the following codeblock and describe below what each line is doing. Looking at the results, what jumps out at you as potentially problematic? 
-**Answer**
+**Answer** There are multiple "na" in the category type. 
 
 ```{r}
 md_grants_loans |> 
@@ -114,7 +114,7 @@ Any time you are going to focus on a column for analysis, you should check for u
 ### Task 8: Find outliers
 
 **Task** Run the following code to arrange the grants & loan data so that the smallest amount is first. Describe what you see. 
-**Answer**
+**Answer** Some zip codes have 5 digits, some have a hyphen and an extra four digits; some grantees are in all-caps, others are title case.
 
 ```{r}
 md_grants_loans |> 
