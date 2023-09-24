@@ -1,7 +1,7 @@
 ---
 title: "pre_lab_03.Rmd"
 author: "Derek Willis"
-date: "2023-08-08"
+date: "2023-09-23"
 output: html_document
 ---
 
@@ -33,10 +33,13 @@ library(tidyverse)
 
 ### Task 2: Load data
 
-**Task** Load some [Maryland state government payments data](https://opendata.maryland.gov/Budget/State-of-Maryland-Payments-Data-FY2008-to-FY2024/7syw-q4cy) by running the following code. We'll use the guess_max() function as an argument to use the first 10 rows to set the data type. What does the first line of the red Warning message that prints out when you load the data say? What happens when you follow its instructions? Answer below. **Answer**
+**Task** Load some [Maryland state government payments data](https://opendata.maryland.gov/Budget/State-of-Maryland-Payments-Data-FY2008-to-FY2024/7syw-q4cy) by running the following code. We'll use the guess_max() function as an argument to use the first 10 rows to set the data type. What does the first line of the red Warning message that prints out when you load the data say? What happens when you follow its instructions? Answer below. **Answer** It shows aboug 280 rows with issues, because it expected a double-digit in col 4, but since I think that's a zipcode, it's messing things up.
 
 ```{r}
 payments <- read_csv("data/State_of_Maryland_Payments_Data__FY2008_to_FY2024.csv", guess_max=10)
+```
+```{r}
+problems(payments)
 ```
 
 ### Task 3: Reload data
