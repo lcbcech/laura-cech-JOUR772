@@ -272,8 +272,12 @@ cleaned_md_grants_loans
 ### Task 10: Answer our question!
 
 **Task** Write and run code to answer our original question: which zip code has gotten the most amount of money from the Maryland Tourism Board? Where is that zip code, and does that zip code make sense to you as the top recipient? Write a sentence describing the top result.
-**Answer**
+**Answer** Zipcode with the most amount is 5,094,146,889.61 in Washington, DC. I guess it makes sense since Maryland is trying to get tourists who come to the area for DC primarily, but I'm a little surprised that it's that much. I would've thought the most money would be spent on advertising.
 
 ```{r}
-
+cleaned_md_grants_loans |>
+  group_by(zip5) |>
+  summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount))
+  
 ```
