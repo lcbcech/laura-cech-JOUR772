@@ -49,7 +49,8 @@ summary(umd_courses)
 colnames(umd_courses)
 
 
-
+a way to count is
+summarise(total_amount = sum(amount))
 
 
 ```{r}
