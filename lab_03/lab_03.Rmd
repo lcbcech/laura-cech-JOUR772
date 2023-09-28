@@ -15,10 +15,21 @@ knitr::opts_chunk$set(echo = TRUE)
 # Turn off scientific notation
 options(scipen=999)
 
-# Load the tidyverse
+library(tidyverse)
+library(lubridate)
 
-# Load janitor
+
 ```
+
+
+```{r}
+install.packages('janitor')
+```
+```{r}
+library(janitor)
+```
+
+
 
 ## TASK: Load data and clean up the column names
 
@@ -31,6 +42,23 @@ vendors <- read_csv("data/State_of_Maryland_Payments_Data__FY2008_to_FY2024.csv"
 glimpse(vendors)
 glimpse(md_grants_loans)
 ```
+
+```{r}
+# cleaning function
+cleaned_md_grants_loans <- md_grants_loans |>
+  clean_names() 
+# display the cleaned dataset
+cleaned_md_grants_loans
+```
+
+```{r}
+# cleaning function
+cleaned_vendors <- vendors |>
+  clean_names() 
+# display the cleaned dataset
+cleaned_vendors
+```
+
 
 ## Answer questions
 
