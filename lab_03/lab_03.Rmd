@@ -67,9 +67,17 @@ Q1: You want to know how much money state agencies have paid to the Prince Georg
 HINT: you should use filter() just once, and inside your filter you want to look for the variations one at a time. Think "this version OR that version."
 
 ```{r}
-cleaned_md_grants_loans |>
- filter(str_detect(grantee, "PRINCE GEORGE COUNTY PUBLIC SCHOOLS"))|>
-group_by (grantee)
+cleaned_vendors |>
+  mutate(vendor_name= str_to_upper(vendor_name))
+```
+
+
+```{r}
+cleaned_vendors |>
+ filter(str_detect(vendor_name, "SCHOOL" ))|>
+filter(str_detect(vendor_name, "PRINCE" ))|>  
+group_by (vendor_name)
+
 
 
 ```
