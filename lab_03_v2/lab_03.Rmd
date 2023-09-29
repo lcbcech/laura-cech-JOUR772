@@ -76,11 +76,14 @@ filter(str_detect(vendor_name, "PRINCE" ))
 
 Q2: Using that `pg_schools` dataframe, write code to calculate the total amount of payments to the Prince George's County School system for each fiscal year. Which fiscal year had the largest total amount? Are there any aspects of the results that stand out to you?
 
-A2:
+A2: 2021	1,470,133,533	
+There appear to be missing years.
 
 ```{r}
 pg_schools |>
-   group_by(fiscal_year) 
+   group_by(fiscal_year) |>
+  summarize(total = sum(amount)) |>
+  arrange(desc(total))
 
 
 ```
