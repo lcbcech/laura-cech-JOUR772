@@ -64,9 +64,14 @@ HINT: you should use filter() just once, and inside your filter you want to look
 
 When you have found as many as possible, save the result to a new dataframe called `pg_schools`. How many records did you find? 
 
-A1:
+A1: 60
 
 ```{r}
+pg_schools <- cleaned_payments |>
+filter(str_detect(vendor_name, "SCHOOL" )) |>
+filter(str_detect(vendor_name, "PRINCE" )) 
+ 
+
 ```
 
 Q2: Using that `pg_schools` dataframe, write code to calculate the total amount of payments to the Prince George's County School system for each fiscal year. Which fiscal year had the largest total amount? Are there any aspects of the results that stand out to you?
