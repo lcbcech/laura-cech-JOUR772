@@ -79,6 +79,7 @@ Q2: Using that `pg_schools` dataframe, write code to calculate the total amount 
 A2:
 
 ```{r}
+
 ```
 
 Q3. You're interested in examining the vendors paid for capital projects at the University of Maryland. Search the payments data to find those payments, then write code to produce a list of each vendor and the total amount it received. 
