@@ -96,7 +96,9 @@ A3.
 
 ```{r}
 cleaned_payments |>
-  filter(str_detect(agency_name, "CAPITAL PROJECTS- UNIVERSITY OF MARYLAND" )) 
+  filter(str_detect(agency_name, "CAPITAL PROJECTS- UNIVERSITY OF MARYLAND" )) |>
+    arrange(desc(vendor_name))
+  
   
   
 
