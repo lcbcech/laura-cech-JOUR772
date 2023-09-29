@@ -95,6 +95,11 @@ Look carefully at that list - what cleaning will it require to ensure that you h
 A3.
 
 ```{r}
+cleaned_payments |>
+  filter(str_detect(agency_name, "CAPITAL PROJECTS- UNIVERSITY OF MARYLAND" )) 
+  
+  
+
 ```
 
 Q4: You want to understand how much state grant money went to stem cell research projects each fiscal year. Search the data to find grants that fit that description. Once you find which column(s) contain the information you want, your code should find just the grants for stem cell research in a single filter. Then calculate the total amount of money for each fiscal year. Write a sentence summarizing how stem cell research funding has changed over time.
