@@ -79,6 +79,9 @@ Q2: Using that `pg_schools` dataframe, write code to calculate the total amount 
 A2:
 
 ```{r}
+pg_schools |>
+   group_by(fiscal_year) 
+
 
 ```
 
