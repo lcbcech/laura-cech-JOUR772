@@ -143,7 +143,7 @@ stemcell |>
 
 Q5: Using the Maryland grants and loan data, find records where the zip code is the one where the University of Maryland-College Park is located in and produce a list of grantees from that zip code, along with the total amount they received. Write a paragraph explaining how many grantees are there, what you would need to do to clean the results so that you had one record per grantee and which grantees are most interesting to you?
 
-A5:
+A5: There are 18 grants, half of which are providing funds to the University of Maryland. To clean the results, I could capitalize all UMD and University of Maryland grantees. If it doesn't matter where at UMD the grants are going, I could mutate the data so that all variations of UMD and University Maryland became a single UMD datafield. 
 
 ```{r}
 umdgrants <- cleaned_grants |>
@@ -153,5 +153,8 @@ umdgrants <- cleaned_grants |>
    group_by(grantee) |>
   summarise(total_amount = sum(amount)) |>
   arrange(desc(total_amount)) 
-  
+ 
+ 
+
+
 ```
