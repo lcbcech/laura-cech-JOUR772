@@ -93,13 +93,29 @@ Q3. You're interested in examining the vendors paid for capital projects at the 
 Look carefully at that list - what cleaning will it require to ensure that you have only one row per vendor and zip code? Provide at least three examples of vendor names that are similar and should be combined into one. Describe in words how you might clean that data so that any nearly identical vendors would look identical - what would you change and how?
 
 A3.
+2008	DEPARTMENT OF NATURAL RESOURCES	CANON FINANCIAL SERVICES INC	
+2008	DEPARTMENT OF NATURAL RESOURCES	CANON FINANCIAL SERVICES INC	
+2010	BOARDS COMMISSIONS & OFFICES	HASLER FINANCIAL SERVICES	
+2010	BOARDS COMMISSIONS & OFFICES	HASLER FINANCIAL SERVICES	
+2019	DEPARTMENT OF JUVENILE SERVICES-HQ	LABORATORY CORPORATION OF AMERICA	
+2019	DEPARTMENT OF JUVENILE SERVICES-HQ	LABORATORY CORPORATION OF AMERICA	
+
+Use distinct() to remove duplicate rows in tidyverse
+
+
 
 ```{r}
 cleaned_payments |>
   filter(str_detect(agency_name, "CAPITAL PROJECTS- UNIVERSITY OF MARYLAND" )) |>
-    arrange(desc(vendor_name))
-  
-  
+    arrange(desc(vendor_name)) 
+
+cleaned_payments |>
+  distinct()
+
+  cleaned_payments |>
+  group_by(vendor_name) |>
+  summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount))
   
 
 ```
