@@ -146,4 +146,12 @@ Q5: Using the Maryland grants and loan data, find records where the zip code is 
 A5:
 
 ```{r}
+umdgrants <- cleaned_grants |>
+  filter(str_detect(zip_code, "20742" )) |>
+  distinct() |>
+  
+   group_by(grantee) |>
+  summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount)) 
+  
 ```
