@@ -122,9 +122,23 @@ cleaned_payments |>
 
 Q4: You want to understand how much state grant money went to stem cell research projects each fiscal year. Search the data to find grants that fit that description. Once you find which column(s) contain the information you want, your code should find just the grants for stem cell research in a single filter. Then calculate the total amount of money for each fiscal year. Write a sentence summarizing how stem cell research funding has changed over time.
 
-A4:
+A4: Stem cell research spending has decreased since 2009 when it peaked at 14,643,721.	
 
 ```{r}
+stemcell <-cleaned_grants |>
+   filter(str_detect(description, "Stem Cell Research Grant") | str_detect(description, "STEM CELL RESEARCH GRANT")) 
+  
+```
+
+
+
+```{r}
+stemcell |>
+  
+  group_by(fiscal_year) |>
+  summarise(total_amount = sum(amount)) |>
+  arrange(desc(total_amount))
+
 ```
 
 Q5: Using the Maryland grants and loan data, find records where the zip code is the one where the University of Maryland-College Park is located in and produce a list of grantees from that zip code, along with the total amount they received. Write a paragraph explaining how many grantees are there, what you would need to do to clean the results so that you had one record per grantee and which grantees are most interesting to you?
