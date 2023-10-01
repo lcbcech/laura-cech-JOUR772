@@ -143,7 +143,7 @@ stemcell |>
 
 Q5: Using the Maryland grants and loan data, find records where the zip code is the one where the University of Maryland-College Park is located in and produce a list of grantees from that zip code, along with the total amount they received. Write a paragraph explaining how many grantees are there, what you would need to do to clean the results so that you had one record per grantee and which grantees are most interesting to you?
 
-A5: There are 18 grants, half of which are providing funds to the University of Maryland. To clean the results, I could capitalize all UMD and University of Maryland grantees. If it doesn't matter where at UMD the grants are going, I could mutate the data so that all variations of UMD and University Maryland became a single UMD datafield. 
+A5: There are 18 grants totaling 7,401,905.35. Nine grants are going to the University of Maryland. I used the "distinct" function to avoid duplicates. I could also have capitalized all UMD and University of Maryland grantees. If it doesn't matter where in the university the grants are doing, I could mutate the data so that all variations of UMD and University Maryland became a single UMD data. I'm curious about whether the tech companies (all the non-UMD grants) are somehow tied to UMD. I'm also curious if there are any grants to the UMD Foundation, which does not use the UMD campus zipcode.
 
 ```{r}
 umdgrants <- cleaned_grants |>
@@ -158,3 +158,30 @@ umdgrants <- cleaned_grants |>
 
 
 ```
+
+
+```{r}
+umdgrants <- cleaned_grants |> 
+  filter(str_detect(as.character(zip_code), "20742")) |> 
+  distinct() |> 
+  group_by(grantee) |> 
+  summarise(total_amount = sum(amount, na.rm = TRUE), .groups = "drop") |> 
+  arrange(desc(total_amount))
+
+# Calculating and binding the grand total row
+grand_total <- umdgrants %>%
+  summarise(grantee = "Total", total_amount = sum(total_amount, na.rm = TRUE))
+
+umdgrants_total <- bind_rows(umdgrants, grand_total)
+
+# Display the result
+print(umdgrants_total)
+
+
+
+
+
+
+
+```
+
