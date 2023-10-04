@@ -69,7 +69,7 @@ md_grant_loans |>
 
 ### Task 5: Use refinr to clean the grantee_clean field.
 
-**Task** Run the following code to make a copy of the Grantee field called grantee_clean, then use the `key_collision_merge` function from refinr to attempt to standardize similar values. Store it as a new object called cleaned_md_grant_loans Click the black arrow on the table to examine the Grantee and grantee_clean columns. Looking at the results on the first 3 pages only (first 30 rows), name two changes the refinr package made, by comparing Grantee to grantee_clean. **Answer**
+**Task** Run the following code to make a copy of the Grantee field called grantee_clean, then use the `key_collision_merge` function from refinr to attempt to standardize similar values. Store it as a new object called cleaned_md_grant_loans Click the black arrow on the table to examine the Grantee and grantee_clean columns. Looking at the results on the first 3 pages only (first 30 rows), name two changes the refinr package made, by comparing Grantee to grantee_clean. **Answer** 1. Some punctuation is removed. Example: FAIR HILL FARM INC. 2. Some grantees are now in all caps. Example: The Tree House Child Advocacy Center of Montgomery County MD Inc.	 
 
 ```{r}
 cleaned_md_grant_loans <- md_grant_loans |>
