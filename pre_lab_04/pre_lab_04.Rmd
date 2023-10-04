@@ -82,7 +82,7 @@ cleaned_md_grant_loans
 
 ### Task 6: Filter cleaned_md_grant_loans to examine recipients that start with W
 
-**Task** Run the following code to group by grantee_clean and Grantee, then filter for recipients that start with W. Name three changes the refinr function made in the first 30 results. **Answer**
+**Task** Run the following code to group by grantee_clean and Grantee, then filter for recipients that start with W. Name three changes the refinr function made in the first 30 results. **Answer** 1. Grantees starting with "W" are now all caps (except W.R. Grace). 2. The list is alphabetized. 3. Punctuation is removed. 
 
 ```{r}
 cleaned_md_grant_loans |>
@@ -96,7 +96,7 @@ cleaned_md_grant_loans |>
 
 ### Task 7: Use a different refinr method to clean the city_clean field.
 
-**Task** Run the following code to use the n_gram_merge() function to clean the data, then group by grantee_clean and Grantee to examine recipients that start with W. Look at the differences. Does the changes it made vary substantially from the previous use of key_collision_merge? **Answer**
+**Task** Run the following code to use the n_gram_merge() function to clean the data, then group by grantee_clean and Grantee to examine recipients that start with W. Look at the differences. Does the changes it made vary substantially from the previous use of key_collision_merge? **Answer** It doesn't do a better job. Puncuation is back and it missed a few.
 
 ```{r}
 cleaned_md_grant_loans <- md_grant_loans |>
