@@ -26,6 +26,9 @@ You'll need to load three packages for this: the tidyverse, lubridate and janito
 options(scipen=999)
 
 # load your packages
+library(tidyverse)
+library(lubridate)
+library(janitor)
 
 ```
 
@@ -41,6 +44,16 @@ You'll need to load one data set, a CSV file of Maryland campaign expenditures l
 
 ```{r}
 # Load the Maryland expenditures data table
+cleanedup_payments <- read_csv("data/maryland_expenses.csv") |>
+  clean_names() 
+```
+```{r}
+
+  glimpse(cleanedup_payments)
+
+```
+```{r}
+cleanedup_payments |> mutate(expenditure_date=mdy(expenditure_date)) 
 ```
 
 ## Answer questions
