@@ -66,7 +66,10 @@ cleanedup_expense |> mutate(expenditure_date=mdy(expenditure_date))
    4. When you are done standardizing `payee_clean`, export it as a new CSV file to your data folder, *giving it a different name* and read it back into RStudio as a new dataframe.
    5. Using that `payee_clean` column in your new dataframe, calculate the total amount of Facebook spending by each committee and present the results showing the committee that spent the most first.
 
-**A1.**
+**A1.** Jain Ashwani Friends of	62707.38			
+Franchot Anderson-Walker for Maryland Slate	57928.25			
+Franchot Peter Friends Of	51853.81			
+WFP National Pac - Non-Contribution Account	31500.00	
 
 ```{r}
 cleanedup_expense |>
