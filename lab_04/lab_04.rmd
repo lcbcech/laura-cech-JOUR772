@@ -71,7 +71,7 @@ cleanedup_expense |> mutate(expenditure_date=mdy(expenditure_date))
 ```{r}
 cleanedup_expense |>
   
-  filter(!is.na(payee_name))
+  filter(!is.na(payee_name)) 
   
 ```
 
@@ -85,7 +85,18 @@ write.csv(cleanedup_expense, "cleanedup_expense.csv")
 
 
 ```{r}
+cleanedup_expense3 <- read_csv("data/cleanedup-expense-2.csv")
+```
 
+
+```{r}
+cleanedup_expense3 |>
+  filter(str_detect(payee_clean, "Facebook")) |>
+  group_by(committee_name) |>
+ 
+   summarize(total = sum(amount)) |>
+  
+  arrange(desc(total)) 
 ```
 
 **Q2.** Let's do some research on the top committees from question 1. Look up the top 10 spenders: if they are candidate committees, what offices were they running for? If they were not candidates, what issues do they seem to care about? Write some sentences answering those questions, then go the Facebook ad library ([https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\\[direction\\]=desc&sort_data\\[mode\\]=relevancy_monthly_grouped&media_type=all](https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\%5Bdirection\%5D=desc&sort_data\%5Bmode\%5D=relevancy_monthly_grouped&media_type=all){.uri}) and look for ads from the top spender. What do you notice about the the information provided about those ads?
@@ -94,13 +105,7 @@ write.csv(cleanedup_expense, "cleanedup_expense.csv")
 
 
 ```{r}
-cleanedup_payments |>
 
-  group_by(committee_name) |>
- 
-   summarize(total = sum(amount)) |>
-  
-  arrange(desc(total))
 
 
 ```
