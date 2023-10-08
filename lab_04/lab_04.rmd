@@ -132,6 +132,11 @@ group_by(expense_category == "Media") |>
 **A4.** 
 
 ```{r}
+cleanedup_expense3 |>
+  filter(expense_purpose == "Online Advertising") |>
+  group_by(committee_name) |>
+   summarize(total = sum(amount)) |>
+   arrange(desc(total))
 ```
 
 **Q5** Your editor asks you to summarize your findings about spending on Facebook by Maryland political candidates. How much do we know and what don't we know? What's the best story idea you've found here?
