@@ -1930,13 +1930,107 @@ years in the 21 states plus Washington, D.C., that provided the
 necessary data.</p></li>
 <li><p><strong>Analysis summary</strong>: [Write up two to three
 sentences describing the results of your analysis. Were you able to
-confirm the finding? If not, why not?]</p></li>
+confirm the finding? If not, why not?] If we add the total enrollment of
+2019-20 minus the total enrollment of 2021-22, we get a difference of
+1,205,907.</p></li>
 </ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHVibGljIHw+XG4gIGdyb3VwX2J5KHN0YXRlKSB8PlxuICBcbmBgYCJ9 -->
+<pre class="r"><code>public |&gt;
+  group_by(state) |&gt;
+  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5cblxuI3RvdGFsIDIwMTktMjBcbnB1YmxpYyB8PiBcbmZpbHRlcihzY2hfeWVhciA9PSBcIjIwMTktMjAyMFwiKSB8PiBcbiAgZmlsdGVyKGdyYWRlID09IFwia18xMl90b3RhbFwiKSB8PlxuICBcbiBzdW1tYXJpc2UodG90YWwgPSBzdW0oZW5yb2xsbWVudCkpXG5gYGAifQ== -->
+<pre class="r"><code>
+
+
+#total 2019-20
+public |&gt; 
+filter(sch_year == &quot;2019-2020&quot;) |&gt; 
+  filter(grade == &quot;k_12_total&quot;) |&gt;
+  
+ summarise(total = sum(enrollment))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFReXdyQ01CRGNQdUtqWUNuNEhTMUlEM29WeEE4UWhWNWpHN1VZazlMR3g5R2JmNjF1YWdvMWdXUjNoNW5kbld4V1dScGtBUUI0NEhzT2VBUlRJTHZ0T2w0QStDNFdEdmd3MXZHQnBHa0xBSVE2TGwrMytVanovNGxFMEF0ck1JbjZvSktLY29zNXJ1VTk2ZGdUdk80VG53OGV1MlhPYVdPM0RBcXFhSEtvVVkvVjI1SU1aYVZLS1ZEazZxV0pKWFpxQzRpdVFtOVN4UG5wS3M1eE90TVRqRnN3NnpubTluSTkwLzJZWHNUMEdqQnhMQVhybHVkMHo3Z3BRclRjT2s2cXVoU3FzNEpvay95K3lDQzU1QjNTbW9QM0YwL1pzQ2FzQVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["total"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"49202913"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbk5BXG5OQVxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA
+NA
+NA
+NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3RvdGFsIDIwMjEtMjJcbnB1YmxpY3w+XG4gIGZpbHRlcihzY2hfeWVhciA9PSBcIjIwMjEtMjAyMlwiKSB8PlxuICAgZmlsdGVyKGdyYWRlID09IFwia18xMl90b3RhbFwiKSB8PlxuICAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGVucm9sbG1lbnQsIG5hLnJtID0gVFJVRSkpXG5gYGAifQ== -->
+<pre class="r"><code>#total 2021-22
+public|&gt;
+  filter(sch_year == &quot;2021-2022&quot;) |&gt;
+   filter(grade == &quot;k_12_total&quot;) |&gt;
+   summarise(total = sum(enrollment, na.rm = TRUE))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRUVFyQ01CRGNwbzFpd1NMNGp2YWdGejBLNGdORXdXdHNveFpqVXRxSUhqMzVVZi9SdXFrcDFBU1MzUjFtZG5leVhSL200U0VFQUI4QzN3T2ZZZ3Awdjl2RUM0Q0FZT0ZCQUNNVG4waWF0Z0JBWk9McS9TR0Y0ZjhUcVdRM1htRXk2WU5hYVNZYzVxaFVqNlJqai9HU0Z6NE5IcmRsS2xqbHRnd3pwbGx5S2xHUFZlMUlocXJRdVpJb0ltWnA2b2k5MGdFbWQyazJ5ZUwwY3BmWGVMWTBFNnhic090NTl2WnlNNU0wdGhlMXZRWmNublBKdStVRk8zSmhpd2d0dDQ2VG9zeWw3cXdnV2lXL0w3Sklxa1NIdE9hZy9nTEJMcGtKckFFQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["total"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"47997006"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbk5BXG5OQVxuYGBgIn0= -->
+<pre class="r"><code>NA
+NA
+NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuNDkyMDI5MTNcdC0gNDc5OTcwMDZcdFxuYGBgIn0= -->
+<pre class="r"><code>49202913    - 47997006  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyMDU5MDdcbiJ9 -->
+<pre><code>[1] 1205907</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHVibGljIHw+XG4gIGZpbHRlcihzdGF0ZSA9PSBcIkFMQVNLQVwiKSBcbmBgYCJ9 -->
+<pre class="r"><code>public |&gt;
+  filter(state == &quot;ALASKA&quot;) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo0NSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0NSDDlyA3Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQSsxWVBXL1RRQmkrZkxnbUxvMGlzWFJCZEdWd2NCeG8wd1VsYlVHQ1ZraDhTWjJJcnZZbHNlS2VJOXRSWWVzQUVpTWJZa0h3RHhoWm13eElyRXpkK1Ftc3hOejUza001UzVVUUVraFJmSkwxdk05emZqL3VuTnhyK2RIZVlkTTROQkJDSlZRdUZWQkpZeWJTbmo2NWE3WVFLaGNaS2FBeXFuQjh6bTY2d2d5ZFhUVjJtVEJSc2EzR3RtbGJ0cldzZ20xeG9iRzBRb01MOXBJSkNGWDVuNkNOeE1qeDN5SlNENTJWemtIbjhYNG5aem43TDB6OTlSVTcrN20xb0piNkpQVitpRjNTbGQzc0VsQXJ3N1B6dHVxZW9VMlYzbFRwTFpWdXFuUkxwUzJWYmdNMWhxeUdiaHpFMkFmbDh0Q2pMZ243T0l3SkJXMTFUS01SY2J5ZVI5d0xIUmQwQi81d3ZRdTZ1cjk0dnZKOVpEcEFmTFFuMTA5VFBEc0gva3J3NlZ2QWQwS2ZmZ0grRS9BSDZLOEJxNEFGZ2NsT1RmQVBhSDYwWitlZmhINGY4aDBKUFBzdTRrNzZFT2NhNUxrTitCRHdBUEF6M1BjZThDcm82eEQzd2FtU2QvSVZjQXpvQXQ0RHZ5Mkljd1A0RHZCbmdIZEEvd2o4cGN3djlLVDRCdklyZVpGNmp0UjJkL2MyZW9ROUlleHZ1RGpHdVo3cnVaN3JGK3JxMXhXTjRtTVN3YUdpeTI0VU9ZUHVDNEpENE9XZU40cWtReFRqbU1qM21paVdjdHBIWkJjaE5BeDgvNWhRT2IzS1UzZWpZQnc2SkZOQkpReE82cktLTlI2VW4zZEprbnpMbHVyNE9KS2xTdEhnZ2V1OWtQa3pOc3U0Nk1FbzlnTEtuSXI4QzVLV2NTNkVHYUUycHJ3UzEzUUdZem8wbXkyZUlaMFhZdzFzYzg3V1JjNWlBckUwaUxWQ2FOK2pja3MwSHg4UjJWT3JiTW5waXV1ajBQdTlSd1pUby9wODd6V2N3SmRLdWpnMCt3V0xVMXJhT1JNQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sch_year"],"name":[1],"type":["chr"],"align":["left"]},{"label":["fips"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["state"],"name":[3],"type":["chr"],"align":["left"]},{"label":["st"],"name":[4],"type":["chr"],"align":["left"]},{"label":["grade"],"name":[5],"type":["chr"],"align":["left"]},{"label":["enrollment"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["data_source"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_1","6":"9936","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_10","6":"9299","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_11","6":"9138","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_12","6":"9483","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_2","6":"10031","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_3","6":"10034","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_4","6":"10127","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_5","6":"10235","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_6","6":"10216","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_7","6":"10000","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_8","6":"9756","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"grade_9","6":"9730","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"k_12_total","6":"128033","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"kindergarten","6":"10048","7":"CCD federal data"},{"1":"2019-2020","2":"2","3":"ALASKA","4":"AK","5":"unspecified","6":"0","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"k_12_total","6":"126363","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_1","6":"9876","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_10","6":"9412","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_11","6":"9161","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_12","6":"9422","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_2","6":"9791","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_3","6":"9853","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_4","6":"9891","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_5","6":"9881","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_6","6":"10096","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_7","6":"10044","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_8","6":"9787","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"grade_9","6":"9776","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"kindergarten","6":"9373","7":"CCD federal data"},{"1":"2020-2021","2":"2","3":"ALASKA","4":"AK","5":"unspecified","6":"0","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_1","6":"9620","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_10","6":"9450","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_11","6":"9416","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_12","6":"9363","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_2","6":"9838","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_3","6":"9823","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_4","6":"9860","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_5","6":"9916","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_6","6":"9867","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_7","6":"10050","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_8","6":"9992","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"grade_9","6":"10045","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"k_12_total","6":"127017","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"kindergarten","6":"9777","7":"CCD federal data"},{"1":"2021-2022","2":"2","3":"ALASKA","4":"AK","5":"unspecified","6":"0","7":"CCD federal data"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[45]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVsaXZlcmFibGUgV2VlayAyOiBSZXZlcnNlIFByb2plY3QiCmF1dGhvcjogIkFsaXNoYSBDYW1hY2hvIGFuZCBMYXVyYSBDZWNoICIKZGF0ZTogIk9jdC4gOCwgMjAyMyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQojIFR1cm4gb2ZmIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW49OTk5KQoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocmVmaW5yKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQppbnN0YWxsLnBhY2thZ2VzKCJyZWFkeGwiKQpsaWJyYXJ5KHJlYWR4bCkKCmBgYAoKTG9hZCBkYXRhCgpgYGB7cn0KcG9wdWxhdGlvbiA8LSByZWFkX2NzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWFnZS5jc3YiKQpwcml2YXRlIDwtIHJlYWRfY3N2KCJkYXRhL3ByaXZhdGUtZW5yb2xsbWVudC1ieS1ncmFkZS5jc3YiKQpwdWJsaWMgPC0gcmVhZF9jc3YoImRhdGEvcHVibGljLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKbWlzc2luZyA8LSByZWFkX2V4Y2VsKCJkYXRhL01pc3NpbmctS2lkcy1TdW1tYXJ5LUZpbGUueGxzeCIpCmBgYAoKYGBge3J9CmdsaW1wc2UocG9wdWxhdGlvbikKYGBgCmBgYHtyfQpnbGltcHNlKHByaXZhdGUpCmBgYApgYGB7cn0KZ2xpbXBzZShwdWJsaWMpCmBgYApgYGB7cn0KZ2xpbXBzZShtaXNzaW5nKQpgYGAKCgojIyMgU2VudGVuY2UgMQoKKiAqKlNlbnRlbmNlIHRleHQqKjogT3ZlcmFsbCwgcHVibGljIHNjaG9vbCBlbnJvbGxtZW50IGZlbGwgYnkgb3ZlciA3MDAsMDAwIHN0dWRlbnRzIGJldHdlZW4gdGhlIDIwMTktMjAyMCBhbmQgMjAyMS0yMDIyIHNjaG9vbCB5ZWFycyBpbiB0aGUgMjEgc3RhdGVzIHBsdXMgV2FzaGluZ3RvbiwgRC5DLiwgdGhhdCBwcm92aWRlZCB0aGUgbmVjZXNzYXJ5IGRhdGEuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVsaXZlcmFibGUgV2VlayAyOiBSZXZlcnNlIFByb2plY3QiCmF1dGhvcjogIkFsaXNoYSBDYW1hY2hvIGFuZCBMYXVyYSBDZWNoICIKZGF0ZTogIk9jdC4gOCwgMjAyMyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQojIFR1cm4gb2ZmIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW49OTk5KQoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocmVmaW5yKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQppbnN0YWxsLnBhY2thZ2VzKCJyZWFkeGwiKQpsaWJyYXJ5KHJlYWR4bCkKCmBgYAoKTG9hZCBkYXRhCgpgYGB7cn0KcG9wdWxhdGlvbiA8LSByZWFkX2NzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWFnZS5jc3YiKQpwcml2YXRlIDwtIHJlYWRfY3N2KCJkYXRhL3ByaXZhdGUtZW5yb2xsbWVudC1ieS1ncmFkZS5jc3YiKQpwdWJsaWMgPC0gcmVhZF9jc3YoImRhdGEvcHVibGljLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKbWlzc2luZyA8LSByZWFkX2V4Y2VsKCJkYXRhL01pc3NpbmctS2lkcy1TdW1tYXJ5LUZpbGUueGxzeCIpCmBgYAoKYGBge3J9CmdsaW1wc2UocG9wdWxhdGlvbikKYGBgCmBgYHtyfQpnbGltcHNlKHByaXZhdGUpCmBgYApgYGB7cn0KZ2xpbXBzZShwdWJsaWMpCmBgYApgYGB7cn0KZ2xpbXBzZShtaXNzaW5nKQpgYGAKCgojIyMgU2VudGVuY2UgMQoKKiAqKlNlbnRlbmNlIHRleHQqKjogT3ZlcmFsbCwgcHVibGljIHNjaG9vbCBlbnJvbGxtZW50IGZlbGwgYnkgb3ZlciA3MDAsMDAwIHN0dWRlbnRzIGJldHdlZW4gdGhlIDIwMTktMjAyMCBhbmQgMjAyMS0yMDIyIHNjaG9vbCB5ZWFycyBpbiB0aGUgMjEgc3RhdGVzIHBsdXMgV2FzaGluZ3RvbiwgRC5DLiwgdGhhdCBwcm92aWRlZCB0aGUgbmVjZXNzYXJ5IGRhdGEuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dIElmIHdlIGFkZCB0aGUgdG90YWwgZW5yb2xsbWVudCBvZiAyMDE5LTIwIG1pbnVzIHRoZSB0b3RhbCBlbnJvbGxtZW50IG9mIDIwMjEtMjIsIHdlIGdldCBhIGRpZmZlcmVuY2Ugb2YgMSwyMDUsOTA3LgoKYGBge3J9CgpgYGAKCgpgYGB7cn0KcHVibGljIHw+CiAgZ3JvdXBfYnkoc3RhdGUpIHw+CiAgCmBgYAoKCmBgYHtyfQoKCgojdG90YWwgMjAxOS0yMApwdWJsaWMgfD4gCmZpbHRlcihzY2hfeWVhciA9PSAiMjAxOS0yMDIwIikgfD4gCiAgZmlsdGVyKGdyYWRlID09ICJrXzEyX3RvdGFsIikgfD4KICAKIHN1bW1hcmlzZSh0b3RhbCA9IHN1bShlbnJvbGxtZW50KSkKCgoKCmBgYAoKYGBge3J9CiN0b3RhbCAyMDIxLTIyCnB1YmxpY3w+CiAgZmlsdGVyKHNjaF95ZWFyID09ICIyMDIxLTIwMjIiKSB8PgogICBmaWx0ZXIoZ3JhZGUgPT0gImtfMTJfdG90YWwiKSB8PgogICBzdW1tYXJpc2UodG90YWwgPSBzdW0oZW5yb2xsbWVudCwgbmEucm0gPSBUUlVFKSkKCgoKYGBgCgpgYGB7cn0KNDkyMDI5MTMJLSA0Nzk5NzAwNgkKYGBgCgoKYGBge3J9CnB1YmxpYyB8PgogIGZpbHRlcihzdGF0ZSA9PSAiQUxBU0tBIikgCiAgCmBgYAoK</div>
 
 
 
