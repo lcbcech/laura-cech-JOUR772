@@ -168,4 +168,32 @@ print(committees_all_on_facebook)
 
 **Q5** Your editor asks you to summarize your findings about spending on Facebook by Maryland political candidates. How much do we know and what don't we know? What's the best story idea you've found here?
 
-**A5**
+**A5** Facebook was the preferred social network to reach voters by several Maryland political candidates, including former Maryland Comptroller Peter Franchot in his bid for Governor and Baltimore County Executive John Olszewski. Both candidates spent all their online advertising on Facebook, later known as Meta. Wes Moore's campaign committees spent more than 70 percent of their online advertising on Facebook too. 
+
+I'd be curious about why Facebook was so popular-- because it's target demographic is voters who are likely to vote?
+
+
+```{r}
+total_spending3 <- cleanedup_expense3 |>
+   filter(expense_purpose == "Online Advertising") |>
+ filter(committee_name == "Moore Miller For Maryland Slate" | committee_name == "Moore  Wes For Maryland") |>
+  summarise(total_amount = sum(amount, na.rm = TRUE)) |>
+  arrange(-total_amount)
+
+
+facebook_spending3 <- cleanedup_expense3 %>%
+  filter(str_detect(address, "1 One Hacker  Menlo Park  California 94025")  | str_detect(address, "1601 Willow Road  Menlo Park  California 94025")  | str_detect(address, "1 Facebook Way  Menlo Park  California 94025") | str_detect(address, "1 Hacker Way  Menlo Park  California 94025")) |>
+   group_by(committee_name == "Moore Miller For Maryland Slate" | committee_name == "Moore  Wes For Maryland") |>
+  summarise(facebook_amount3 = sum(amount, na.rm = TRUE)) |>
+   arrange(desc(facebook_amount3))
+
+#368476.4(facebook amt) divided by 508238.8 (total amt) = 72.5%
+
+
+
+
+  
+
+
+```
+
