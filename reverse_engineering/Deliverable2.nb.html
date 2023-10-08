@@ -1768,38 +1768,61 @@ the chunk or by placing your cursor inside it and pressing
 <em>Cmd+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBUdXJuIG9mZiBzY2llbnRpZmljIG5vdGF0aW9uXG5vcHRpb25zKHNjaXBlbj05OTkpXG5cbiMgTG9hZCB0aGUgdGlkeXZlcnNlXG5saWJyYXJ5KHRpZHl2ZXJzZSlcblxuIyBMb2FkIGphbml0b3JcbmxpYnJhcnkoamFuaXRvcilcbmBgYFxuYGBgIn0= -->
-<pre class="r"><code>```r
-# Turn off scientific notation
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUdXJuIG9mZiBzY2llbnRpZmljIG5vdGF0aW9uXG5vcHRpb25zKHNjaXBlbj05OTkpXG5cbmxpYnJhcnkodGlkeXZlcnNlKVxuYGBgIn0= -->
+<pre class="r"><code># Turn off scientific notation
 options(scipen=999)
 
-# Load the tidyverse
-library(tidyverse)
-
-# Load janitor
+library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuMyAgICAg4pyUIHJlYWRyICAgICAyLjEuNFxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMFxu4pyUIGdncGxvdDIgICAzLjQuMyAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMiAgICAg4pyUIHRpZHlyICAgICAxLjMuMFxu4pyUIHB1cnJyICAgICAxLjAuMiAgICAg4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlX2NvbmZsaWN0cygpIOKUgOKUgFxu4pyWIGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbuKcliBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG7ihLkgVXNlIHRoZSBcdTAwMWJdODs7aHR0cDovL2NvbmZsaWN0ZWQuci1saWIub3JnL1x1MDAwN2NvbmZsaWN0ZWQgcGFja2FnZVx1MDAxYl04OztcdTAwMDcgdG8gZm9yY2UgYWxsIGNvbmZsaWN0cyB0byBiZWNvbWUgZXJyb3JzXG4ifQ== -->
+<pre><code>── Attaching core tidyverse packages ────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     ── Conflicts ──────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWZpbnIpXG5saWJyYXJ5KGphbml0b3IpXG5gYGAifQ== -->
+<pre class="r"><code>library(refinr)
 library(janitor)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYamFuaXRvcuKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c3RhdHPigJk6XG5cbiAgICBjaGlzcS50ZXN0LCBmaXNoZXIudGVzdFxuIn0= -->
 <pre><code>
-&lt;!-- rnb-source-end --&gt;
+Attaching package: ‘janitor’
 
-&lt;!-- rnb-chunk-end --&gt;
+The following objects are masked from ‘package:stats’:
 
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Load data
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG9wdWxhdGlvbiA8LSByZWFkX2NzdihcImRhdGEvcG9wdWxhdGlvbi1ieS1hZ2UuY3N2XCIpXG5gYGAifQ== --&gt;
-
-```r
-population &lt;- read_csv(&quot;data/population-by-age.csv&quot;)</code></pre>
+    chisq.test, fisher.test</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5pbnN0YWxsLnBhY2thZ2VzKFwicmVhZHhsXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(lubridate)
+install.packages(&quot;readxl&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoidHJ5aW5nIFVSTCAnaHR0cHM6Ly9jcmFuLnJzdHVkaW8uY29tL2Jpbi9tYWNvc3gvYmlnLXN1ci14ODZfNjQvY29udHJpYi80LjMvcmVhZHhsXzEuNC4zLnRneidcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24veC1nemlwJyBsZW5ndGggMTU2MzY5OSBieXRlcyAoMS41IE1CKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMS41IE1CXG4ifQ== -->
+<pre><code>trying URL &#39;https://cran.rstudio.com/bin/macosx/big-sur-x86_64/contrib/4.3/readxl_1.4.3.tgz&#39;
+Content type &#39;application/x-gzip&#39; length 1563699 bytes (1.5 MB)
+==================================================
+downloaded 1.5 MB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy8zdi94bjRneGc0NTJnbjBrYnY0NHpnOTNodzAwMDAwZ24vVC8vUnRtcGFCMk5NTi9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/3v/xn4gxg452gn0kbv44zg93hw00000gn/T//RtmpaB2NMN/downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkeGwpXG5cbmBgYCJ9 -->
+<pre class="r"><code>library(readxl)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Load data</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG9wdWxhdGlvbiA8LSByZWFkX2NzdihcImRhdGEvcG9wdWxhdGlvbi1ieS1hZ2UuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>population &lt;- read_csv(&quot;data/population-by-age.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTk4OSBDb2x1bW5zOiA14pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICAoMSk6IHN0YXRlXG5kYmwgICgzKTogZmlwcywgYWdlLCBwb3B1bGF0aW9uXG5kYXRlICgxKTogZXN0X2RhdGVcbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
 <pre><code>Rows: 1989 Columns: 5── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -1832,12 +1855,88 @@ dbl (2): fips, enrollment
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWlzc2luZyA8LSByZWFkX2V4Y2VsKFwiZGF0YS9NaXNzaW5nLUtpZHMtU3VtbWFyeS1GaWxlLnhsc3hcIilcbmBgYCJ9 -->
+<pre class="r"><code>missing &lt;- read_excel(&quot;data/Missing-Kids-Summary-File.xlsx&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTmV3IG5hbWVzOlxuIn0= -->
+<pre><code>New names:</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShwb3B1bGF0aW9uKVxuYGBgIn0= -->
+<pre class="r"><code>glimpse(population)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMSw5ODlcbkNvbHVtbnM6IDVcbiQgZmlwcyAgICAgICA8ZGJsPiAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAxLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCAyLCA0LCA0LCA0LCA0LCA0LCA0LCA04oCmXG4kIHN0YXRlICAgICAgPGNocj4gXCJBTEFCQU1BXCIsIFwiQUxBQkFNQVwiLCBcIkFMQUJBTUFcIiwgXCJBTEFCQU1BXCIsIFwiQUxBQkFNQVwiLCBcIkFMQUJBTUFcIiwgXCJBTEFCQU1BXCIsIFwiQUxBQkFNQVwiLCBcIkFMQUJBTUFcIuKAplxuJCBhZ2UgICAgICAgIDxkYmw+IDUsIDYsIDcsIDgsIDksIDEwLCAxMSwgMTIsIDEzLCAxNCwgMTUsIDE2LCAxNywgNSwgNiwgNywgOCwgOSwgMTAsIDExLCAxMiwgMTMsIDE0LCAxNSwgMTYsIDE3LCA1LCDigKZcbiQgZXN0X2RhdGUgICA8ZGF0ZT4gMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwg4oCmXG4kIHBvcHVsYXRpb24gPGRibD4gNjE1MjIsIDYwNjgwLCA2MDIwNSwgNjEyNTQsIDYxNzgwLCA2MzUzOCwgNjU5NjgsIDY3OTMyLCA2NzA0OCwgNjUyMjAsIDY0NTUxLCA2NTA4MCwgNjQ0NTAsIDEwMzUyLOKAplxuIn0= -->
+<pre><code>Rows: 1,989
+Columns: 5
+$ fips       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4…
+$ state      &lt;chr&gt; &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;…
+$ age        &lt;dbl&gt; 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5, …
+$ est_date   &lt;date&gt; 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, …
+$ population &lt;dbl&gt; 61522, 60680, 60205, 61254, 61780, 63538, 65968, 67932, 67048, 65220, 64551, 65080, 64450, 10352,…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShwcml2YXRlKVxuYGBgIn0= -->
+<pre class="r"><code>glimpse(private)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMSwzMTdcbkNvbHVtbnM6IDVcbiQgc2NoX3llYXIgICA8Y2hyPiBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTktMjAyMFwiLCBcIjIwMTkt4oCmXG4kIGZpcHMgICAgICAgPGRibD4gNSwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOSwgOeKAplxuJCBzdGF0ZSAgICAgIDxjaHI+IFwiQVJcIiwgXCJDQVwiLCBcIkNBXCIsIFwiQ0FcIiwgXCJDQVwiLCBcIkNBXCIsIFwiQ0FcIiwgXCJDQVwiLCBcIkNBXCIsIFwiQ0FcIiwgXCJDQVwiLCBcIkNBXCIsIFwiQ0FcIiwgXCJDQVwiLCBcIkNBXCIsIFwiQ0FcIiwgXCLigKZcbiQgZ3JhZGUgICAgICA8Y2hyPiBcInBrXzEyX3RvdGFsXCIsIFwiZ3JhZGVfMVwiLCBcImdyYWRlXzEwXCIsIFwiZ3JhZGVfMTFcIiwgXCJncmFkZV8xMlwiLCBcImdyYWRlXzJcIiwgXCJncmFkZV8zXCIsIFwiZ3JhZGVfNFwiLCBcImfigKZcbiQgZW5yb2xsbWVudCA8ZGJsPiAxOTg3NywgMzU5MDgsIDM4MjEzLCAzNzUyOCwgMzY5NTMsIDM0Nzg5LCAzNDM3MSwgMzQzNTUsIDM0MTM2LCAzNzQxNCwgMzc4NTQsIDM4MzI1LCAzODQyNSwgNDg4OTg04oCmXG4ifQ== -->
+<pre><code>Rows: 1,317
+Columns: 5
+$ sch_year   &lt;chr&gt; &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-…
+$ fips       &lt;dbl&gt; 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9…
+$ state      &lt;chr&gt; &quot;AR&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;CA&quot;, &quot;…
+$ grade      &lt;chr&gt; &quot;pk_12_total&quot;, &quot;grade_1&quot;, &quot;grade_10&quot;, &quot;grade_11&quot;, &quot;grade_12&quot;, &quot;grade_2&quot;, &quot;grade_3&quot;, &quot;grade_4&quot;, &quot;g…
+$ enrollment &lt;dbl&gt; 19877, 35908, 38213, 37528, 36953, 34789, 34371, 34355, 34136, 37414, 37854, 38325, 38425, 488984…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShwdWJsaWMpXG5gYGAifQ== -->
+<pre class="r"><code>glimpse(public)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMiwzMzVcbkNvbHVtbnM6IDdcbiQgc2NoX3llYXIgICAgPGNocj4gXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE5LTIwMjBcIiwgXCIyMDE54oCmXG4kIGZpcHMgICAgICAgIDxkYmw+IDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDEsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDIsIDQsIDQsIOKAplxuJCBzdGF0ZSAgICAgICA8Y2hyPiBcIkFMQUJBTUFcIiwgXCJBTEFCQU1BXCIsIFwiQUxBQkFNQVwiLCBcIkFMQUJBTUFcIiwgXCJBTEFCQU1BXCIsIFwiQUxBQkFNQVwiLCBcIkFMQUJBTUFcIiwgXCJBTEFCQU1BXCIsIFwiQUxBQkFNQeKAplxuJCBzdCAgICAgICAgICA8Y2hyPiBcIkFMXCIsIFwiQUxcIiwgXCJBTFwiLCBcIkFMXCIsIFwiQUxcIiwgXCJBTFwiLCBcIkFMXCIsIFwiQUxcIiwgXCJBTFwiLCBcIkFMXCIsIFwiQUxcIiwgXCJBTFwiLCBcIkFMXCIsIFwiQUxcIiwgXCJBTFwiLCBcIkFLXCIsIOKAplxuJCBncmFkZSAgICAgICA8Y2hyPiBcImdyYWRlXzFcIiwgXCJncmFkZV8xMFwiLCBcImdyYWRlXzExXCIsIFwiZ3JhZGVfMTJcIiwgXCJncmFkZV8yXCIsIFwiZ3JhZGVfM1wiLCBcImdyYWRlXzRcIiwgXCJncmFkZV81XCIsIFwiZ3JhZOKAplxuJCBlbnJvbGxtZW50ICA8ZGJsPiA1NjI0NiwgNTQ1ODksIDUxNzEyLCA1MDg4OSwgNTQ5MTIsIDU0ODgyLCA1NTY3MywgNTc4MTcsIDU4OTMyLCA1ODM0NCwgNTYyMjgsIDU3ODk4LCA3MjQxNzgsIDU2MDXigKZcbiQgZGF0YV9zb3VyY2UgPGNocj4gXCJDQ0QgZmVkZXJhbCBkYXRhXCIsIFwiQ0NEIGZlZGVyYWwgZGF0YVwiLCBcIkNDRCBmZWRlcmFsIGRhdGFcIiwgXCJDQ0QgZmVkZXJhbCBkYXRhXCIsIFwiQ0NEIGZlZGVyYWwgZGF04oCmXG4ifQ== -->
+<pre><code>Rows: 2,335
+Columns: 7
+$ sch_year    &lt;chr&gt; &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019-2020&quot;, &quot;2019…
+$ fips        &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, …
+$ state       &lt;chr&gt; &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA…
+$ st          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AK&quot;, …
+$ grade       &lt;chr&gt; &quot;grade_1&quot;, &quot;grade_10&quot;, &quot;grade_11&quot;, &quot;grade_12&quot;, &quot;grade_2&quot;, &quot;grade_3&quot;, &quot;grade_4&quot;, &quot;grade_5&quot;, &quot;grad…
+$ enrollment  &lt;dbl&gt; 56246, 54589, 51712, 50889, 54912, 54882, 55673, 57817, 58932, 58344, 56228, 57898, 724178, 5605…
+$ data_source &lt;chr&gt; &quot;CCD federal data&quot;, &quot;CCD federal data&quot;, &quot;CCD federal data&quot;, &quot;CCD federal data&quot;, &quot;CCD federal dat…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShtaXNzaW5nKVxuYGBgIn0= -->
+<pre class="r"><code>glimpse(missing)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogNlxuQ29sdW1uczogM1xuJCBUYWIgICAgICAgICA8Y2hyPiBcIk1pc3NpbmcgS2lkcyBBbmFseXNpc1wiLCBcIkVucm9sbG1lbnQgQ2hhbmdlc1wiLCBcIlNjaG9vbC1BZ2VkIFBvcHVsYXRpb24gQ2hhbmdlc1wiLCBOQSwgXCJGb3IgZGV0YWls4oCmXG4kIERlc2NyaXB0aW9uIDxjaHI+IFwiU3VtbWFyeSBvZiB0aGUgbWFpbiBhbmFseXNpcyB0aGF0IGxvb2tzIGF0IHRoZSBudW1iZXIgb2YgbWlzc2luZyBraWRzIGluIGV2ZXJ5IHN0YXRlLiBPbmx5IGluY2zigKZcbiQgLi4uMyAgICAgICAgPGNocj4gTkEsIE5BLCBOQSwgTkEsIFwiaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xbnE3Qlpnb1J2T05pYnZwMzB6dEpkREZWTldacFZGTnE5RlNBVzFZTmItVeKAplxuIn0= -->
+<pre><code>Rows: 6
+Columns: 3
+$ Tab         &lt;chr&gt; &quot;Missing Kids Analysis&quot;, &quot;Enrollment Changes&quot;, &quot;School-Aged Population Changes&quot;, NA, &quot;For detail…
+$ Description &lt;chr&gt; &quot;Summary of the main analysis that looks at the number of missing kids in every state. Only incl…
+$ ...3        &lt;chr&gt; NA, NA, NA, NA, &quot;https://docs.google.com/document/d/1nq7BZgoRvONibvp30ztJdDFVNWZpVFNq9FSAW1YNb-U…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="sentence-1" class="section level3">
+<h3>Sentence 1</h3>
+<ul>
+<li><p><strong>Sentence text</strong>: Overall, public school enrollment
+fell by over 700,000 students between the 2019-2020 and 2021-2022 school
+years in the 21 states plus Washington, D.C., that provided the
+necessary data.</p></li>
+<li><p><strong>Analysis summary</strong>: [Write up two to three
+sentences describing the results of your analysis. Were you able to
+confirm the finding? If not, why not?]</p></li>
+</ul>
+<!-- rnb-text-end -->
+</div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVsaXZlcmFibGUgV2VlayAyOiBSZXZlcnNlIFByb2plY3QiCmF1dGhvcjogIkFsaXNoYSBDYW1hY2hvIGFuZCBMYXVyYSBDZWNoICIKZGF0ZTogIk9jdC4gOCwgMjAyMyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQojIFR1cm4gb2ZmIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW49OTk5KQoKIyBMb2FkIHRoZSB0aWR5dmVyc2UKbGlicmFyeSh0aWR5dmVyc2UpCgojIExvYWQgamFuaXRvcgpsaWJyYXJ5KGphbml0b3IpCmBgYAoKTG9hZCBkYXRhCgpgYGB7cn0KcG9wdWxhdGlvbiA8LSByZWFkX2NzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWFnZS5jc3YiKQpwcml2YXRlIDwtIHJlYWRfY3N2KCJkYXRhL3ByaXZhdGUtZW5yb2xsbWVudC1ieS1ncmFkZS5jc3YiKQpwdWJsaWMgPC0gcmVhZF9jc3YoImRhdGEvcHVibGljLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKYGBgCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVsaXZlcmFibGUgV2VlayAyOiBSZXZlcnNlIFByb2plY3QiCmF1dGhvcjogIkFsaXNoYSBDYW1hY2hvIGFuZCBMYXVyYSBDZWNoICIKZGF0ZTogIk9jdC4gOCwgMjAyMyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQojIFR1cm4gb2ZmIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW49OTk5KQoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocmVmaW5yKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQppbnN0YWxsLnBhY2thZ2VzKCJyZWFkeGwiKQpsaWJyYXJ5KHJlYWR4bCkKCmBgYAoKTG9hZCBkYXRhCgpgYGB7cn0KcG9wdWxhdGlvbiA8LSByZWFkX2NzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWFnZS5jc3YiKQpwcml2YXRlIDwtIHJlYWRfY3N2KCJkYXRhL3ByaXZhdGUtZW5yb2xsbWVudC1ieS1ncmFkZS5jc3YiKQpwdWJsaWMgPC0gcmVhZF9jc3YoImRhdGEvcHVibGljLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKbWlzc2luZyA8LSByZWFkX2V4Y2VsKCJkYXRhL01pc3NpbmctS2lkcy1TdW1tYXJ5LUZpbGUueGxzeCIpCmBgYAoKYGBge3J9CmdsaW1wc2UocG9wdWxhdGlvbikKYGBgCmBgYHtyfQpnbGltcHNlKHByaXZhdGUpCmBgYApgYGB7cn0KZ2xpbXBzZShwdWJsaWMpCmBgYApgYGB7cn0KZ2xpbXBzZShtaXNzaW5nKQpgYGAKCgojIyMgU2VudGVuY2UgMQoKKiAqKlNlbnRlbmNlIHRleHQqKjogT3ZlcmFsbCwgcHVibGljIHNjaG9vbCBlbnJvbGxtZW50IGZlbGwgYnkgb3ZlciA3MDAsMDAwIHN0dWRlbnRzIGJldHdlZW4gdGhlIDIwMTktMjAyMCBhbmQgMjAyMS0yMDIyIHNjaG9vbCB5ZWFycyBpbiB0aGUgMjEgc3RhdGVzIHBsdXMgV2FzaGluZ3RvbiwgRC5DLiwgdGhhdCBwcm92aWRlZCB0aGUgbmVjZXNzYXJ5IGRhdGEuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dCgo=</div>
 
 
 

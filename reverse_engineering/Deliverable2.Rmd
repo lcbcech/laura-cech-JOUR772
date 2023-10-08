@@ -16,11 +16,13 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 # Turn off scientific notation
 options(scipen=999)
 
-# Load the tidyverse
 library(tidyverse)
-
-# Load janitor
+library(refinr)
 library(janitor)
+library(lubridate)
+install.packages("readxl")
+library(readxl)
+
 ```
 
 Load data
@@ -29,6 +31,26 @@ Load data
 population <- read_csv("data/population-by-age.csv")
 private <- read_csv("data/private-enrollment-by-grade.csv")
 public <- read_csv("data/public-enrollment-by-grade.csv")
+missing <- read_excel("data/Missing-Kids-Summary-File.xlsx")
 ```
 
+```{r}
+glimpse(population)
+```
+```{r}
+glimpse(private)
+```
+```{r}
+glimpse(public)
+```
+```{r}
+glimpse(missing)
+```
+
+
+### Sentence 1
+
+* **Sentence text**: Overall, public school enrollment fell by over 700,000 students between the 2019-2020 and 2021-2022 school years in the 21 states plus Washington, D.C., that provided the necessary data.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
