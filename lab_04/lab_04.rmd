@@ -93,6 +93,11 @@ write.csv(cleanedup_expense, "cleanedup_expense.csv")
 cleanedup_expense3 <- read_csv("data/cleanedup-expense-2.csv")
 ```
 
+**Q2.** Let's do some research on the top committees from question 1. Look up the top 10 spenders: if they are candidate committees, what offices were they running for? If they were not candidates, what issues do they seem to care about? Write some sentences answering those questions, then go the Facebook ad library ([https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\\[direction\\]=desc&sort_data\\[mode\\]=relevancy_monthly_grouped&media_type=all](https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\%5Bdirection\%5D=desc&sort_data\%5Bmode\%5D=relevancy_monthly_grouped&media_type=all){.uri}) and look for ads from the top spender. What do you notice about the the information provided about those ads?
+
+**A2.** Peter Franchot for Gov. Casa in Action suppported Tom Perez in the gubernatorial race. Billy Boniface was running for Harford Co. Executive. Jon Baron was running for governor. (funny ads!) Jasani Salimah was a Baltimore City School Board candidate. John King (2 accounts) was running for governor. Eve Shuman was a PG County Council candidate but supports other candidates including Chris Van Hollen, who she worked for. Amanda Fiedler was a AA County Council candidate.
+
+
 
 ```{r}
 cleanedup_expense3 |>
@@ -103,11 +108,6 @@ cleanedup_expense3 |>
   
   arrange(desc(total)) 
 ```
-
-**Q2.** Let's do some research on the top committees from question 1. Look up the top 10 spenders: if they are candidate committees, what offices were they running for? If they were not candidates, what issues do they seem to care about? Write some sentences answering those questions, then go the Facebook ad library ([https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\\[direction\\]=desc&sort_data\\[mode\\]=relevancy_monthly_grouped&media_type=all](https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\%5Bdirection\%5D=desc&sort_data\%5Bmode\%5D=relevancy_monthly_grouped&media_type=all){.uri}) and look for ads from the top spender. What do you notice about the the information provided about those ads?
-
-**A2.** Peter Franchot for Gov. Casa in Action suppported Tom Perez in the gubernatorial race. Billy Boniface was running for Harford Co. Executive. Jon Baron was running for governor. (funny ads!) Jasani Salimah was a Baltimore City School Board candidate. John King (2 accounts) was running for governor. Eve Shuman was a PG County Council candidate but supports other candidates including Chris Van Hollen, who she worked for. Amanda Fiedler was a AA County Council candidate.
-
 
 
 **Q3.** Given the list of top spenders in A1 and the primary results for governor (<https://elections.maryland.gov/elections/2022/primary_results/gen_results_2022_1.html>), who is missing from that Q1 list? Did those campaigns run Facebook ads? Who are the biggest recipients of media expenses by the Democratic primary winner for governor (HINT: that person has two committees, the second one with his running mate)?
