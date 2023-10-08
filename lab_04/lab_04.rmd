@@ -129,7 +129,7 @@ group_by(expense_category == "Media") |>
 
 **Q4.** The media expense data you cleaned also has a standardized purpose column. Write code to generate a list of the committees with the total amount of spending on online advertising. How does this list compare to the one from Q1 about top Facebook spenders? Of the top 5 committees who spent the most on Facebook ads from Q1, are there any that appear to have spent *all* of their online advertising dollars on Facebook?
 
-**A4.** 
+**A4.** I see new top spenders such as MSEA and Calvin Ball, but some duplicate names like Casa. There are 55 campaign committees that spent all their online advertising on Facebook, including Franchot Anderson-Walker for Maryland, Friends of Kindra Samay Singh and the Committee to Elect Aaron Penmon.
 
 ```{r}
 cleanedup_expense3 |>
@@ -137,6 +137,33 @@ cleanedup_expense3 |>
   group_by(committee_name) |>
    summarize(total = sum(amount)) |>
    arrange(desc(total))
+```
+```{r}
+total_spending <- cleanedup_expense3 |>
+   filter(expense_purpose == "Online Advertising") |>
+  group_by(committee_name) |>
+  summarise(total_amount = sum(amount, na.rm = TRUE)) |>
+  arrange(-total_amount)
+
+
+facebook_spending <- cleanedup_expense3 %>%
+  filter(str_detect(address, "1 One Hacker  Menlo Park  California 94025")  | str_detect(address, "1601 Willow Road  Menlo Park  California 94025")  | str_detect(address, "1 Facebook Way  Menlo Park  California 94025") | str_detect(address, "1 Hacker Way  Menlo Park  California 94025")) |>
+  group_by(committee_name) %>%
+  summarise(facebook_amount = sum(amount, na.rm = TRUE)) |>
+   arrange(desc(facebook_amount))
+
+committees_all_on_facebook <- total_spending %>%
+  left_join(facebook_spending, by = "committee_name") %>%
+  filter(total_amount == facebook_amount)
+
+# Display the results
+print(committees_all_on_facebook)
+
+
+
+
+
+
 ```
 
 **Q5** Your editor asks you to summarize your findings about spending on Facebook by Maryland political candidates. How much do we know and what don't we know? What's the best story idea you've found here?
