@@ -109,18 +109,22 @@ cleanedup_expense3 |>
 **A2.** Peter Franchot for Gov. Casa in Action suppported Tom Perez in the gubernatorial race. Billy Boniface was running for Harford Co. Executive. Jon Baron was running for governor. (funny ads!) Jasani Salimah was a Baltimore City School Board candidate. John King (2 accounts) was running for governor. Eve Shuman was a PG County Council candidate but supports other candidates including Chris Van Hollen, who she worked for. Amanda Fiedler was a AA County Council candidate.
 
 
-```{r}
-
-
-
-```
-
 
 **Q3.** Given the list of top spenders in A1 and the primary results for governor (<https://elections.maryland.gov/elections/2022/primary_results/gen_results_2022_1.html>), who is missing from that Q1 list? Did those campaigns run Facebook ads? Who are the biggest recipients of media expenses by the Democratic primary winner for governor (HINT: that person has two committees, the second one with his running mate)?
 
-**A3.** 
+**A3.** Douglas F. Gansler and Dan Cox seem not to have spent money on Facebook ads. It seems that the Moore-Miller ticket spent about 18,546,961 on media generally.
 
 ```{r}
+cleanedup_expense3 |>
+group_by(expense_category == "Media") |>
+    group_by(committee_name == "Moore  Wes For Maryland") |>
+   summarize(total = sum(amount)) 
+```
+```{r}
+cleanedup_expense3 |>
+group_by(expense_category == "Media") |>
+    group_by(committee_name == "Moore Miller For Maryland Slate") |>
+   summarize(total = sum(amount)) 
 ```
 
 **Q4.** The media expense data you cleaned also has a standardized purpose column. Write code to generate a list of the committees with the total amount of spending on online advertising. How does this list compare to the one from Q1 about top Facebook spenders? Of the top 5 committees who spent the most on Facebook ads from Q1, are there any that appear to have spent *all* of their online advertising dollars on Facebook?
