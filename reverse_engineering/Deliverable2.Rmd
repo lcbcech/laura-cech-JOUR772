@@ -1,7 +1,12 @@
 ---
 title: "Deliverable Week 2: Reverse Project"
+author: "Alisha Camacho and Laura Cech "
+date: "Oct. 8, 2023"
 output: html_notebook
 ---
+## Introduction 
+
+In this notebook, we are reverse engineering the story, In the AP story "Thousands of kids are missing from school. Where did they go?" https://projects.apnews.com/features/2023/missing-children/index.html
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
