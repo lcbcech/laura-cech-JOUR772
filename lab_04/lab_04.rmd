@@ -44,16 +44,16 @@ You'll need to load one data set, a CSV file of Maryland campaign expenditures l
 
 ```{r}
 # Load the Maryland expenditures data table
-cleanedup_payments <- read_csv("data/maryland_expenses.csv") |>
+cleanedup_expense <- read_csv("data/maryland_expenses.csv") |>
   clean_names() 
 ```
 ```{r}
 
-  glimpse(cleanedup_payments)
+  glimpse(cleanedup_expense)
 
 ```
 ```{r}
-cleanedup_payments |> mutate(expenditure_date=mdy(expenditure_date)) 
+cleanedup_expense |> mutate(expenditure_date=mdy(expenditure_date)) 
 ```
 
 ## Answer questions
@@ -66,38 +66,134 @@ cleanedup_payments |> mutate(expenditure_date=mdy(expenditure_date))
    4. When you are done standardizing `payee_clean`, export it as a new CSV file to your data folder, *giving it a different name* and read it back into RStudio as a new dataframe.
    5. Using that `payee_clean` column in your new dataframe, calculate the total amount of Facebook spending by each committee and present the results showing the committee that spent the most first.
 
-**A1.**
+**A1.** 
+Franchot Anderson-Walker for Maryland Slate	57928.25			
+Franchot Peter Friends Of	51853.81			
+Casa in Action PAC	20647.83			
+Boniface Billy Friends Of	17705.47			
+Baron Jon (Jonathan) for Maryland	15794.17
 
 ```{r}
-cleanedup_payments |>
+cleanedup_expense |>
   
-  filter(!is.na(payee_name))
+  filter(!is.na(payee_name)) 
   
 ```
 
 
 ```{r}
-write.csv(df,file='/data/new_file.csv', payee_name)
+
+write.csv(cleanedup_expense, "cleanedup_expense.csv")
+
+
+```
+
+
+```{r}
+cleanedup_expense3 <- read_csv("data/cleanedup-expense-2.csv")
 ```
 
 **Q2.** Let's do some research on the top committees from question 1. Look up the top 10 spenders: if they are candidate committees, what offices were they running for? If they were not candidates, what issues do they seem to care about? Write some sentences answering those questions, then go the Facebook ad library ([https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\\[direction\\]=desc&sort_data\\[mode\\]=relevancy_monthly_grouped&media_type=all](https://www.facebook.com/ads/library/?active_status=all&ad_type=political_and_issue_ads&country=US&sort_data\%5Bdirection\%5D=desc&sort_data\%5Bmode\%5D=relevancy_monthly_grouped&media_type=all){.uri}) and look for ads from the top spender. What do you notice about the the information provided about those ads?
 
-**A2.** 
+**A2.** Peter Franchot for Gov. Casa in Action suppported Tom Perez in the gubernatorial race. Billy Boniface was running for Harford Co. Executive. Jon Baron was running for governor. (funny ads!) Jasani Salimah was a Baltimore City School Board candidate. John King (2 accounts) was running for governor. Eve Shuman was a PG County Council candidate but supports other candidates including Chris Van Hollen, who she worked for. Amanda Fiedler was a AA County Council candidate.
+
+
+
+```{r}
+cleanedup_expense3 |>
+  filter(str_detect(address, "1 One Hacker  Menlo Park  California 94025")  | str_detect(address, "1601 Willow Road  Menlo Park  California 94025")  | str_detect(address, "1 Facebook Way  Menlo Park  California 94025") | str_detect(address, "1 Hacker Way  Menlo Park  California 94025")) |>
+  group_by(committee_name) |>
+ 
+   summarize(total = sum(amount)) |>
+  
+  arrange(desc(total)) 
+```
+
 
 **Q3.** Given the list of top spenders in A1 and the primary results for governor (<https://elections.maryland.gov/elections/2022/primary_results/gen_results_2022_1.html>), who is missing from that Q1 list? Did those campaigns run Facebook ads? Who are the biggest recipients of media expenses by the Democratic primary winner for governor (HINT: that person has two committees, the second one with his running mate)?
 
-**A3.** 
+**A3.** Douglas F. Gansler and Dan Cox seem not to have spent money on Facebook ads. It seems that the Moore-Miller ticket spent about 18,546,961 on media generally.
 
 ```{r}
+cleanedup_expense3 |>
+group_by(expense_category == "Media") |>
+    group_by(committee_name == "Moore  Wes For Maryland") |>
+   summarize(total = sum(amount)) 
+```
+```{r}
+cleanedup_expense3 |>
+group_by(expense_category == "Media") |>
+    group_by(committee_name == "Moore Miller For Maryland Slate") |>
+   summarize(total = sum(amount)) 
 ```
 
 **Q4.** The media expense data you cleaned also has a standardized purpose column. Write code to generate a list of the committees with the total amount of spending on online advertising. How does this list compare to the one from Q1 about top Facebook spenders? Of the top 5 committees who spent the most on Facebook ads from Q1, are there any that appear to have spent *all* of their online advertising dollars on Facebook?
 
-**A4.** 
+**A4.** I see new top spenders such as MSEA and Calvin Ball, but some duplicate names like Casa. There are 55 campaign committees that spent all their online advertising on Facebook, including Franchot Anderson-Walker for Maryland, Friends of Kindra Samay Singh and the Committee to Elect Aaron Penmon.
 
 ```{r}
+cleanedup_expense3 |>
+  filter(expense_purpose == "Online Advertising") |>
+  group_by(committee_name) |>
+   summarize(total = sum(amount)) |>
+   arrange(desc(total))
+```
+```{r}
+total_spending <- cleanedup_expense3 |>
+   filter(expense_purpose == "Online Advertising") |>
+  group_by(committee_name) |>
+  summarise(total_amount = sum(amount, na.rm = TRUE)) |>
+  arrange(-total_amount)
+
+
+facebook_spending <- cleanedup_expense3 %>%
+  filter(str_detect(address, "1 One Hacker  Menlo Park  California 94025")  | str_detect(address, "1601 Willow Road  Menlo Park  California 94025")  | str_detect(address, "1 Facebook Way  Menlo Park  California 94025") | str_detect(address, "1 Hacker Way  Menlo Park  California 94025")) |>
+  group_by(committee_name) %>%
+  summarise(facebook_amount = sum(amount, na.rm = TRUE)) |>
+   arrange(desc(facebook_amount))
+
+committees_all_on_facebook <- total_spending %>%
+  left_join(facebook_spending, by = "committee_name") %>%
+  filter(total_amount == facebook_amount)
+
+# Display the results
+print(committees_all_on_facebook)
+
+
+
+
+
+
 ```
 
 **Q5** Your editor asks you to summarize your findings about spending on Facebook by Maryland political candidates. How much do we know and what don't we know? What's the best story idea you've found here?
 
-**A5**
+**A5** Facebook was the preferred social network to reach voters by several Maryland political candidates, including former Maryland Comptroller Peter Franchot in his bid for Governor and Baltimore County Executive John Olszewski. Both candidates spent all their online advertising on Facebook, later known as Meta. Wes Moore's campaign committees spent more than 70 percent of their online advertising on Facebook too. 
+
+I'd be curious about why Facebook was so popular-- because it's target demographic is voters who are likely to vote?
+
+
+```{r}
+total_spending3 <- cleanedup_expense3 |>
+   filter(expense_purpose == "Online Advertising") |>
+ filter(committee_name == "Moore Miller For Maryland Slate" | committee_name == "Moore  Wes For Maryland") |>
+  summarise(total_amount = sum(amount, na.rm = TRUE)) |>
+  arrange(-total_amount)
+
+
+facebook_spending3 <- cleanedup_expense3 %>%
+  filter(str_detect(address, "1 One Hacker  Menlo Park  California 94025")  | str_detect(address, "1601 Willow Road  Menlo Park  California 94025")  | str_detect(address, "1 Facebook Way  Menlo Park  California 94025") | str_detect(address, "1 Hacker Way  Menlo Park  California 94025")) |>
+   group_by(committee_name == "Moore Miller For Maryland Slate" | committee_name == "Moore  Wes For Maryland") |>
+  summarise(facebook_amount3 = sum(amount, na.rm = TRUE)) |>
+   arrange(desc(facebook_amount3))
+
+#368476.4(facebook amt) divided by 508238.8 (total amt) = 72.5%
+
+
+
+
+  
+
+
+```
+

@@ -1,0 +1,117 @@
+---
+title: "Deliverable Week 2: Reverse Project"
+author: "Alisha Camacho and Laura Cech "
+date: "Oct. 8, 2023"
+output: html_notebook
+---
+## Introduction 
+
+In this notebook, we are reverse engineering the story, In the AP story "Thousands of kids are missing from school. Where did they go?" https://projects.apnews.com/features/2023/missing-children/index.html
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+library(tidyverse)
+library(refinr)
+library(janitor)
+library(lubridate)
+install.packages("readxl")
+library(readxl)
+
+```
+
+Load data
+
+```{r}
+population <- read_csv("data/population-by-age.csv")
+private <- read_csv("data/private-enrollment-by-grade.csv")
+public <- read_csv("data/public-enrollment-by-grade.csv")
+missing <- read_excel("data/Missing-Kids-Summary-File.xlsx")
+```
+
+```{r}
+glimpse(population)
+```
+```{r}
+glimpse(private)
+```
+```{r}
+glimpse(public)
+```
+```{r}
+glimpse(missing)
+```
+
+
+### Sentence 1
+
+* **Sentence text**: Overall, public school enrollment fell by over 700,000 students between the 2019-2020 and 2021-2022 school years in the 21 states plus Washington, D.C., that provided the necessary data.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+
+```{r}
+
+
+```
+
+
+```{r}
+public_21 <- public |>
+filter(st =="CA"| st=="NY" | st=="LA" | st=="NC"| st=="WA"| st=="CO" | st=="GA" | st=="MN" | st=="WI" | st=="NH" | st=="MA" | st=="MT" | st=="DE"| st=="ND" | st=="DC" | st=="SD" | st=="SC" | st=="NE" | st=="RI" | st=="TN" | st=="PA" | st=="FL") |>
+  group_by(sch_year) |>
+  filter(grade=="k_12_total") |>
+  summarise(total=sum(enrollment))
+ 
+
+  
+```
+
+
+```{r}
+
+
+public_2019 <- public_21 |>
+  filter(sch_year == "2019-2020")
+public_2019_enrollment <- public_2019$total
+public_2019_enrollment
+
+###
+
+public_2021 <- public_21 |>
+  filter(sch_year =="2021-2022")
+public_2021_enrollment <-public_2021$total
+public_2021_enrollment
+
+public_2021_enrollment - public_2019_enrollment
+
+
+
+```
+
+```{r}
+#total 2021-22
+public|>
+  filter(sch_year == "2021-2022") |>
+   filter(grade == "k_12_total") |>
+   summarise(total = sum(enrollment, na.rm = TRUE))
+
+
+
+```
+
+```{r}
+49202913	- 47997006	
+```
+
+
+```{r}
+public |>
+  filter(state == "ALASKA") 
+  
+```
+
