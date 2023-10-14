@@ -115,3 +115,18 @@ public |>
   
 ```
 
+### Sentence 2 
+
+* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+
+```{r}
+glimpse(private)
+```
+
+### Sentence 3 
+
+* **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
