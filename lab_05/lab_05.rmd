@@ -77,7 +77,7 @@ glimpse(overdose2)
 
 Q1. Write code to generate the number of calls that occurred on each date. Which date in 2022 had the most overdose calls, and how many? Look at the total number of rows in your result and explore the range of dates - based on your result, do you believe there are any days with no overdose calls at all? Explain why or why not.
 
-A1. It appears that July 14 and Oct. 4 both had	23 calls. It does appear that there were dates with no overdose calls because there are 329 dates with calls and 365 days in a year.	
+A1. It appears that July 14 and Oct. 4 both had	23 calls. It appears that there were 36 days with no overdose calls because there are 329 dates with calls and 365 days in a year.	
 
 ```{r}
 
@@ -98,6 +98,41 @@ Q2. You want to understand if there's a pattern in the day of the week that over
 A2. 
 
 ```{r}
+#I asked chat gpt how to add a column that displays what day of the week each date represents.
+library(dplyr)
+library(lubridate)
+
+# Adding a new column 'day_of_week' to the dataframe
+overdose3 <- overdose2 |> 
+  mutate(day_of_week = wday(date, label = TRUE, abbr = FALSE))
+
+glimpse(overdose3)
+
+
+
+
+```
+```{r}
+
+# Group by day and count
+calls_per_weekday <- overdose3 |> 
+  group_by(day_of_week) |> 
+  summarize(call_count = n()) |> 
+  arrange(desc(call_count))
+
+
+calls_per_weekday
+
+
+```
+
+
+```{r}
+#total call
+calls_per_weekday |>
+  summarise(total_call=sum(call_count))
+
+
 ```
 
 Q3. Now let's look at locations. Which ones have the most calls? How would you describe them (feel free to search for more information on them)? Is there anything about the structure of the original data that might make you less confident in the counts by location or date?

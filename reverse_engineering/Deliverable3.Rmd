@@ -71,7 +71,7 @@ private_2021_2022$total - private_2019_2020$total
 
 * **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047. I converted character values in the total change column into numerical values. (Alisha did it slightly differently)]
 
 ```{r}
 
@@ -84,11 +84,11 @@ write.csv(missing_homeschool, "missing_homeschool.csv", row.names = FALSE)
 
 glimpse(missing_homeschool)
 
-homeschool_all21 <- missing_homeschool |> 
-filter(State =="CA"| State=="NY" | State=="LA" | State=="NC"| State=="WA"| State=="CO" | State=="GA" | State=="MN" | State=="WI" | State=="NH" | State=="MA" | State=="MT" | State=="DE"| State=="ND" | State=="DC" | State=="SD" | State=="SC" | State=="NE" | State=="RI" | State=="TN" | State=="PA" | State=="FL")
+#homeschool_all21 <- missing_homeschool |> 
+#filter(State =="CA"| State=="NY" | State=="LA" | State=="NC"| State=="WA"| State=="CO" | State=="GA" | State=="MN" | #State=="WI" | State=="NH" | State=="MA" | State=="MT" | State=="DE"| State=="ND" | State=="DC" | State=="SD" | State=="SC" #| State=="NE" | State=="RI" | State=="TN" | State=="PA" | State=="FL")
 
 
-glimpse(homeschool_all21)
+#glimpse(homeschool_all21)
 ```
 ```{r}
 homeschool_all21 <- missing_homeschool |> 
