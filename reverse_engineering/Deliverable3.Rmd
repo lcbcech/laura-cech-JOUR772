@@ -71,7 +71,7 @@ private_2021_2022$total - private_2019_2020$total
 
 * **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047
 
 ```{r}
 
@@ -90,5 +90,18 @@ filter(State =="CA"| State=="NY" | State=="LA" | State=="NC"| State=="WA"| State
 
 glimpse(homeschool_all21)
 ```
+```{r}
+homeschool_all21 <- missing_homeschool |> 
+filter(`State abbrev` =="CA"| `State abbrev` =="NY" | `State abbrev`=="LA" | `State abbrev`=="NC"| `State abbrev`=="WA"| `State abbrev`=="CO" | `State abbrev`=="GA" | `State abbrev`=="MN" | `State abbrev`=="WI" | `State abbrev`=="NH" | `State abbrev`=="MA" | `State abbrev`=="MT" | `State abbrev`=="DE"| `State abbrev`=="ND" | `State abbrev`=="DC" | `State abbrev`=="SD" | `State abbrev`=="SC" | `State abbrev`=="NE" | `State abbrev`=="RI" | `State abbrev`=="TN" | `State abbrev`=="PA" | `State abbrev`=="FL") |> 
+filter(`Enrollment type` == "Homeschool enrollment" ) 
 
+```
 
+```{r}
+homeschool_all21 <- homeschool_all21 %>%
+  mutate(
+    num_change = as.numeric(`Total change`)) |>
+  summarise(sum_change = sum(num_change, na.rm = TRUE))
+```
+
+184047
