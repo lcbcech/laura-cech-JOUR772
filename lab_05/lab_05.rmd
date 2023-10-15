@@ -95,10 +95,10 @@ most_calls_2022
 
 Q2. You want to understand if there's a pattern in the day of the week that overdose calls are made. Add a column to your dataframe that displays what day of the week each date represents. You should search for how to do that using lubridate. Then write code to calculate the number of calls for each day of the week, and add a column to that result that calculates the percentage of all calls that occurred on each day of the week (so you want a dataframe with the day of the week, total number of calls and the percentage of calls on that day out of the total number of all calls). Describe your findings to me.
 
-A2. 
+A2. Overdoses happen slightly more often on weekends, but overdoses happen steadily throughout the week in Baltimore.
 
 ```{r}
-#I asked chat gpt how to add a column that displays what day of the week each date represents.
+#I asked chat gpt how to add a column that displays what day of the week each date represents, and how to create the formula for percentage of calls
 library(dplyr)
 library(lubridate)
 
@@ -128,9 +128,14 @@ calls_per_weekday
 
 
 ```{r}
-#total call
-calls_per_weekday |>
-  summarise(total_call=sum(call_count))
+calls_per_weekday <- overdose3 |> 
+  group_by(day_of_week) |> 
+  summarize(call_count = n()) |> 
+  mutate(percentage_of_calls = (call_count / sum(call_count)) * 100) |> 
+  arrange(desc(call_count))
+
+# Viewing the result
+calls_per_weekday
 
 
 ```
@@ -140,6 +145,7 @@ Q3. Now let's look at locations. Which ones have the most calls? How would you d
 A3. 
 
 ```{r}
+glimpse(overdose2)
 
 ```
 
