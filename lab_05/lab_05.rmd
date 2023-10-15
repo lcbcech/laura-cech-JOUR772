@@ -95,7 +95,7 @@ most_calls_2022
 
 Q2. You want to understand if there's a pattern in the day of the week that overdose calls are made. Add a column to your dataframe that displays what day of the week each date represents. You should search for how to do that using lubridate. Then write code to calculate the number of calls for each day of the week, and add a column to that result that calculates the percentage of all calls that occurred on each day of the week (so you want a dataframe with the day of the week, total number of calls and the percentage of calls on that day out of the total number of all calls). Describe your findings to me.
 
-A2. Overdoses happen slightly more often on weekends, but overdoses happen steadily throughout the week in Baltimore.
+A2. Overdoses happen slightly more often on weekends, but overdoses happen steadily throughout the week in Baltimore County.
 
 ```{r}
 #I asked chat gpt how to add a column that displays what day of the week each date represents, and how to create the formula for percentage of calls
@@ -142,13 +142,24 @@ calls_per_weekday
 
 Q3. Now let's look at locations. Which ones have the most calls? How would you describe them (feel free to search for more information on them)? Is there anything about the structure of the original data that might make you less confident in the counts by location or date?
 
-A3. 
+A3. A police station, a metro stop and a single family house in Perry Hall were the locations of the most reported overdoses in Baltimore County, according to this data.
+But the structure of the data with the call codes in front of the locations and the multiple ways of entering an address make this data (as is) unreliable.
 
 ```{r}
 glimpse(overdose2)
 
 ```
+```{r}
+calls_location <- overdose2 |> 
+  group_by(location) |> 
+  summarize(call_count = n()) |> 
+  arrange(desc(call_count))
+
+# Viewing the result
+head(calls_location)
+```
 
 Q4. What's the best story idea or question you've seen as a result of the work you've done in this lab?
 
-A4. 
+A4. I want to know more about 4540 Silver Spring Road in Perry Hall, which appears to be for sale now. Were there multiple overdoses at the location and/or a series of overdoses? Was it used a treatment center of some kind? I also am interested in why they'd be 7 overdoses at the Owings Mills Metro station (was it all one day?)  and whether the overdoses at the Towson police precinct were people walking/ driving there, or just where the reports were written.
+
