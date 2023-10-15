@@ -77,9 +77,20 @@ glimpse(overdose2)
 
 Q1. Write code to generate the number of calls that occurred on each date. Which date in 2022 had the most overdose calls, and how many? Look at the total number of rows in your result and explore the range of dates - based on your result, do you believe there are any days with no overdose calls at all? Explain why or why not.
 
-A1. 
+A1. It appears that July 14 and Oct. 4 both had	23 calls. It does appear that there were dates with no overdose calls because there are 329 dates with calls and 365 days in a year.	
 
 ```{r}
+
+overdose2
+calls_per_date <- overdose2 |> 
+  group_by(date) |> 
+  summarize(call_count = n())
+
+most_calls_2022 <- calls_per_date |> 
+  filter(year(date) == 2022) |> 
+  arrange(desc(call_count)) 
+
+most_calls_2022
 ```
 
 Q2. You want to understand if there's a pattern in the day of the week that overdose calls are made. Add a column to your dataframe that displays what day of the week each date represents. You should search for how to do that using lubridate. Then write code to calculate the number of calls for each day of the week, and add a column to that result that calculates the percentage of all calls that occurred on each day of the week (so you want a dataframe with the day of the week, total number of calls and the percentage of calls on that day out of the total number of all calls). Describe your findings to me.
