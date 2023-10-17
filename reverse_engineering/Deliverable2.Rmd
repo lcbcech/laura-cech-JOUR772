@@ -54,11 +54,6 @@ glimpse(missing)
 
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
 
-```{r}
-
-
-```
-
 
 ```{r}
 public_21 <- public |>
@@ -113,5 +108,39 @@ public|>
 public |>
   filter(state == "ALASKA") 
   
+```
+
+### Sentence 2 
+
+* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+
+```{r}
+glimpse(private)
+```
+
+```{r}
+private_all21 <- private |>
+filter(state =="CA"| state=="NY" | state=="LA" | state=="NC"| state=="WA"| state=="CO" | state=="GA" | state=="MN" | state=="WI" | state=="NH" | state=="MA" | state=="MT" | state=="DE"| state=="ND" | state=="DC" | state=="SD" | state=="SC" | state=="NE" | state=="RI" | state=="TN" | state=="PA" | state=="FL") 
+```
+
+### Sentence 3 
+
+* **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+
+
+```{r}
+#Disclaimer, use of Chat CPT to create a .csv file from a tab in an excel sheet
+#Prompt = "how do you create a .csv file from a tab in an excel sheet in Rstudio?"
+
+missing_homeschool <- read_excel("/Users/lauracech/Desktop/Missing-Kids-Summary-File copy.xlsx", sheet = "Enrollment Changes")
+
+write.csv(missing_homeschool, "missing_homeschool.csv", row.names = FALSE)
+
+glimpse(missing_homeschool)
+
 ```
 

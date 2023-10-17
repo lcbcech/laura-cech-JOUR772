@@ -1,0 +1,165 @@
+---
+title: "lab_05"
+author: "derek willis"
+date: "2023-03-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## You will need
+
+- Tabula
+
+## Load libraries and establish settings
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+library(tidyverse)
+library(refinr)
+library(janitor)
+library(lubridate)
+install.packages("readxl")
+library(readxl)
+
+```
+
+## Get Our PDF
+
+We'll be working with the [911 overdose calls from Baltimore County](https://drive.google.com/file/d/1qkYuojGF_6WKFr5aNQxmewDzcKyOiJFr/view?usp=share_link). You'll want to download it to a place you'll remember (like your Downloads folder, or the labs folder in your repository). The goal is to extract the tables within it, export that to a CSV file, load it into RStudio and ask some questions.
+
+## Extract Data from PDF Using Tabula
+
+Start Tabula, then go to http://127.0.0.1:8080/ in your browser. Click the "Browse" button and find the PDF file and click "open", and then click the "Import button" in Tabula. This will take a few seconds or longer.
+
+This PDF has a single table spread over multiple pages to extract. We're going to make a single dataframe from this table, exporting it to a CSV file that you will load into R. In Tabula, highlight the table and click the "Preview & Export Extracted Data" button. You may want to play with including or excluding the column headers - YOU SHOULD HAVE FIVE COLUMNS OF DATA.
+
+Save the CSV (it should be called `tabula-Baltimore County; Carey, Samantha log OD.csv` by default) to your lab_05/data folder.
+
+From there, you will need to read in the data, and add or fix headers if necessary. You can choose to include the headers from the PDF in your exported CSV files OR to exclude them and add them when importing. `read_csv` allows us to do this ([and more](https://readr.tidyverse.org/reference/read_delim.html)).
+
+## Load and clean up the data in R
+
+You will need to read in and clean up the data so that it can be used for analysis. By "clean" I mean the column headers should not contain spaces and they should have meaningful names, not "x1" or something similar. How you do that is up to you, but you can use select() with or without the minus sign to include or exclude certain columns. You also can use the `rename` function to, well, rename columns. Importantly, you'll need to ensure that any columns containing a date actually have a date datatype. Our friend `lubridate` can help with this.
+
+```{r}
+
+overdose <- read_csv("overdose.csv") |>
+  clean_names() |>
+
+  rename(
+    date = dat_format
+  ) |>
+   rename(
+    time_case = dat_formcaatse_nbr
+  ) |>
+   rename(
+    type = evtyp
+  ) |>
+   rename(
+    location = loc
+  )
+
+```
+```{r}
+glimpse(overdose)
+```
+```{r}
+overdose2 <- overdose |> mutate(date=mdy(date))
+glimpse(overdose2)
+```
+
+## Answer questions
+
+Q1. Write code to generate the number of calls that occurred on each date. Which date in 2022 had the most overdose calls, and how many? Look at the total number of rows in your result and explore the range of dates - based on your result, do you believe there are any days with no overdose calls at all? Explain why or why not.
+
+A1. It appears that July 14 and Oct. 4 both had	23 calls. It appears that there were 36 days with no overdose calls because there are 329 dates with calls and 365 days in a year.	
+
+```{r}
+
+overdose2
+calls_per_date <- overdose2 |> 
+  group_by(date) |> 
+  summarize(call_count = n())
+
+most_calls_2022 <- calls_per_date |> 
+  filter(year(date) == 2022) |> 
+  arrange(desc(call_count)) 
+
+most_calls_2022
+```
+
+Q2. You want to understand if there's a pattern in the day of the week that overdose calls are made. Add a column to your dataframe that displays what day of the week each date represents. You should search for how to do that using lubridate. Then write code to calculate the number of calls for each day of the week, and add a column to that result that calculates the percentage of all calls that occurred on each day of the week (so you want a dataframe with the day of the week, total number of calls and the percentage of calls on that day out of the total number of all calls). Describe your findings to me.
+
+A2. Overdoses happen slightly more often on weekends, but overdoses happen steadily throughout the week in Baltimore County.
+
+```{r}
+#I asked chat gpt how to add a column that displays what day of the week each date represents, and how to create the formula for percentage of calls
+library(dplyr)
+library(lubridate)
+
+# Adding a new column 'day_of_week' to the dataframe
+overdose3 <- overdose2 |> 
+  mutate(day_of_week = wday(date, label = TRUE, abbr = FALSE))
+
+glimpse(overdose3)
+
+
+
+
+```
+```{r}
+
+# Group by day and count
+calls_per_weekday <- overdose3 |> 
+  group_by(day_of_week) |> 
+  summarize(call_count = n()) |> 
+  arrange(desc(call_count))
+
+
+calls_per_weekday
+
+
+```
+
+
+```{r}
+calls_per_weekday <- overdose3 |> 
+  group_by(day_of_week) |> 
+  summarize(call_count = n()) |> 
+  mutate(percentage_of_calls = (call_count / sum(call_count)) * 100) |> 
+  arrange(desc(call_count))
+
+# Viewing the result
+calls_per_weekday
+
+
+```
+
+Q3. Now let's look at locations. Which ones have the most calls? How would you describe them (feel free to search for more information on them)? Is there anything about the structure of the original data that might make you less confident in the counts by location or date?
+
+A3. A police station, a metro stop and a single family house in Perry Hall were the locations of the most reported overdoses in Baltimore County, according to this data.
+But the structure of the data with the call codes in front of the locations and the multiple ways of entering an address make this data (as is) unreliable.
+
+```{r}
+glimpse(overdose2)
+
+```
+```{r}
+calls_location <- overdose2 |> 
+  group_by(location) |> 
+  summarize(call_count = n()) |> 
+  arrange(desc(call_count))
+
+# Viewing the result
+head(calls_location)
+```
+
+Q4. What's the best story idea or question you've seen as a result of the work you've done in this lab?
+
+A4. I want to know more about 4540 Silver Spring Road in Perry Hall, which appears to be for sale now. Were there multiple overdoses at the location and/or a series of overdoses? Was it used a treatment center of some kind? I also am interested in why they'd be 7 overdoses at the Owings Mills Metro station (was it all one day?)  and whether the overdoses at the Towson police precinct were people in custody, people walking/ driving there, or just where the reports were written.
+
