@@ -52,8 +52,8 @@ View(county_voters_combined)
 
 ### Task 4: Asking a question
 
-**Task** Run the following code to filter on Frederick County's registration data and look at the results. What stands out to you about the changes in party registration over time? **Answer**
-
+**Task** Run the following code to filter on Frederick County's registration data and look at the results. What stands out to you about the changes in party registration over time? **Answer** The growth of Democrats is substantial (about 28%) 
+ versus Republicans (only about 5%). Although relatively small, there are also 4 times as many as voters who identify themselves as "other" from 2016 to 2022.
 ```{r}
 county_voters_combined |> filter(COUNTY == 'Frederick')
 ```
