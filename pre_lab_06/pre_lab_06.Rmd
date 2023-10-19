@@ -116,7 +116,7 @@ maryland_population_with_voters_and_demographics <- maryland_population_with_vot
 
 ### Task 11: Asking Demographic Questions
 
-**Task** Using mutate, let's find the county with the highest 18+ Black population as a percentage of all population 18 and over and also the percentage of Democrats in that county. Put your answers below. **Answer**
+**Task** Using mutate, let's find the county with the highest 18+ Black population as a percentage of all population 18 and over and also the percentage of Democrats in that county. Put your answers below. **Answer** The highest 18+ Black populations are in Prince George's County and Baltimore City, where Democrats make up more than 75% of voters. Nearly half of the population in Charles County is Black, with 61 percent Democrats, and I wonder if those numbers have been shifting in recent years. The population of Somerset County on the Eastern shore is nearly 40 percent Black with a similar percent of Democrats. I wonder if we could see the percentage of Dems/ Republicians by race.
 
 ```{r}
 maryland_population_with_voters_and_demographics |>
