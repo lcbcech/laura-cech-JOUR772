@@ -93,9 +93,9 @@ glimpse(balt_911_combined)
 ## Answer questions
 
 Q1. Let's start with our data from Allegany, Cecil and Carroll counties. Write code to generate a dataframe that shows the total number of calls for each county. What's the order of counties from most calls to least?
-Carroll	448, Cecil	438, Allegany	418	
 
-A1. 
+
+A1. Carroll	448, Cecil	438, Allegany	418	
 
 ```{r}
 county911_combined |>
@@ -113,6 +113,9 @@ Then calculate the most calls per county and location. Which location had the mo
 A2.
 
 ```{r}
+county911_combined <- county_911_combined |>
+   mutate(month_name = month(date, label = TRUE))
+
 ```
 
 Q3. Let's turn to the Baltimore City data. You're interested in exploring calls in zip codes with a high percentage of children under 18. Write code to isolate calls in zip codes where the percentage of under 18 population is at least 75% and then show the zip code and population and how many calls occurred in each of those zip codes. 
