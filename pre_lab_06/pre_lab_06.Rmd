@@ -99,7 +99,7 @@ maryland_population_with_voters <- maryland_population |> left_join(county_voter
 
 ### Task 9: Add the Demographic Data
 
-**Task** Load the Maryland demographic data and examine it. What kind of information does it contain? **Answer**
+**Task** Load the Maryland demographic data and examine it. What kind of information does it contain? **Answer** 24 rows (all counties and city) with 8 columns of population data (10 columns total)
 
 ```{r}
 maryland_demographics <- read_csv('data/maryland_demographics.csv')
