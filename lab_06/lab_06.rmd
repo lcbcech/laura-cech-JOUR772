@@ -86,17 +86,24 @@ glimpse(demo_data)
 ```
 
 ```{r}
-balt_911_combined <- balt_911 |> left_join(demo_data, join_by("zip_code"))
+county_911_combined <- balt_911 |> left_join(demo_data, join_by("zip_code"))
 glimpse(balt_911_combined)
 ```
 
 ## Answer questions
 
 Q1. Let's start with our data from Allegany, Cecil and Carroll counties. Write code to generate a dataframe that shows the total number of calls for each county. What's the order of counties from most calls to least?
+Carroll	448, Cecil	438, Allegany	418	
 
 A1. 
 
 ```{r}
+county911_combined |>
+  group_by(county) |>
+   summarize(total = n()) |>
+   arrange(desc(total))
+  
+
 ```
 
 Q2. In your combined dataframe that you used in A1, add a column for the month of each call, then write code to show the total number of calls per county and month. Are there any outliers or noteworthy results? Describe the general pattern of the results. 
