@@ -127,7 +127,7 @@ maryland_population_with_voters_and_demographics |>
 
 ### Task 12: Asking Demographic Questions
 
-**Task** Now let's find the county with the highest 18+ Asian population as a percentage of all population 18 and over and also the percentage of Democrats in that county. How do these results compare to the previous task? Put your answers below. **Answer**
+**Task** Now let's find the county with the highest 18+ Asian population as a percentage of all population 18 and over and also the percentage of Democrats in that county. How do these results compare to the previous task? Put your answers below. **Answer** Howard and Montgomery counties have the most Asian populations where Democrats make up 53 and 61 percent respectively. But there are less than 5% Asian population in Prince George's County and Baltimore where the highest Black populations are.
 
 ```{r}
 maryland_population_with_voters_and_demographics |>
@@ -140,7 +140,7 @@ maryland_population_with_voters_and_demographics |>
 
 Sometimes joins look like they should work but don't. Often this is due to the two columns you're joining on having different data types: joining a <chr> column to a <dbl> column, for example. Let's walk through an example of that using some demographic data by zip code.
 
-**Task** Run the following code to load the Zip Code Tabulation Area data for Maryland. What's the datatype of the ZCTA5N column? **Answer**
+**Task** Run the following code to load the Zip Code Tabulation Area data for Maryland. What's the datatype of the ZCTA5N column? **Answer** It's a number.
 
 ```{r}
 maryland_zcta <- read_csv('data/maryland_zcta.csv')
@@ -149,10 +149,11 @@ glimpse(maryland_zcta)
 
 The column we're interested in, ZCTA5N, is a <dbl> column - it's a number. We want it to be a <chr> column - text.
 
-**Task** Run the following code to change the datatype of ZCTA5N from numeric to character. What's the datatype of ZCTA5N? **Answer**
+**Task** Run the following code to change the datatype of ZCTA5N from numeric to character. What's the datatype of ZCTA5N? **Answer** Character.
 
 ```{r}
 maryland_zcta <- maryland_zcta |> mutate(ZCTA5N = as.character(ZCTA5N))
+glimpse(maryland_zcta)
 ```
 
 Now we can join this dataframe to other zip code data where the zip code column is text, not numbers.
