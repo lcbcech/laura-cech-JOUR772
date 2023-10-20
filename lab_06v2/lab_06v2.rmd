@@ -146,18 +146,28 @@ Add a column to your code that calculates the number of calls per 1,000 people f
 
 Which zip code has the highest rate of calls per 1,000 people? Find the neighborhoods in that zip code that are listed in the data - you can use group_by or distinct to do this. What are some of those neighborhoods, and what else can you tell me about the population there?
 
-A3. 
+A3. 21217 has the highest rate of calls per 1,000. Some of the neighborhoods in that district are Penn North, Harlem Park, Druid Heights, Bolton Hill, Reservoir Hill, Sandtown-Winchester, Upton, Mondawmin, Easterwood	and Druid Hill Park .
 
 ```{r}
+#I used chat gpt to creat the new column that calculates the number of calls per 1,000 people for the top zip codes
 glimpse(county_911_combined)
 
 filtered_zip <- county_911_combined %>%
   filter(pct_under_18 >= 75) %>%
   group_by(zip_code, population) %>%
   summarize(total_calls = n()) %>%
+  mutate(calls_per_1000 = (total_calls / population) * 1000) %>%
   arrange(desc(total_calls))
 
 print(filtered_zip)
+```
+```{r}
+neighborhoods_21217 <- county_911_combined %>%
+  filter(zip_code == "21217") %>%
+  select(neighborhood) %>%
+  distinct()
+
+print(neighborhoods_21217)
 ```
 
 Q4. Choose your own adventure: I want you to come up with a question you could ask of the Baltimore City data that combines both the calls and the demographic information. You must use both demographics and the overdose call data in your work.
