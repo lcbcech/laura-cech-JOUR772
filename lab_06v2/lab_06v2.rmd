@@ -172,7 +172,34 @@ print(neighborhoods_21217)
 
 Q4. Choose your own adventure: I want you to come up with a question you could ask of the Baltimore City data that combines both the calls and the demographic information. You must use both demographics and the overdose call data in your work.
 
-A4: 
+A4: What zip codes have the lowest calls for service per 1,000 people? Catonsville (21228), Pikesville (21208), Rosedale (21237), Parkville (21234) are mostly in Baltimore County. Zip code 21251 appears to be Morgan State, but with population 934, it must be mostly offices. Zip code 21210 is within the city and includes Loyola/Notre Dame, Cross Keys and Roland Park and 21210 includes the neighborhoods of Cheswolde, North Roland Park/Poplar Hill, Cylburn, Medfield, Coldspring and	Mount Washington.
 
 ```{r}
+glimpse(county_911_combined)
+low_zip <- county_911_combined %>%
+  
+  group_by(zip_code, population) %>%
+  summarize(total_calls = n()) %>%
+  mutate(calls_per_1000 = (total_calls / population) * 1000) %>%
+  arrange(total_calls)
+
+print(low_zip)
+  
 ```
+```{r}
+neighborhoods_21210 <- county_911_combined %>%
+  filter(zip_code == "21210") %>%
+  select(neighborhood) %>%
+  distinct()
+
+print(neighborhoods_21210)
+```
+```{r}
+neighborhoods_21209 <- county_911_combined %>%
+  filter(zip_code == "21209") %>%
+  select(neighborhood) %>%
+  distinct()
+
+print(neighborhoods_21209)
+```
+
