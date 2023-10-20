@@ -140,7 +140,7 @@ print(most_calls_location)
 
 Q3. Let's turn to the Baltimore City data. You're interested in exploring calls in zip codes with a high percentage of children under 18. Write code to isolate calls in zip codes where the percentage of under 18 population is at least 75% and then show the zip code and population and how many calls occurred in each of those zip codes. 
 
-Where are those zip codes in the city?
+Where are those zip codes in the city? Primarily west and east Baltimore: 21217 and 21223 are West Baltimore (Mondawmin), 21202 is Penn-Fallsway|Old Town|East Baltimore, 21213 is northeast (Belair-Edison), 21201 is Seton Hill|Central Baltimore, 21216 is Walbrook|Southwest Baltimore, and 21205 is Orangeville Industrial Area|East Baltimore
 
 Add a column to your code that calculates the number of calls per 1,000 people for those zip codes. To calculate a per capita rate, you might find this short guide handy: https://observablehq.com/@palewire/per-capita-calculator.
 
@@ -149,6 +149,15 @@ Which zip code has the highest rate of calls per 1,000 people? Find the neighbor
 A3. 
 
 ```{r}
+glimpse(county_911_combined)
+
+filtered_zip <- county_911_combined %>%
+  filter(pct_under_18 >= 75) %>%
+  group_by(zip_code, population) %>%
+  summarize(total_calls = n()) %>%
+  arrange(desc(total_calls))
+
+print(filtered_zip)
 ```
 
 Q4. Choose your own adventure: I want you to come up with a question you could ask of the Baltimore City data that combines both the calls and the demographic information. You must use both demographics and the overdose call data in your work.
