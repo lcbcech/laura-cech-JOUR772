@@ -1,0 +1,169 @@
+---
+title: "Deliverable Week 3: Reverse Project"
+author: "Alisha Camacho and Laura Cech "
+date: "Oct. 8, 2023"
+output: html_notebook
+---
+## Introduction 
+
+In this notebook, we are reverse engineering the story, In the AP story "Thousands of kids are missing from school. Where did they go?" https://projects.apnews.com/features/2023/missing-children/index.html
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+library(tidyverse)
+library(refinr)
+library(janitor)
+library(lubridate)
+install.packages("readxl")
+library(readxl)
+library(datasets)
+library(dplyr)
+
+```
+
+Load data
+
+```{r}
+population <- read_csv("data/population-by-age.csv")
+private <- read_csv("data/private-enrollment-by-grade.csv")
+public <- read_csv("data/public-enrollment-by-grade.csv")
+missing <- read_excel("data/Missing-Kids-Summary-File.xlsx")
+```
+
+### Sentence 2 
+
+* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+We filtered by the 21 states used in their analysis, and then found the sum of students enrolled in the school years "2021-22" and "2019-2020" and subtracted the difference. Our answer, 102,847 of students, is the same number, if we rounded to 103,000 students enrolled.
+
+```{r}
+glimpse(private)
+```
+
+```{r}
+private_all21 <- private |>
+filter(state =="CA"| state=="NY" | state=="LA" | state=="NC"| state=="WA"| state=="CO" | state=="GA" | state=="MN" | state=="WI" | state=="NH" | state=="MA" | state=="MT" | state=="DE"| state=="ND" | state=="DC" | state=="SD" | state=="SC" | state=="NE" | state=="RI" | state=="TN" | state=="PA" | state=="FL") |>
+  group_by(sch_year) |>
+  filter(grade=="k_12_total") |>
+  summarise(total=sum(enrollment))
+
+glimpse(private_all21)
+```
+```{r}
+private_2021_2022 <-private_all21 |> 
+filter(sch_year == "2021-2022")
+
+###
+private_2019_2020 <- private_all21 |> 
+filter(sch_year == "2019-2020")
+
+###
+
+private_2021_2022$total - private_2019_2020$total
+```
+
+### Sentence 3 
+
+* **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047. I converted character values in the total change column into numerical values. (Alisha did it slightly differently)]
+
+```{r}
+
+#Disclaimer, use of Chat CPT to create a .csv file from a tab in an excel sheet
+#Prompt = "how do you create a .csv file from a tab in an excel sheet in Rstudio?"
+
+missing_homeschool <- read_excel("/Users/lauracech/Desktop/Missing-Kids-Summary-File copy.xlsx", sheet = "Enrollment Changes")
+
+write.csv(missing_homeschool, "missing_homeschool.csv", row.names = FALSE)
+
+glimpse(missing_homeschool)
+
+#homeschool_all21 <- missing_homeschool |> 
+#filter(State =="CA"| State=="NY" | State=="LA" | State=="NC"| State=="WA"| State=="CO" | State=="GA" | State=="MN" | #State=="WI" | State=="NH" | State=="MA" | State=="MT" | State=="DE"| State=="ND" | State=="DC" | State=="SD" | State=="SC" #| State=="NE" | State=="RI" | State=="TN" | State=="PA" | State=="FL")
+
+
+#glimpse(homeschool_all21)
+```
+```{r}
+homeschool_all21 <- missing_homeschool |> 
+filter(`State abbrev` =="CA"| `State abbrev` =="NY" | `State abbrev`=="LA" | `State abbrev`=="NC"| `State abbrev`=="WA"| `State abbrev`=="CO" | `State abbrev`=="GA" | `State abbrev`=="MN" | `State abbrev`=="WI" | `State abbrev`=="NH" | `State abbrev`=="MA" | `State abbrev`=="MT" | `State abbrev`=="DE"| `State abbrev`=="ND" | `State abbrev`=="DC" | `State abbrev`=="SD" | `State abbrev`=="SC" | `State abbrev`=="NE" | `State abbrev`=="RI" | `State abbrev`=="TN" | `State abbrev`=="PA" | `State abbrev`=="FL") |> 
+filter(`Enrollment type` == "Homeschool enrollment" ) 
+
+```
+
+```{r}
+homeschool_all21 <- homeschool_all21 %>%
+  mutate(
+    num_change = as.numeric(`Total change`)) |>
+  summarise(sum_change = sum(num_change, na.rm = TRUE))
+```
+
+184047
+
+### Sentence 4 
+
+* **Sentence text**: Some families also moved out of state, accounting for some enrollment decline. And birth rates in some states are falling. The population of school-age kids in the states we studied fell by about 183,000, according to census estimates.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Step 1: changed all upper case of state column into abbrevations.
+
+
+```{r}
+population_by_age <- read_csv("data/population-by-age.csv")
+
+```
+```{r}
+glimpse(population_by_age)
+```
+```{r}
+library(datasets)
+library(dplyr)
+
+```
+
+```{r}
+full_to_abbrev <- function(state_name) {
+  match <- match(state_name, state.name)
+  if (!is.na(match)) {
+    return(state.abb[match])
+  } else {
+    return(state_name)  # Return the input unchanged if it's not a recognized state name
+  }
+}
+```
+
+```{r}
+population_by_age <- population_by_age %>%
+  mutate(state_abbrev = sapply(state, full_to_abbrev))
+
+glimpse(population_by_age)
+```
+```{r}
+full_to_abbrev <- function(state_name) {
+  match <- match(toupper(state_name), toupper(state.name))
+  if (!is.na(match)) {
+    return(state.abb[match])
+  } else {
+    return(state_name)  # Return the input unchanged if it's not a recognized state name
+  }
+}
+```
+
+```{r}
+population_by_age <- population_by_age %>%
+  mutate(state_abbrev = sapply(state, full_to_abbrev))
+
+
+```
+
+```{r}
+
+```
+
