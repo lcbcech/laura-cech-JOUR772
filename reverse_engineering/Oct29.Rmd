@@ -8,7 +8,6 @@ In this notebook, we are reverse engineering the story, In the AP story "Thousan
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 ```{r}
 # Turn off scientific notation
@@ -38,7 +37,8 @@ missing <- read_excel("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reve
 
 * **Sentence text**: Overall, public school enrollment fell by over 700,000 students between the 2019-2020 and 2021-2022 school years in the 21 states plus Washington, D.C., that provided the necessary data.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593.
 
 ```{r}
 public_21 <- public |>
@@ -69,9 +69,10 @@ public_2021_enrollment - public_2019_enrollment
 
 ### Sentence 2 
 
-* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+ **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+ **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+We filtered by the 21 states used in their analysis, and then found the sum of students enrolled in the school years "2021-22" and "2019-2020" and subtracted the difference. Our answer, 102,847 of students, is the same number, if we rounded to 103,000 students enrolled.
 
 ```{r}
 glimpse(private)
@@ -86,7 +87,8 @@ filter(state =="CA"| state=="NY" | state=="LA" | state=="NC"| state=="WA"| state
 
 * **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047. I converted character values in the total change column into numerical values. (Alisha did it slightly differently
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] 
+Yes, we got 184,047. I converted character values in the total change column into numerical values. (Alisha did it slightly differently but with the same result.)
 
 ```{r}
 #Disclaimer, use of Chat CPT to create a .csv file from a tab in an excel sheet
@@ -115,6 +117,14 @@ homeschool_all21 <- homeschool_all21 %>%
   mutate(
     num_change = as.numeric(`Total change`)) |>
   summarise(sum_change = sum(num_change, na.rm = TRUE))
+
+
+
+```
+
+
+```{r}
+print(homeschool_all21)
 ```
 
 * **Sentence 4 text**: Some families also moved out of state, accounting for some enrollment decline. And birth rates in some states are falling. The population of school-age kids in the states we studied fell by about 183,000, according to census estimates.
@@ -124,10 +134,8 @@ homeschool_all21 <- homeschool_all21 %>%
 
 Here are the steps: 
 Filter for the 21 states.
-Filter the dataset for the ages 5-17 (school-age kids).
-Group by state and the estimated date (est_date).
-Sum the population for each state by date.
-Calculate the population shift from April 2020 to April 2021 for each state.
+I don't think I need to filter the dataset for the ages 5-17 (school-age kids) because it looks like that's already done.
+Calculate the population shift from April 2020 to July 2021 for each state.
 Sum the population shifts to get the total shift for the 21 states.
 
 
@@ -139,55 +147,90 @@ population_by_age <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR
 glimpse(population_by_age)
 ```
 ```{r}
-# List of states of interest
+
+# List of states to focus on
 states_of_interest <- c("CALIFORNIA", "NEW YORK", "LOUISIANA", "NORTH CAROLINA", "WASHINGTON", "COLORADO",
                         "GEORGIA", "MINNESOTA", "WISCONSIN", "NEW HAMPSHIRE", "MASSACHUSETTS", "MONTANA", 
                         "DELAWARE", "NORTH DAKOTA", "DISTRICT OF COLUMBIA", "SOUTH DAKOTA", "NEBRASKA", 
                         "RHODE ISLAND", "TENNESSEE", "PENNSYLVANIA", "FLORIDA")
 
-colnames(population_summary)
+# Filter the population_by_age dataframe
+filtered_population_by_age <- population_by_age[population_by_age$state %in% states_of_interest, ]
+
+# Check the top few rows to make sure it worked
+head(filtered_population_by_age)
 
 
 ```
+```{r}
+
+simple_population_by_age <- population_by_age[
+    population_by_age$state == "CALIFORNIA" |
+    population_by_age$state == "NEW YORK" |
+    population_by_age$state == "LOUISIANA" |
+    population_by_age$state == "NORTH CAROLINA" |
+    population_by_age$state == "WASHINGTON" |
+    population_by_age$state == "COLORADO" |
+    population_by_age$state == "GEORGIA" |
+    population_by_age$state == "MINNESOTA" |
+    population_by_age$state == "WISCONSIN" |
+    population_by_age$state == "NEW HAMPSHIRE" |
+    population_by_age$state == "MASSACHUSETTS" |
+    population_by_age$state == "MONTANA" |
+    population_by_age$state == "DELAWARE" |
+    population_by_age$state == "DISTRICT OF COLUMBIA" |
+    population_by_age$state == "SOUTH DAKOTA" |
+    population_by_age$state == "NEBRASKA" |
+    population_by_age$state == "RHODE ISLAND" |
+    population_by_age$state == "TENNESSEE" |
+    population_by_age$state == "PENNSYLVANIA" |
+    population_by_age$state == "FLORIDA", ]
+
+glimpse(simple_population_by_age)
+```
 
 ```{r}
-library(dplyr)
 
-# List of states of interest
-states_of_interest <- c("CALIFORNIA", "NEW YORK", "LOUISIANA", "NORTH CAROLINA", "WASHINGTON", 
-                        "COLORADO", "GEORGIA", "MINNESOTA", "WISCONSIN", "NEW HAMPSHIRE", "MASSACHUSETTS", 
-                        "MONTANA", "DELAWARE", "NORTH DAKOTA", "DISTRICT OF COLUMBIA", "SOUTH DAKOTA", 
-                        "NEBRASKA", "RHODE ISLAND", "TENNESSEE", "PENNSYLVANIA", "FLORIDA")
 
-# Filter for states of interest and school age (5-17 years)
-school_age_population <- population_by_age %>%
-  filter(state %in% states_of_interest & age %in% 5:17)
+```
+```{r}
+# 1. Filter the data for April 2020 and July 2021
+april_2020_data <- simple_population_by_age[simple_population_by_age$est_date == "2020-04-01", ]
+july_2021_data <- simple_population_by_age[simple_population_by_age$est_date == "2021-07-01", ]
 
-# Group by state and estimation date and sum up the populations
-population_summary <- school_age_population %>%
-  group_by(state, est_date) %>%
-  summarise(total_population = sum(population))
+# 2. Calculate the population difference for each state
+population_diff <- merge(april_2020_data, july_2021_data, by = c("state", "age"), suffixes = c("_2020", "_2021"))
+population_diff$pop_diff <- population_diff$population_2021 - population_diff$population_2020
 
-# Pivot wider to have dates as columns and calculate the population shift
-population_shift_summary <- population_summary %>%
-  pivot_wider(names_from = est_date, values_from = total_population) %>%
-  mutate(population_shift = `2021-07-01` - `2020-04-01`)
-
-# Calculate the total shift for the states of interest
-total_shift <- population_shift_summary %>%
-  summarise(total_population_shift = sum(population_shift))
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift <- sum(population_diff$pop_diff)
 
 print(total_shift)
 
 ```
-```{r}
-overall_shift <- total_shift %>%
-  summarise(grand_total = sum(total_population_shift))
 
-print(overall_shift$grand_total)
+```{r}
+# 1. Filter the data for July 2020 and July 2021
+july_2020_data <- simple_population_by_age[simple_population_by_age$est_date == "2020-07-01", ]
+july_2021_data <- simple_population_by_age[simple_population_by_age$est_date == "2021-07-01", ]
+
+# 2. Calculate the population difference for each state
+population_diff <- merge(july_2020_data, july_2021_data, by = c("state", "age"), suffixes = c("_2020", "_2021"))
+population_diff$pop_diff <- population_diff$population_2021 - population_diff$population_2020
+
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift <- sum(population_diff$pop_diff)
+
+print(total_shift)
+
+
 ```
+
+
 
 ```
 ****Sentence #5: That leaves an estimated 230,000 students still unaccounted for in the data. These are children who didn’t sign up for private school or home-school or move out of state. They are missing.
 
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+
+
