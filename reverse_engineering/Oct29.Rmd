@@ -134,7 +134,7 @@ print(homeschool_all21)
 
 Here are the steps: 
 Filter for the 21 states.
-I don't think I need to filter the dataset for the ages 5-17 (school-age kids) because it looks like that's already done.
+I don't think I need to filter the dataset for the ages 5-17 (school-age kids) because it looks like that's already done, but we double-checked.
 Calculate the population shift from April 2020 to July 2021 for each state.
 Sum the population shifts to get the total shift for the 21 states.
 
@@ -146,22 +146,7 @@ population_by_age <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR
 ```{r}
 glimpse(population_by_age)
 ```
-```{r}
 
-# List of states to focus on
-states_of_interest <- c("CALIFORNIA", "NEW YORK", "LOUISIANA", "NORTH CAROLINA", "WASHINGTON", "COLORADO",
-                        "GEORGIA", "MINNESOTA", "WISCONSIN", "NEW HAMPSHIRE", "MASSACHUSETTS", "MONTANA", 
-                        "DELAWARE", "NORTH DAKOTA", "DISTRICT OF COLUMBIA", "SOUTH DAKOTA", "NEBRASKA", 
-                        "RHODE ISLAND", "TENNESSEE", "PENNSYLVANIA", "FLORIDA")
-
-# Filter the population_by_age dataframe
-filtered_population_by_age <- population_by_age[population_by_age$state %in% states_of_interest, ]
-
-# Check the top few rows to make sure it worked
-head(filtered_population_by_age)
-
-
-```
 ```{r}
 
 simple_population_by_age <- population_by_age[
@@ -189,11 +174,10 @@ simple_population_by_age <- population_by_age[
 glimpse(simple_population_by_age)
 ```
 
-```{r}
 
-
-```
 ```{r}
+#another try with chat gpt help
+
 # 1. Filter the data for April 2020 and July 2021
 april_2020_data <- simple_population_by_age[simple_population_by_age$est_date == "2020-04-01", ]
 july_2021_data <- simple_population_by_age[simple_population_by_age$est_date == "2021-07-01", ]
@@ -210,6 +194,7 @@ print(total_shift)
 ```
 
 ```{r}
+#maybe it's better to compare july to july?
 # 1. Filter the data for July 2020 and July 2021
 july_2020_data <- simple_population_by_age[simple_population_by_age$est_date == "2020-07-01", ]
 july_2021_data <- simple_population_by_age[simple_population_by_age$est_date == "2021-07-01", ]
@@ -226,6 +211,24 @@ print(total_shift)
 
 ```
 
+```{r}
+# Filter for ages 5-17
+school_age_data <- simple_population_by_age[simple_population_by_age$age %in% 5:17, ]
+
+# 1. Filter the data for July 2020 and July 2021
+july_2020_data <- school_age_data[school_age_data$est_date == "2020-07-01", ]
+july_2021_data <- school_age_data[school_age_data$est_date == "2021-07-01", ]
+
+# 2. Calculate the population difference for each state
+population_diff <- merge(july_2020_data, july_2021_data, by = c("state", "age"), suffixes = c("_2020", "_2021"))
+population_diff$pop_diff <- population_diff$population_2021 - population_diff$population_2020
+
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift <- sum(population_diff$pop_diff)
+
+print(total_shift)
+
+```
 
 
 ```

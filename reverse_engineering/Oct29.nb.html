@@ -1760,9 +1760,6 @@ story “Thousands of kids are missing from school. Where did they go?” <a hre
 <p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a>
 Notebook. When you execute code within the notebook, the results appear
 beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within
-the chunk or by placing your cursor inside it and pressing
-<em>Cmd+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUdXJuIG9mZiBzY2llbnRpZmljIG5vdGF0aW9uXG5vcHRpb25zKHNjaXBlbj05OTkpXG5cbmxpYnJhcnkodGlkeXZlcnNlKVxubGlicmFyeShyZWZpbnIpXG5saWJyYXJ5KGphbml0b3IpXG5saWJyYXJ5KGx1YnJpZGF0ZSlcbmxpYnJhcnkocmVhZHhsKVxubGlicmFyeShkYXRhc2V0cylcbmxpYnJhcnkoZHBseXIpXG5cbmBgYCJ9 -->
@@ -1838,7 +1835,7 @@ confirm the finding? If not, why not?] Once we figured out that we
 needed to filter by the 21 states that were listed in the spreadsheet,
 we created (with help) a filtered dataset. From there, we could
 summarize the k-12 total by year and confirm the difference in
-enrollment as 704,593</p></li>
+enrollment as 704,593.</p></li>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1885,18 +1882,16 @@ public_2021_enrollment</code></pre>
 </div>
 <div id="sentence-2" class="section level3">
 <h3>Sentence 2</h3>
-<ul>
-<li><p><strong>Sentence text</strong>: Some of those students enrolled
-in private schools. Across the states in the analysis, private-school
-enrollment grew by about 103,000 students.</p></li>
-<li><p><strong>Analysis summary</strong>: [Write up two to three
-sentences describing the results of your analysis. Were you able to
-confirm the finding? If not, why not?] Once we figured out that we
-needed to filter by the 21 states that were listed in the spreadsheet,
-we created (with help) a filtered dataset. From there, we could
-summarize the k-12 total by year and confirm the difference in
-enrollment as 704,593</p></li>
-</ul>
+<p><strong>Sentence text</strong>: Some of those students enrolled in
+private schools. Across the states in the analysis, private-school
+enrollment grew by about 103,000 students.</p>
+<p><strong>Analysis summary</strong>: [Write up two to three sentences
+describing the results of your analysis. Were you able to confirm the
+finding? If not, why not?] We filtered by the 21 states used in their
+analysis, and then found the sum of students enrolled in the school
+years “2021-22” and “2019-2020” and subtracted the difference. Our
+answer, 102,847 of students, is the same number, if we rounded to
+103,000 students enrolled.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShwcml2YXRlKVxuYGBgIn0= -->
@@ -1932,7 +1927,7 @@ home-schooling surged by around 184,000.</p></li>
 sentences describing the results of your analysis. Were you able to
 confirm the finding? If not, why not?] Yes, we got 184,047. I converted
 character values in the total change column into numerical values.
-(Alisha did it slightly differently</p></li>
+(Alisha did it slightly differently but with the same result.)</p></li>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1979,12 +1974,27 @@ filter(`Enrollment type` == &quot;Homeschool enrollment&quot; ) </code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaG9tZXNjaG9vbF9hbGwyMSA8LSBob21lc2Nob29sX2FsbDIxICU+JVxuICBtdXRhdGUoXG4gICAgbnVtX2NoYW5nZSA9IGFzLm51bWVyaWMoYFRvdGFsIGNoYW5nZWApKSB8PlxuICBzdW1tYXJpc2Uoc3VtX2NoYW5nZSA9IHN1bShudW1fY2hhbmdlLCBuYS5ybSA9IFRSVUUpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaG9tZXNjaG9vbF9hbGwyMSA8LSBob21lc2Nob29sX2FsbDIxICU+JVxuICBtdXRhdGUoXG4gICAgbnVtX2NoYW5nZSA9IGFzLm51bWVyaWMoYFRvdGFsIGNoYW5nZWApKSB8PlxuICBzdW1tYXJpc2Uoc3VtX2NoYW5nZSA9IHN1bShudW1fY2hhbmdlLCBuYS5ybSA9IFRSVUUpKVxuXG5cbmBgYCJ9 -->
 <pre class="r"><code>homeschool_all21 &lt;- homeschool_all21 %&gt;%
   mutate(
     num_change = as.numeric(`Total change`)) |&gt;
-  summarise(sum_change = sum(num_change, na.rm = TRUE))</code></pre>
+  summarise(sum_change = sum(num_change, na.rm = TRUE))
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoaG9tZXNjaG9vbF9hbGwyMSlcbmBgYCJ9 -->
+<pre class="r"><code>print(homeschool_all21)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMlZQVFF2Q01Bek5QcXBzb0FqK2p1Mnl5NjZDK0FORXdadlVyZXB3YThmV3NSMzk1ZE4wdERCcklVM3llQy9KTys0dlNYZ0pBY0FEMzNQQUkxZ0NPWjhPVVFyZ3U5ZzQ0RU9nOG9DazdRUUFyRlhlTGZvQnB2ZERKSnhXck1WaU13UER0cXV1MlpQeUI3UG9RU1A2MkVoV0dPNGJ2dzgrZTI1VzB2WnZiazRsamU4TjZyRWJMY2xTMUxJUUhFV3V1cHhZWXFleGdFM0gxU1Y1bEQwNy9vcVNWRzNRbGtHZjUraVkxV3FuKzlHemlKNjFZUHhSY0dhT0wrbU5sYnBabytYSmNWdzNCWmZHQ3FKdExJV2toaGRtb2pUSVpBN0dMemx5SS91eEFRQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sum_change"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"184047"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ul>
@@ -1996,10 +2006,10 @@ studied fell by about 183,000, according to census estimates.</p></li>
 sentences describing the results of your analysis. Were you able to
 confirm the finding? If not, why not?] -188936</p></li>
 </ul>
-<p>Here are the steps: Filter for the 21 states. Filter the dataset for
-the ages 5-17 (school-age kids). Group by state and the estimated date
-(est_date). Sum the population for each state by date. Calculate the
-population shift from April 2020 to April 2021 for each state. Sum the
+<p>Here are the steps: Filter for the 21 states. I don’t think I need to
+filter the dataset for the ages 5-17 (school-age kids) because it looks
+like that’s already done, but we double-checked. Calculate the
+population shift from April 2020 to July 2021 for each state. Sum the
 population shifts to get the total shift for the 21 states.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -2032,76 +2042,109 @@ $ est_date   &lt;date&gt; 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-0
 $ population &lt;dbl&gt; 61522, 60680, 60205, 61254, 61780, 63538, 65968, 67932, 67048, 65220, 64551, 65080, 64450, 10352…</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMaXN0IG9mIHN0YXRlcyBvZiBpbnRlcmVzdFxuc3RhdGVzX29mX2ludGVyZXN0IDwtIGMoXCJDQUxJRk9STklBXCIsIFwiTkVXIFlPUktcIiwgXCJMT1VJU0lBTkFcIiwgXCJOT1JUSCBDQVJPTElOQVwiLCBcIldBU0hJTkdUT05cIiwgXCJDT0xPUkFET1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJHRU9SR0lBXCIsIFwiTUlOTkVTT1RBXCIsIFwiV0lTQ09OU0lOXCIsIFwiTkVXIEhBTVBTSElSRVwiLCBcIk1BU1NBQ0hVU0VUVFNcIiwgXCJNT05UQU5BXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJERUxBV0FSRVwiLCBcIk5PUlRIIERBS09UQVwiLCBcIkRJU1RSSUNUIE9GIENPTFVNQklBXCIsIFwiU09VVEggREFLT1RBXCIsIFwiTkVCUkFTS0FcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICBcIlJIT0RFIElTTEFORFwiLCBcIlRFTk5FU1NFRVwiLCBcIlBFTk5TWUxWQU5JQVwiLCBcIkZMT1JJREFcIilcblxuY29sbmFtZXMocG9wdWxhdGlvbl9zdW1tYXJ5KVxuYGBgIn0= -->
-<pre class="r"><code># List of states of interest
-states_of_interest &lt;- c(&quot;CALIFORNIA&quot;, &quot;NEW YORK&quot;, &quot;LOUISIANA&quot;, &quot;NORTH CAROLINA&quot;, &quot;WASHINGTON&quot;, &quot;COLORADO&quot;,
-                        &quot;GEORGIA&quot;, &quot;MINNESOTA&quot;, &quot;WISCONSIN&quot;, &quot;NEW HAMPSHIRE&quot;, &quot;MASSACHUSETTS&quot;, &quot;MONTANA&quot;, 
-                        &quot;DELAWARE&quot;, &quot;NORTH DAKOTA&quot;, &quot;DISTRICT OF COLUMBIA&quot;, &quot;SOUTH DAKOTA&quot;, &quot;NEBRASKA&quot;, 
-                        &quot;RHODE ISLAND&quot;, &quot;TENNESSEE&quot;, &quot;PENNSYLVANIA&quot;, &quot;FLORIDA&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5zaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UgPC0gcG9wdWxhdGlvbl9ieV9hZ2VbXG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJDQUxJRk9STklBXCIgfFxuICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09IFwiTkVXIFlPUktcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJMT1VJU0lBTkFcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJOT1JUSCBDQVJPTElOQVwiIHxcbiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSBcIldBU0hJTkdUT05cIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJDT0xPUkFET1wiIHxcbiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSBcIkdFT1JHSUFcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJNSU5ORVNPVEFcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJXSVNDT05TSU5cIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJORVcgSEFNUFNISVJFXCIgfFxuICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09IFwiTUFTU0FDSFVTRVRUU1wiIHxcbiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSBcIk1PTlRBTkFcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJERUxBV0FSRVwiIHxcbiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSBcIkRJU1RSSUNUIE9GIENPTFVNQklBXCIgfFxuICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09IFwiU09VVEggREFLT1RBXCIgfFxuICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09IFwiTkVCUkFTS0FcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJSSE9ERSBJU0xBTkRcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJURU5ORVNTRUVcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJQRU5OU1lMVkFOSUFcIiB8XG4gICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gXCJGTE9SSURBXCIsIF1cblxuZ2xpbXBzZShzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UpXG5gYGAifQ== -->
+<pre class="r"><code>
+simple_population_by_age &lt;- population_by_age[
+    population_by_age$state == &quot;CALIFORNIA&quot; |
+    population_by_age$state == &quot;NEW YORK&quot; |
+    population_by_age$state == &quot;LOUISIANA&quot; |
+    population_by_age$state == &quot;NORTH CAROLINA&quot; |
+    population_by_age$state == &quot;WASHINGTON&quot; |
+    population_by_age$state == &quot;COLORADO&quot; |
+    population_by_age$state == &quot;GEORGIA&quot; |
+    population_by_age$state == &quot;MINNESOTA&quot; |
+    population_by_age$state == &quot;WISCONSIN&quot; |
+    population_by_age$state == &quot;NEW HAMPSHIRE&quot; |
+    population_by_age$state == &quot;MASSACHUSETTS&quot; |
+    population_by_age$state == &quot;MONTANA&quot; |
+    population_by_age$state == &quot;DELAWARE&quot; |
+    population_by_age$state == &quot;DISTRICT OF COLUMBIA&quot; |
+    population_by_age$state == &quot;SOUTH DAKOTA&quot; |
+    population_by_age$state == &quot;NEBRASKA&quot; |
+    population_by_age$state == &quot;RHODE ISLAND&quot; |
+    population_by_age$state == &quot;TENNESSEE&quot; |
+    population_by_age$state == &quot;PENNSYLVANIA&quot; |
+    population_by_age$state == &quot;FLORIDA&quot;, ]
 
-colnames(population_summary)</code></pre>
+glimpse(simple_population_by_age)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwic3RhdGVcIiAgICAgICAgICAgIFwicG9wXzIwMjAtMDQtMDFcIiAgIFwicG9wXzIwMjAtMDctMDFcIiAgIFwicG9wXzIwMjEtMDctMDFcIiAgIFwicG9wdWxhdGlvbl9zaGlmdFwiXG4ifQ== -->
-<pre><code>[1] &quot;state&quot;            &quot;pop_2020-04-01&quot;   &quot;pop_2020-07-01&quot;   &quot;pop_2021-07-01&quot;   &quot;population_shift&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogNzgwXG5Db2x1bW5zOiA1XG4kIGZpcHMgICAgICAgPGRibD4gNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgNiwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgOCwgMTAsIDEwLCAxMCwgMTAsIDEw4oCmXG4kIHN0YXRlICAgICAgPGNocj4gXCJDQUxJRk9STklBXCIsIFwiQ0FMSUZPUk5JQVwiLCBcIkNBTElGT1JOSUFcIiwgXCJDQUxJRk9STklBXCIsIFwiQ0FMSUZPUk5JQVwiLCBcIkNBTElGT1JOSUFcIiwgXCJDQUxJRk9STklBXCLigKZcbiQgYWdlICAgICAgICA8ZGJsPiA1LCA2LCA3LCA4LCA5LCAxMCwgMTEsIDEyLCAxMywgMTQsIDE1LCAxNiwgMTcsIDUsIDYsIDcsIDgsIDksIDEwLCAxMSwgMTIsIDEzLCAxNCwgMTUsIDE2LCAxNywgNSzigKZcbiQgZXN0X2RhdGUgICA8ZGF0ZT4gMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSwgMjAyMC0wNC0wMSzigKZcbiQgcG9wdWxhdGlvbiA8ZGJsPiA0OTUyNzgsIDQ5MDk1OCwgNDk0NjU1LCA0OTYwNDEsIDUwMzEwNCwgNTA2OTIwLCA1MTk2ODYsIDUzOTAyNCwgNTM1MTExLCA1MjIwMDEsIDUxNzI1NiwgNTE4Mzk4LCDigKZcbiJ9 -->
+<pre><code>Rows: 780
+Columns: 5
+$ fips       &lt;dbl&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10, 10, 10, 10…
+$ state      &lt;chr&gt; &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;, &quot;CALIFORNIA&quot;…
+$ age        &lt;dbl&gt; 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5,…
+$ est_date   &lt;date&gt; 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01, 2020-04-01,…
+$ population &lt;dbl&gt; 495278, 490958, 494655, 496041, 503104, 506920, 519686, 539024, 535111, 522001, 517256, 518398, …</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcblxuIyBMaXN0IG9mIHN0YXRlcyBvZiBpbnRlcmVzdFxuc3RhdGVzX29mX2ludGVyZXN0IDwtIGMoXCJDQUxJRk9STklBXCIsIFwiTkVXIFlPUktcIiwgXCJMT1VJU0lBTkFcIiwgXCJOT1JUSCBDQVJPTElOQVwiLCBcIldBU0hJTkdUT05cIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICBcIkNPTE9SQURPXCIsIFwiR0VPUkdJQVwiLCBcIk1JTk5FU09UQVwiLCBcIldJU0NPTlNJTlwiLCBcIk5FVyBIQU1QU0hJUkVcIiwgXCJNQVNTQUNIVVNFVFRTXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJNT05UQU5BXCIsIFwiREVMQVdBUkVcIiwgXCJOT1JUSCBEQUtPVEFcIiwgXCJESVNUUklDVCBPRiBDT0xVTUJJQVwiLCBcIlNPVVRIIERBS09UQVwiLCBcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiTkVCUkFTS0FcIiwgXCJSSE9ERSBJU0xBTkRcIiwgXCJURU5ORVNTRUVcIiwgXCJQRU5OU1lMVkFOSUFcIiwgXCJGTE9SSURBXCIpXG5cbiMgRmlsdGVyIGZvciBzdGF0ZXMgb2YgaW50ZXJlc3QgYW5kIHNjaG9vbCBhZ2UgKDUtMTcgeWVhcnMpXG5zY2hvb2xfYWdlX3BvcHVsYXRpb24gPC0gcG9wdWxhdGlvbl9ieV9hZ2UgJT4lXG4gIGZpbHRlcihzdGF0ZSAlaW4lIHN0YXRlc19vZl9pbnRlcmVzdCAmIGFnZSAlaW4lIDU6MTcpXG5cbiMgR3JvdXAgYnkgc3RhdGUgYW5kIGVzdGltYXRpb24gZGF0ZSBhbmQgc3VtIHVwIHRoZSBwb3B1bGF0aW9uc1xucG9wdWxhdGlvbl9zdW1tYXJ5IDwtIHNjaG9vbF9hZ2VfcG9wdWxhdGlvbiAlPiVcbiAgZ3JvdXBfYnkoc3RhdGUsIGVzdF9kYXRlKSAlPiVcbiAgc3VtbWFyaXNlKHRvdGFsX3BvcHVsYXRpb24gPSBzdW0ocG9wdWxhdGlvbikpXG5gYGAifQ== -->
-<pre class="r"><code>library(dplyr)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAxLiBGaWx0ZXIgdGhlIGRhdGEgZm9yIEFwcmlsIDIwMjAgYW5kIEp1bHkgMjAyMVxuYXByaWxfMjAyMF9kYXRhIDwtIHNpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZVtzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UkZXN0X2RhdGUgPT0gXCIyMDIwLTA0LTAxXCIsIF1cbmp1bHlfMjAyMV9kYXRhIDwtIHNpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZVtzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UkZXN0X2RhdGUgPT0gXCIyMDIxLTA3LTAxXCIsIF1cblxuIyAyLiBDYWxjdWxhdGUgdGhlIHBvcHVsYXRpb24gZGlmZmVyZW5jZSBmb3IgZWFjaCBzdGF0ZVxucG9wdWxhdGlvbl9kaWZmIDwtIG1lcmdlKGFwcmlsXzIwMjBfZGF0YSwganVseV8yMDIxX2RhdGEsIGJ5ID0gYyhcInN0YXRlXCIsIFwiYWdlXCIpLCBzdWZmaXhlcyA9IGMoXCJfMjAyMFwiLCBcIl8yMDIxXCIpKVxucG9wdWxhdGlvbl9kaWZmJHBvcF9kaWZmIDwtIHBvcHVsYXRpb25fZGlmZiRwb3B1bGF0aW9uXzIwMjEgLSBwb3B1bGF0aW9uX2RpZmYkcG9wdWxhdGlvbl8yMDIwXG5cbiMgMy4gU3VtIHRoZSBkaWZmZXJlbmNlcyB0byBnZXQgdGhlIHRvdGFsIHBvcHVsYXRpb24gc2hpZnQgZm9yIHRoZSAyMSBzdGF0ZXNcbnRvdGFsX3NoaWZ0IDwtIHN1bShwb3B1bGF0aW9uX2RpZmYkcG9wX2RpZmYpXG5cbnByaW50KHRvdGFsX3NoaWZ0KVxuYGBgIn0= -->
+<pre class="r"><code># 1. Filter the data for April 2020 and July 2021
+april_2020_data &lt;- simple_population_by_age[simple_population_by_age$est_date == &quot;2020-04-01&quot;, ]
+july_2021_data &lt;- simple_population_by_age[simple_population_by_age$est_date == &quot;2021-07-01&quot;, ]
 
-# List of states of interest
-states_of_interest &lt;- c(&quot;CALIFORNIA&quot;, &quot;NEW YORK&quot;, &quot;LOUISIANA&quot;, &quot;NORTH CAROLINA&quot;, &quot;WASHINGTON&quot;, 
-                        &quot;COLORADO&quot;, &quot;GEORGIA&quot;, &quot;MINNESOTA&quot;, &quot;WISCONSIN&quot;, &quot;NEW HAMPSHIRE&quot;, &quot;MASSACHUSETTS&quot;, 
-                        &quot;MONTANA&quot;, &quot;DELAWARE&quot;, &quot;NORTH DAKOTA&quot;, &quot;DISTRICT OF COLUMBIA&quot;, &quot;SOUTH DAKOTA&quot;, 
-                        &quot;NEBRASKA&quot;, &quot;RHODE ISLAND&quot;, &quot;TENNESSEE&quot;, &quot;PENNSYLVANIA&quot;, &quot;FLORIDA&quot;)
+# 2. Calculate the population difference for each state
+population_diff &lt;- merge(april_2020_data, july_2021_data, by = c(&quot;state&quot;, &quot;age&quot;), suffixes = c(&quot;_2020&quot;, &quot;_2021&quot;))
+population_diff$pop_diff &lt;- population_diff$population_2021 - population_diff$population_2020
 
-# Filter for states of interest and school age (5-17 years)
-school_age_population &lt;- population_by_age %&gt;%
-  filter(state %in% states_of_interest &amp; age %in% 5:17)
-
-# Group by state and estimation date and sum up the populations
-population_summary &lt;- school_age_population %&gt;%
-  group_by(state, est_date) %&gt;%
-  summarise(total_population = sum(population))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ3N0YXRlJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuIn0= -->
-<pre><code>`summarise()` has grouped output by &#39;state&#39;. You can override using the `.groups` argument.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQaXZvdCB3aWRlciB0byBoYXZlIGRhdGVzIGFzIGNvbHVtbnMgYW5kIGNhbGN1bGF0ZSB0aGUgcG9wdWxhdGlvbiBzaGlmdFxucG9wdWxhdGlvbl9zaGlmdF9zdW1tYXJ5IDwtIHBvcHVsYXRpb25fc3VtbWFyeSAlPiVcbiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IGVzdF9kYXRlLCB2YWx1ZXNfZnJvbSA9IHRvdGFsX3BvcHVsYXRpb24pICU+JVxuICBtdXRhdGUocG9wdWxhdGlvbl9zaGlmdCA9IGAyMDIxLTA3LTAxYCAtIGAyMDIwLTA0LTAxYClcblxuIyBDYWxjdWxhdGUgdGhlIHRvdGFsIHNoaWZ0IGZvciB0aGUgc3RhdGVzIG9mIGludGVyZXN0XG50b3RhbF9zaGlmdCA8LSBwb3B1bGF0aW9uX3NoaWZ0X3N1bW1hcnkgJT4lXG4gIHN1bW1hcmlzZSh0b3RhbF9wb3B1bGF0aW9uX3NoaWZ0ID0gc3VtKHBvcHVsYXRpb25fc2hpZnQpKVxuXG5wcmludCh0b3RhbF9zaGlmdClcbmBgYCJ9 -->
-<pre class="r"><code># Pivot wider to have dates as columns and calculate the population shift
-population_shift_summary &lt;- population_summary %&gt;%
-  pivot_wider(names_from = est_date, values_from = total_population) %&gt;%
-  mutate(population_shift = `2021-07-01` - `2020-04-01`)
-
-# Calculate the total shift for the states of interest
-total_shift &lt;- population_shift_summary %&gt;%
-  summarise(total_population_shift = sum(population_shift))
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift &lt;- sum(population_diff$pop_diff)
 
 print(total_shift)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MjEsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMjEgw5cgMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVN2MjhUTVJSMmZoeE5vZ1JWZ2pKbllFMmt3c0xBRVBmdWtsaTUySlY5SWEyRWxGN1RsRVljZDZma0lqcDI2Y2hTc1NBbWxvcVZnWVVwSUNFeElaajRJeEFiRWx1Q2ZiWXZjQ2VkUG4rZjMvdmVzLzJvZFhDL2NsQUJBQlJBc1pBREJZTXZnVEZ3MjQwSEFCVHpuT1JBRVpRRm52T2dXM3doeEczKzc2aU5pZ2tkMUNZVUk2aVVra2tjUXFGRk5MZHNCdzRodFJXL2JTSG1VbVM2ZGRLdTg5aEJmeS9OM1dyelZHU2x0R01UMmtsM3l3NFpJSVlnMWtLdER4bURabmZBYk5kbE9xcVBNTFlaY1ZPWFBzSHVKcW1FN1QwS1dTODF3ZmF3M29YOWZkWkZhWk1sSVI0UzJsUDhKaWJVN2RaTlNJbURVcXVxVkMzWTIxU3I3dHNZczBQbkVkeGNTWlYyaVdYWEVYTWd0clRHeUNDYlczWnQwVHF6ZFJ1VkllUmQ0WTVMc0E0WkltWVN6QkFXWFltSFdQNDVpc1M3TFQrUExnUzJMaE1BclplL0pmNFl0cEw5MStjSlg3Ny9JUEg3cGNSckZYZTlrdnppaThRM255VCtPbDVLMzdjeTd1cEk2bDlmcUxqSFVuLzFUZUs3dTFLL2Vpang0NjVzNlArSk1nTHYyV1N1cGltdnhYbnN4Uk5GN3NSaDdQbWpLSXdXdmhkUHcyQTBQNXVleGhtZjhpeDgzdFJlTmVFbHFxM1g2NS9aZ21QZm0rdUNXcXljZUxIWFBKM3hmTTVXbVpTdE1CSjFlVkplekw2UlNjN05Nc0wySWhDZG5EVEdaNHZnYWVQZXJxaVE3TXV2cHRZNy82enpzbVorcmJ3TTVYVmpFanlaQnZvdUROODdudmg2R1BtUmt4TTNvOWswaVBWUnVEcHZKbmVtbFhIb2F5VTVIRmo5QmZrYTZHVHpBd0FBIn0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total_population_shift"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"CALIFORNIA","2":"-95751"},{"1":"COLORADO","2":"-10943"},{"1":"DELAWARE","2":"688"},{"1":"DISTRICT OF COLUMBIA","2":"1341"},{"1":"FLORIDA","2":"23901"},{"1":"GEORGIA","2":"-1758"},{"1":"LOUISIANA","2":"-5562"},{"1":"MASSACHUSETTS","2":"-17940"},{"1":"MINNESOTA","2":"-2938"},{"1":"MONTANA","2":"2943"},{"1":"NEBRASKA","2":"-537"},{"1":"NEW HAMPSHIRE","2":"-2273"},{"1":"NEW YORK","2":"-60182"},{"1":"NORTH CAROLINA","2":"693"},{"1":"NORTH DAKOTA","2":"1176"},{"1":"PENNSYLVANIA","2":"-15642"},{"1":"RHODE ISLAND","2":"-2222"},{"1":"SOUTH DAKOTA","2":"1652"},{"1":"TENNESSEE","2":"4388"},{"1":"WASHINGTON","2":"-1167"},{"1":"WISCONSIN","2":"-8803"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[21]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0xOTAxMTJcbiJ9 -->
+<pre><code>[1] -190112</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3ZlcmFsbF9zaGlmdCA8LSB0b3RhbF9zaGlmdCAlPiVcbiAgc3VtbWFyaXNlKGdyYW5kX3RvdGFsID0gc3VtKHRvdGFsX3BvcHVsYXRpb25fc2hpZnQpKVxuXG5wcmludChvdmVyYWxsX3NoaWZ0JGdyYW5kX3RvdGFsKVxuYGBgIn0= -->
-<pre class="r"><code>overall_shift &lt;- total_shift %&gt;%
-  summarise(grand_total = sum(total_population_shift))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAxLiBGaWx0ZXIgdGhlIGRhdGEgZm9yIEp1bHkgMjAyMCBhbmQgSnVseSAyMDIxXG5qdWx5XzIwMjBfZGF0YSA8LSBzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2Vbc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlJGVzdF9kYXRlID09IFwiMjAyMC0wNy0wMVwiLCBdXG5qdWx5XzIwMjFfZGF0YSA8LSBzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2Vbc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlJGVzdF9kYXRlID09IFwiMjAyMS0wNy0wMVwiLCBdXG5cbiMgMi4gQ2FsY3VsYXRlIHRoZSBwb3B1bGF0aW9uIGRpZmZlcmVuY2UgZm9yIGVhY2ggc3RhdGVcbnBvcHVsYXRpb25fZGlmZiA8LSBtZXJnZShqdWx5XzIwMjBfZGF0YSwganVseV8yMDIxX2RhdGEsIGJ5ID0gYyhcInN0YXRlXCIsIFwiYWdlXCIpLCBzdWZmaXhlcyA9IGMoXCJfMjAyMFwiLCBcIl8yMDIxXCIpKVxucG9wdWxhdGlvbl9kaWZmJHBvcF9kaWZmIDwtIHBvcHVsYXRpb25fZGlmZiRwb3B1bGF0aW9uXzIwMjEgLSBwb3B1bGF0aW9uX2RpZmYkcG9wdWxhdGlvbl8yMDIwXG5cbiMgMy4gU3VtIHRoZSBkaWZmZXJlbmNlcyB0byBnZXQgdGhlIHRvdGFsIHBvcHVsYXRpb24gc2hpZnQgZm9yIHRoZSAyMSBzdGF0ZXNcbnRvdGFsX3NoaWZ0IDwtIHN1bShwb3B1bGF0aW9uX2RpZmYkcG9wX2RpZmYpXG5cbnByaW50KHRvdGFsX3NoaWZ0KVxuYGBgIn0= -->
+<pre class="r"><code># 1. Filter the data for July 2020 and July 2021
+july_2020_data &lt;- simple_population_by_age[simple_population_by_age$est_date == &quot;2020-07-01&quot;, ]
+july_2021_data &lt;- simple_population_by_age[simple_population_by_age$est_date == &quot;2021-07-01&quot;, ]
 
-print(overall_shift$grand_total)</code></pre>
+# 2. Calculate the population difference for each state
+population_diff &lt;- merge(july_2020_data, july_2021_data, by = c(&quot;state&quot;, &quot;age&quot;), suffixes = c(&quot;_2020&quot;, &quot;_2021&quot;))
+population_diff$pop_diff &lt;- population_diff$population_2021 - population_diff$population_2020
+
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift &lt;- sum(population_diff$pop_diff)
+
+print(total_shift)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0xODg5MzZcbiJ9 -->
-<pre><code>[1] -188936</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0xNTU2MDRcbiJ9 -->
+<pre><code>[1] -155604</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBGaWx0ZXIgZm9yIGFnZXMgNS0xN1xuc2Nob29sX2FnZV9kYXRhIDwtIHNpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZVtzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UkYWdlICVpbiUgNToxNywgXVxuXG4jIDEuIEZpbHRlciB0aGUgZGF0YSBmb3IgSnVseSAyMDIwIGFuZCBKdWx5IDIwMjFcbmp1bHlfMjAyMF9kYXRhIDwtIHNjaG9vbF9hZ2VfZGF0YVtzY2hvb2xfYWdlX2RhdGEkZXN0X2RhdGUgPT0gXCIyMDIwLTA3LTAxXCIsIF1cbmp1bHlfMjAyMV9kYXRhIDwtIHNjaG9vbF9hZ2VfZGF0YVtzY2hvb2xfYWdlX2RhdGEkZXN0X2RhdGUgPT0gXCIyMDIxLTA3LTAxXCIsIF1cblxuIyAyLiBDYWxjdWxhdGUgdGhlIHBvcHVsYXRpb24gZGlmZmVyZW5jZSBmb3IgZWFjaCBzdGF0ZVxucG9wdWxhdGlvbl9kaWZmIDwtIG1lcmdlKGp1bHlfMjAyMF9kYXRhLCBqdWx5XzIwMjFfZGF0YSwgYnkgPSBjKFwic3RhdGVcIiwgXCJhZ2VcIiksIHN1ZmZpeGVzID0gYyhcIl8yMDIwXCIsIFwiXzIwMjFcIikpXG5wb3B1bGF0aW9uX2RpZmYkcG9wX2RpZmYgPC0gcG9wdWxhdGlvbl9kaWZmJHBvcHVsYXRpb25fMjAyMSAtIHBvcHVsYXRpb25fZGlmZiRwb3B1bGF0aW9uXzIwMjBcblxuIyAzLiBTdW0gdGhlIGRpZmZlcmVuY2VzIHRvIGdldCB0aGUgdG90YWwgcG9wdWxhdGlvbiBzaGlmdCBmb3IgdGhlIDIxIHN0YXRlc1xudG90YWxfc2hpZnQgPC0gc3VtKHBvcHVsYXRpb25fZGlmZiRwb3BfZGlmZilcblxucHJpbnQodG90YWxfc2hpZnQpXG5gYGAifQ== -->
+<pre class="r"><code># Filter for ages 5-17
+school_age_data &lt;- simple_population_by_age[simple_population_by_age$age %in% 5:17, ]
+
+# 1. Filter the data for July 2020 and July 2021
+july_2020_data &lt;- school_age_data[school_age_data$est_date == &quot;2020-07-01&quot;, ]
+july_2021_data &lt;- school_age_data[school_age_data$est_date == &quot;2021-07-01&quot;, ]
+
+# 2. Calculate the population difference for each state
+population_diff &lt;- merge(july_2020_data, july_2021_data, by = c(&quot;state&quot;, &quot;age&quot;), suffixes = c(&quot;_2020&quot;, &quot;_2021&quot;))
+population_diff$pop_diff &lt;- population_diff$population_2021 - population_diff$population_2020
+
+# 3. Sum the differences to get the total population shift for the 21 states
+total_shift &lt;- sum(population_diff$pop_diff)
+
+print(total_shift)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0xNTU2MDRcbiJ9 -->
+<pre><code>[1] -155604</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2118,7 +2161,7 @@ finding? If not, why not?]</li>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmVkbyByZXZlcnNlIGVuZ2luZWVyaW5nIHRocm91Z2ggc2VudGVuY2UgNCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQojIFR1cm4gb2ZmIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW49OTk5KQoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocmVmaW5yKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQpsaWJyYXJ5KHJlYWR4bCkKbGlicmFyeShkYXRhc2V0cykKbGlicmFyeShkcGx5cikKCmBgYApgYGB7cn0KI0xvYWQgZGF0YQpwb3B1bGF0aW9uIDwtIHJlYWRfY3N2KCIvVXNlcnMvbGF1cmFjZWNoL0RvY3VtZW50cy9HaXRIdWIvbGF1cmEtY2VjaC1KT1VSNzcyL3JldmVyc2VfZW5naW5lZXJpbmcvZGF0YS9wb3B1bGF0aW9uLWJ5LWFnZS5jc3YiKQpwcml2YXRlIDwtIHJlYWRfY3N2KCIvVXNlcnMvbGF1cmFjZWNoL0RvY3VtZW50cy9HaXRIdWIvbGF1cmEtY2VjaC1KT1VSNzcyL3JldmVyc2VfZW5naW5lZXJpbmcvZGF0YS9wcml2YXRlLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKcHVibGljIDwtIHJlYWRfY3N2KCIvVXNlcnMvbGF1cmFjZWNoL0RvY3VtZW50cy9HaXRIdWIvbGF1cmEtY2VjaC1KT1VSNzcyL3JldmVyc2VfZW5naW5lZXJpbmcvZGF0YS9wdWJsaWMtZW5yb2xsbWVudC1ieS1ncmFkZS5jc3YiKQptaXNzaW5nIDwtIHJlYWRfZXhjZWwoIi9Vc2Vycy9sYXVyYWNlY2gvRG9jdW1lbnRzL0dpdEh1Yi9sYXVyYS1jZWNoLUpPVVI3NzIvcmV2ZXJzZV9lbmdpbmVlcmluZy9kYXRhL01pc3NpbmctS2lkcy1TdW1tYXJ5LUZpbGUueGxzeCIpCmBgYApgYGB7cn0KCmBgYAoKIyMjIFNlbnRlbmNlIDEKCiogKipTZW50ZW5jZSB0ZXh0Kio6IE92ZXJhbGwsIHB1YmxpYyBzY2hvb2wgZW5yb2xsbWVudCBmZWxsIGJ5IG92ZXIgNzAwLDAwMCBzdHVkZW50cyBiZXR3ZWVuIHRoZSAyMDE5LTIwMjAgYW5kIDIwMjEtMjAyMiBzY2hvb2wgeWVhcnMgaW4gdGhlIDIxIHN0YXRlcyBwbHVzIFdhc2hpbmd0b24sIEQuQy4sIHRoYXQgcHJvdmlkZWQgdGhlIG5lY2Vzc2FyeSBkYXRhLgoKKiAqKkFuYWx5c2lzIHN1bW1hcnkqKjogW1dyaXRlIHVwIHR3byB0byB0aHJlZSBzZW50ZW5jZXMgZGVzY3JpYmluZyB0aGUgcmVzdWx0cyBvZiB5b3VyIGFuYWx5c2lzLiAgV2VyZSB5b3UgYWJsZSB0byBjb25maXJtIHRoZSBmaW5kaW5nPyBJZiBub3QsIHdoeSBub3Q/XSBPbmNlIHdlIGZpZ3VyZWQgb3V0IHRoYXQgd2UgbmVlZGVkIHRvIGZpbHRlciBieSB0aGUgMjEgc3RhdGVzIHRoYXQgd2VyZSBsaXN0ZWQgaW4gdGhlIHNwcmVhZHNoZWV0LCB3ZSBjcmVhdGVkICh3aXRoIGhlbHApIGEgZmlsdGVyZWQgZGF0YXNldC4gRnJvbSB0aGVyZSwgd2UgY291bGQgc3VtbWFyaXplIHRoZSBrLTEyIHRvdGFsIGJ5IHllYXIgYW5kIGNvbmZpcm0gdGhlIGRpZmZlcmVuY2UgaW4gZW5yb2xsbWVudCBhcyA3MDQsNTkzCgpgYGB7cn0KcHVibGljXzIxIDwtIHB1YmxpYyB8PgpmaWx0ZXIoc3QgPT0iQ0EifCBzdD09Ik5ZIiB8IHN0PT0iTEEiIHwgc3Q9PSJOQyJ8IHN0PT0iV0EifCBzdD09IkNPIiB8IHN0PT0iR0EiIHwgc3Q9PSJNTiIgfCBzdD09IldJIiB8IHN0PT0iTkgiIHwgc3Q9PSJNQSIgfCBzdD09Ik1UIiB8IHN0PT0iREUifCBzdD09Ik5EIiB8IHN0PT0iREMiIHwgc3Q9PSJTRCIgfCBzdD09IlNDIiB8IHN0PT0iTkUiIHwgc3Q9PSJSSSIgfCBzdD09IlROIiB8IHN0PT0iUEEiIHwgc3Q9PSJGTCIpIHw+CiAgZ3JvdXBfYnkoc2NoX3llYXIpIHw+CiAgZmlsdGVyKGdyYWRlPT0ia18xMl90b3RhbCIpIHw+CiAgc3VtbWFyaXNlKHRvdGFsPXN1bShlbnJvbGxtZW50KSkKYGBgCgpgYGB7cn0KCnB1YmxpY18yMDE5IDwtIHB1YmxpY18yMSB8PgogIGZpbHRlcihzY2hfeWVhciA9PSAiMjAxOS0yMDIwIikKcHVibGljXzIwMTlfZW5yb2xsbWVudCA8LSBwdWJsaWNfMjAxOSR0b3RhbApwdWJsaWNfMjAxOV9lbnJvbGxtZW50CgojIyMKCnB1YmxpY18yMDIxIDwtIHB1YmxpY18yMSB8PgogIGZpbHRlcihzY2hfeWVhciA9PSIyMDIxLTIwMjIiKQpwdWJsaWNfMjAyMV9lbnJvbGxtZW50IDwtcHVibGljXzIwMjEkdG90YWwKcHVibGljXzIwMjFfZW5yb2xsbWVudAoKcHVibGljXzIwMjFfZW5yb2xsbWVudCAtIHB1YmxpY18yMDE5X2Vucm9sbG1lbnQKCmBgYAoKCiMjIyBTZW50ZW5jZSAyIAoKKiAqKlNlbnRlbmNlIHRleHQqKjogU29tZSBvZiB0aG9zZSBzdHVkZW50cyBlbnJvbGxlZCBpbiBwcml2YXRlIHNjaG9vbHMuIEFjcm9zcyB0aGUgc3RhdGVzIGluIHRoZSBhbmFseXNpcywgcHJpdmF0ZS1zY2hvb2wgZW5yb2xsbWVudCBncmV3IGJ5IGFib3V0IDEwMywwMDAgc3R1ZGVudHMuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dIE9uY2Ugd2UgZmlndXJlZCBvdXQgdGhhdCB3ZSBuZWVkZWQgdG8gZmlsdGVyIGJ5IHRoZSAyMSBzdGF0ZXMgdGhhdCB3ZXJlIGxpc3RlZCBpbiB0aGUgc3ByZWFkc2hlZXQsIHdlIGNyZWF0ZWQgKHdpdGggaGVscCkgYSBmaWx0ZXJlZCBkYXRhc2V0LiBGcm9tIHRoZXJlLCB3ZSBjb3VsZCBzdW1tYXJpemUgdGhlIGstMTIgdG90YWwgYnkgeWVhciBhbmQgY29uZmlybSB0aGUgZGlmZmVyZW5jZSBpbiBlbnJvbGxtZW50IGFzIDcwNCw1OTMKCmBgYHtyfQpnbGltcHNlKHByaXZhdGUpCmBgYAoKYGBge3J9CnByaXZhdGVfYWxsMjEgPC0gcHJpdmF0ZSB8PgpmaWx0ZXIoc3RhdGUgPT0iQ0EifCBzdGF0ZT09Ik5ZIiB8IHN0YXRlPT0iTEEiIHwgc3RhdGU9PSJOQyJ8IHN0YXRlPT0iV0EifCBzdGF0ZT09IkNPIiB8IHN0YXRlPT0iR0EiIHwgc3RhdGU9PSJNTiIgfCBzdGF0ZT09IldJIiB8IHN0YXRlPT0iTkgiIHwgc3RhdGU9PSJNQSIgfCBzdGF0ZT09Ik1UIiB8IHN0YXRlPT0iREUifCBzdGF0ZT09Ik5EIiB8IHN0YXRlPT0iREMiIHwgc3RhdGU9PSJTRCIgfCBzdGF0ZT09IlNDIiB8IHN0YXRlPT0iTkUiIHwgc3RhdGU9PSJSSSIgfCBzdGF0ZT09IlROIiB8IHN0YXRlPT0iUEEiIHwgc3RhdGU9PSJGTCIpCmBgYAoKIyMjIFNlbnRlbmNlIDMgCgoqICoqU2VudGVuY2UgdGV4dCoqOiBBIG11Y2ggYmlnZ2VyIGdyb3VwIG9mIHN0dWRlbnRzIHN3aXRjaGVkIHRvIGhvbWUtc2Nob29saW5nLiBUaGUgbnVtYmVyIG9mIGNoaWxkcmVuIHJlZ2lzdGVyZWQgZm9yIGhvbWUtc2Nob29saW5nIHN1cmdlZCBieSBhcm91bmQgMTg0LDAwMC4KCiogKipBbmFseXNpcyBzdW1tYXJ5Kio6IFtXcml0ZSB1cCB0d28gdG8gdGhyZWUgc2VudGVuY2VzIGRlc2NyaWJpbmcgdGhlIHJlc3VsdHMgb2YgeW91ciBhbmFseXNpcy4gIFdlcmUgeW91IGFibGUgdG8gY29uZmlybSB0aGUgZmluZGluZz8gSWYgbm90LCB3aHkgbm90P10gWWVzLCB3ZSBnb3QgMTg0LDA0Ny4gSSBjb252ZXJ0ZWQgY2hhcmFjdGVyIHZhbHVlcyBpbiB0aGUgdG90YWwgY2hhbmdlIGNvbHVtbiBpbnRvIG51bWVyaWNhbCB2YWx1ZXMuIChBbGlzaGEgZGlkIGl0IHNsaWdodGx5IGRpZmZlcmVudGx5CgpgYGB7cn0KI0Rpc2NsYWltZXIsIHVzZSBvZiBDaGF0IENQVCB0byBjcmVhdGUgYSAuY3N2IGZpbGUgZnJvbSBhIHRhYiBpbiBhbiBleGNlbCBzaGVldAojUHJvbXB0ID0gImhvdyBkbyB5b3UgY3JlYXRlIGEgLmNzdiBmaWxlIGZyb20gYSB0YWIgaW4gYW4gZXhjZWwgc2hlZXQgaW4gUnN0dWRpbz8iCgptaXNzaW5nX2hvbWVzY2hvb2wgPC0gcmVhZF9leGNlbCgiL1VzZXJzL2xhdXJhY2VjaC9EZXNrdG9wL01pc3NpbmctS2lkcy1TdW1tYXJ5LUZpbGUgY29weS54bHN4Iiwgc2hlZXQgPSAiRW5yb2xsbWVudCBDaGFuZ2VzIikKCndyaXRlLmNzdihtaXNzaW5nX2hvbWVzY2hvb2wsICJtaXNzaW5nX2hvbWVzY2hvb2wuY3N2Iiwgcm93Lm5hbWVzID0gRkFMU0UpCgpnbGltcHNlKG1pc3NpbmdfaG9tZXNjaG9vbCkKCiNob21lc2Nob29sX2FsbDIxIDwtIG1pc3NpbmdfaG9tZXNjaG9vbCB8PiAKI2ZpbHRlcihTdGF0ZSA9PSJDQSJ8IFN0YXRlPT0iTlkiIHwgU3RhdGU9PSJMQSIgfCBTdGF0ZT09Ik5DInwgU3RhdGU9PSJXQSJ8IFN0YXRlPT0iQ08iIHwgU3RhdGU9PSJHQSIgfCBTdGF0ZT09Ik1OIiB8ICNTdGF0ZT09IldJIiB8IFN0YXRlPT0iTkgiIHwgU3RhdGU9PSJNQSIgfCBTdGF0ZT09Ik1UIiB8IFN0YXRlPT0iREUifCBTdGF0ZT09Ik5EIiB8IFN0YXRlPT0iREMiIHwgU3RhdGU9PSJTRCIgfCBTdGF0ZT09IlNDIiAjfCBTdGF0ZT09Ik5FIiB8IFN0YXRlPT0iUkkiIHwgU3RhdGU9PSJUTiIgfCBTdGF0ZT09IlBBIiB8IFN0YXRlPT0iRkwiKQoKCiNnbGltcHNlKGhvbWVzY2hvb2xfYWxsMjEpCmBgYApgYGB7cn0KaG9tZXNjaG9vbF9hbGwyMSA8LSBtaXNzaW5nX2hvbWVzY2hvb2wgfD4gCmZpbHRlcihgU3RhdGUgYWJicmV2YCA9PSJDQSJ8IGBTdGF0ZSBhYmJyZXZgID09Ik5ZIiB8IGBTdGF0ZSBhYmJyZXZgPT0iTEEiIHwgYFN0YXRlIGFiYnJldmA9PSJOQyJ8IGBTdGF0ZSBhYmJyZXZgPT0iV0EifCBgU3RhdGUgYWJicmV2YD09IkNPIiB8IGBTdGF0ZSBhYmJyZXZgPT0iR0EiIHwgYFN0YXRlIGFiYnJldmA9PSJNTiIgfCBgU3RhdGUgYWJicmV2YD09IldJIiB8IGBTdGF0ZSBhYmJyZXZgPT0iTkgiIHwgYFN0YXRlIGFiYnJldmA9PSJNQSIgfCBgU3RhdGUgYWJicmV2YD09Ik1UIiB8IGBTdGF0ZSBhYmJyZXZgPT0iREUifCBgU3RhdGUgYWJicmV2YD09Ik5EIiB8IGBTdGF0ZSBhYmJyZXZgPT0iREMiIHwgYFN0YXRlIGFiYnJldmA9PSJTRCIgfCBgU3RhdGUgYWJicmV2YD09IlNDIiB8IGBTdGF0ZSBhYmJyZXZgPT0iTkUiIHwgYFN0YXRlIGFiYnJldmA9PSJSSSIgfCBgU3RhdGUgYWJicmV2YD09IlROIiB8IGBTdGF0ZSBhYmJyZXZgPT0iUEEiIHwgYFN0YXRlIGFiYnJldmA9PSJGTCIpIHw+IApmaWx0ZXIoYEVucm9sbG1lbnQgdHlwZWAgPT0gIkhvbWVzY2hvb2wgZW5yb2xsbWVudCIgKSAKYGBgCgpgYGB7cn0KaG9tZXNjaG9vbF9hbGwyMSA8LSBob21lc2Nob29sX2FsbDIxICU+JQogIG11dGF0ZSgKICAgIG51bV9jaGFuZ2UgPSBhcy5udW1lcmljKGBUb3RhbCBjaGFuZ2VgKSkgfD4KICBzdW1tYXJpc2Uoc3VtX2NoYW5nZSA9IHN1bShudW1fY2hhbmdlLCBuYS5ybSA9IFRSVUUpKQpgYGAKCiogKipTZW50ZW5jZSA0IHRleHQqKjogU29tZSBmYW1pbGllcyBhbHNvIG1vdmVkIG91dCBvZiBzdGF0ZSwgYWNjb3VudGluZyBmb3Igc29tZSBlbnJvbGxtZW50IGRlY2xpbmUuIEFuZCBiaXJ0aCByYXRlcyBpbiBzb21lIHN0YXRlcyBhcmUgZmFsbGluZy4gVGhlIHBvcHVsYXRpb24gb2Ygc2Nob29sLWFnZSBraWRzIGluIHRoZSBzdGF0ZXMgd2Ugc3R1ZGllZCBmZWxsIGJ5IGFib3V0IDE4MywwMDAsIGFjY29yZGluZyB0byBjZW5zdXMgZXN0aW1hdGVzLgoKKiAqKkFuYWx5c2lzIHN1bW1hcnkqKjogW1dyaXRlIHVwIHR3byB0byB0aHJlZSBzZW50ZW5jZXMgZGVzY3JpYmluZyB0aGUgcmVzdWx0cyBvZiB5b3VyIGFuYWx5c2lzLiAgV2VyZSB5b3UgYWJsZSB0byBjb25maXJtIHRoZSBmaW5kaW5nPyBJZiBub3QsIHdoeSBub3Q/XSAKLTE4ODkzNgoKSGVyZSBhcmUgdGhlIHN0ZXBzOiAKRmlsdGVyIGZvciB0aGUgMjEgc3RhdGVzLgpGaWx0ZXIgdGhlIGRhdGFzZXQgZm9yIHRoZSBhZ2VzIDUtMTcgKHNjaG9vbC1hZ2Uga2lkcykuCkdyb3VwIGJ5IHN0YXRlIGFuZCB0aGUgZXN0aW1hdGVkIGRhdGUgKGVzdF9kYXRlKS4KU3VtIHRoZSBwb3B1bGF0aW9uIGZvciBlYWNoIHN0YXRlIGJ5IGRhdGUuCkNhbGN1bGF0ZSB0aGUgcG9wdWxhdGlvbiBzaGlmdCBmcm9tIEFwcmlsIDIwMjAgdG8gQXByaWwgMjAyMSBmb3IgZWFjaCBzdGF0ZS4KU3VtIHRoZSBwb3B1bGF0aW9uIHNoaWZ0cyB0byBnZXQgdGhlIHRvdGFsIHNoaWZ0IGZvciB0aGUgMjEgc3RhdGVzLgoKCmBgYHtyfQpwb3B1bGF0aW9uX2J5X2FnZSA8LSByZWFkX2NzdigiL1VzZXJzL2xhdXJhY2VjaC9Eb2N1bWVudHMvR2l0SHViL2xhdXJhLWNlY2gtSk9VUjc3Mi9yZXZlcnNlX2VuZ2luZWVyaW5nL2RhdGEvcG9wdWxhdGlvbi1ieS1hZ2UuY3N2IikKYGBgCgpgYGB7cn0KZ2xpbXBzZShwb3B1bGF0aW9uX2J5X2FnZSkKYGBgCmBgYHtyfQojIExpc3Qgb2Ygc3RhdGVzIG9mIGludGVyZXN0CnN0YXRlc19vZl9pbnRlcmVzdCA8LSBjKCJDQUxJRk9STklBIiwgIk5FVyBZT1JLIiwgIkxPVUlTSUFOQSIsICJOT1JUSCBDQVJPTElOQSIsICJXQVNISU5HVE9OIiwgIkNPTE9SQURPIiwKICAgICAgICAgICAgICAgICAgICAgICAgIkdFT1JHSUEiLCAiTUlOTkVTT1RBIiwgIldJU0NPTlNJTiIsICJORVcgSEFNUFNISVJFIiwgIk1BU1NBQ0hVU0VUVFMiLCAiTU9OVEFOQSIsIAogICAgICAgICAgICAgICAgICAgICAgICAiREVMQVdBUkUiLCAiTk9SVEggREFLT1RBIiwgIkRJU1RSSUNUIE9GIENPTFVNQklBIiwgIlNPVVRIIERBS09UQSIsICJORUJSQVNLQSIsIAogICAgICAgICAgICAgICAgICAgICAgICAiUkhPREUgSVNMQU5EIiwgIlRFTk5FU1NFRSIsICJQRU5OU1lMVkFOSUEiLCAiRkxPUklEQSIpCgpjb2xuYW1lcyhwb3B1bGF0aW9uX3N1bW1hcnkpCgoKYGBgCgpgYGB7cn0KbGlicmFyeShkcGx5cikKCiMgTGlzdCBvZiBzdGF0ZXMgb2YgaW50ZXJlc3QKc3RhdGVzX29mX2ludGVyZXN0IDwtIGMoIkNBTElGT1JOSUEiLCAiTkVXIFlPUksiLCAiTE9VSVNJQU5BIiwgIk5PUlRIIENBUk9MSU5BIiwgIldBU0hJTkdUT04iLCAKICAgICAgICAgICAgICAgICAgICAgICAgIkNPTE9SQURPIiwgIkdFT1JHSUEiLCAiTUlOTkVTT1RBIiwgIldJU0NPTlNJTiIsICJORVcgSEFNUFNISVJFIiwgIk1BU1NBQ0hVU0VUVFMiLCAKICAgICAgICAgICAgICAgICAgICAgICAgIk1PTlRBTkEiLCAiREVMQVdBUkUiLCAiTk9SVEggREFLT1RBIiwgIkRJU1RSSUNUIE9GIENPTFVNQklBIiwgIlNPVVRIIERBS09UQSIsIAogICAgICAgICAgICAgICAgICAgICAgICAiTkVCUkFTS0EiLCAiUkhPREUgSVNMQU5EIiwgIlRFTk5FU1NFRSIsICJQRU5OU1lMVkFOSUEiLCAiRkxPUklEQSIpCgojIEZpbHRlciBmb3Igc3RhdGVzIG9mIGludGVyZXN0IGFuZCBzY2hvb2wgYWdlICg1LTE3IHllYXJzKQpzY2hvb2xfYWdlX3BvcHVsYXRpb24gPC0gcG9wdWxhdGlvbl9ieV9hZ2UgJT4lCiAgZmlsdGVyKHN0YXRlICVpbiUgc3RhdGVzX29mX2ludGVyZXN0ICYgYWdlICVpbiUgNToxNykKCiMgR3JvdXAgYnkgc3RhdGUgYW5kIGVzdGltYXRpb24gZGF0ZSBhbmQgc3VtIHVwIHRoZSBwb3B1bGF0aW9ucwpwb3B1bGF0aW9uX3N1bW1hcnkgPC0gc2Nob29sX2FnZV9wb3B1bGF0aW9uICU+JQogIGdyb3VwX2J5KHN0YXRlLCBlc3RfZGF0ZSkgJT4lCiAgc3VtbWFyaXNlKHRvdGFsX3BvcHVsYXRpb24gPSBzdW0ocG9wdWxhdGlvbikpCgojIFBpdm90IHdpZGVyIHRvIGhhdmUgZGF0ZXMgYXMgY29sdW1ucyBhbmQgY2FsY3VsYXRlIHRoZSBwb3B1bGF0aW9uIHNoaWZ0CnBvcHVsYXRpb25fc2hpZnRfc3VtbWFyeSA8LSBwb3B1bGF0aW9uX3N1bW1hcnkgJT4lCiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IGVzdF9kYXRlLCB2YWx1ZXNfZnJvbSA9IHRvdGFsX3BvcHVsYXRpb24pICU+JQogIG11dGF0ZShwb3B1bGF0aW9uX3NoaWZ0ID0gYDIwMjEtMDctMDFgIC0gYDIwMjAtMDQtMDFgKQoKIyBDYWxjdWxhdGUgdGhlIHRvdGFsIHNoaWZ0IGZvciB0aGUgc3RhdGVzIG9mIGludGVyZXN0CnRvdGFsX3NoaWZ0IDwtIHBvcHVsYXRpb25fc2hpZnRfc3VtbWFyeSAlPiUKICBzdW1tYXJpc2UodG90YWxfcG9wdWxhdGlvbl9zaGlmdCA9IHN1bShwb3B1bGF0aW9uX3NoaWZ0KSkKCnByaW50KHRvdGFsX3NoaWZ0KQoKYGBgCmBgYHtyfQpvdmVyYWxsX3NoaWZ0IDwtIHRvdGFsX3NoaWZ0ICU+JQogIHN1bW1hcmlzZShncmFuZF90b3RhbCA9IHN1bSh0b3RhbF9wb3B1bGF0aW9uX3NoaWZ0KSkKCnByaW50KG92ZXJhbGxfc2hpZnQkZ3JhbmRfdG90YWwpCmBgYAoKYGBgCioqKipTZW50ZW5jZSAjNTogVGhhdCBsZWF2ZXMgYW4gZXN0aW1hdGVkIDIzMCwwMDAgc3R1ZGVudHMgc3RpbGwgdW5hY2NvdW50ZWQgZm9yIGluIHRoZSBkYXRhLiBUaGVzZSBhcmUgY2hpbGRyZW4gd2hvIGRpZG7igJl0IHNpZ24gdXAgZm9yIHByaXZhdGUgc2Nob29sIG9yIGhvbWUtc2Nob29sIG9yIG1vdmUgb3V0IG9mIHN0YXRlLiBUaGV5IGFyZSBtaXNzaW5nLgoKKiAqKkFuYWx5c2lzIHN1bW1hcnkqKjogW1dyaXRlIHVwIHR3byB0byB0aHJlZSBzZW50ZW5jZXMgZGVzY3JpYmluZyB0aGUgcmVzdWx0cyBvZiB5b3VyIGFuYWx5c2lzLiAgV2VyZSB5b3UgYWJsZSB0byBjb25maXJtIHRoZSBmaW5kaW5nPyBJZiBub3QsIHdoeSBub3Q/XQo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmVkbyByZXZlcnNlIGVuZ2luZWVyaW5nIHRocm91Z2ggc2VudGVuY2UgNCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyBJbnRyb2R1Y3Rpb24gCgpJbiB0aGlzIG5vdGVib29rLCB3ZSBhcmUgcmV2ZXJzZSBlbmdpbmVlcmluZyB0aGUgc3RvcnksIEluIHRoZSBBUCBzdG9yeSAiVGhvdXNhbmRzIG9mIGtpZHMgYXJlIG1pc3NpbmcgZnJvbSBzY2hvb2wuIFdoZXJlIGRpZCB0aGV5IGdvPyIgaHR0cHM6Ly9wcm9qZWN0cy5hcG5ld3MuY29tL2ZlYXR1cmVzLzIwMjMvbWlzc2luZy1jaGlsZHJlbi9pbmRleC5odG1sCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKCgpgYGB7cn0KIyBUdXJuIG9mZiBzY2llbnRpZmljIG5vdGF0aW9uCm9wdGlvbnMoc2NpcGVuPTk5OSkKCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHJlZmlucikKbGlicmFyeShqYW5pdG9yKQpsaWJyYXJ5KGx1YnJpZGF0ZSkKbGlicmFyeShyZWFkeGwpCmxpYnJhcnkoZGF0YXNldHMpCmxpYnJhcnkoZHBseXIpCgpgYGAKYGBge3J9CiNMb2FkIGRhdGEKcG9wdWxhdGlvbiA8LSByZWFkX2NzdigiL1VzZXJzL2xhdXJhY2VjaC9Eb2N1bWVudHMvR2l0SHViL2xhdXJhLWNlY2gtSk9VUjc3Mi9yZXZlcnNlX2VuZ2luZWVyaW5nL2RhdGEvcG9wdWxhdGlvbi1ieS1hZ2UuY3N2IikKcHJpdmF0ZSA8LSByZWFkX2NzdigiL1VzZXJzL2xhdXJhY2VjaC9Eb2N1bWVudHMvR2l0SHViL2xhdXJhLWNlY2gtSk9VUjc3Mi9yZXZlcnNlX2VuZ2luZWVyaW5nL2RhdGEvcHJpdmF0ZS1lbnJvbGxtZW50LWJ5LWdyYWRlLmNzdiIpCnB1YmxpYyA8LSByZWFkX2NzdigiL1VzZXJzL2xhdXJhY2VjaC9Eb2N1bWVudHMvR2l0SHViL2xhdXJhLWNlY2gtSk9VUjc3Mi9yZXZlcnNlX2VuZ2luZWVyaW5nL2RhdGEvcHVibGljLWVucm9sbG1lbnQtYnktZ3JhZGUuY3N2IikKbWlzc2luZyA8LSByZWFkX2V4Y2VsKCIvVXNlcnMvbGF1cmFjZWNoL0RvY3VtZW50cy9HaXRIdWIvbGF1cmEtY2VjaC1KT1VSNzcyL3JldmVyc2VfZW5naW5lZXJpbmcvZGF0YS9NaXNzaW5nLUtpZHMtU3VtbWFyeS1GaWxlLnhsc3giKQpgYGAKYGBge3J9CgpgYGAKCiMjIyBTZW50ZW5jZSAxCgoqICoqU2VudGVuY2UgdGV4dCoqOiBPdmVyYWxsLCBwdWJsaWMgc2Nob29sIGVucm9sbG1lbnQgZmVsbCBieSBvdmVyIDcwMCwwMDAgc3R1ZGVudHMgYmV0d2VlbiB0aGUgMjAxOS0yMDIwIGFuZCAyMDIxLTIwMjIgc2Nob29sIHllYXJzIGluIHRoZSAyMSBzdGF0ZXMgcGx1cyBXYXNoaW5ndG9uLCBELkMuLCB0aGF0IHByb3ZpZGVkIHRoZSBuZWNlc3NhcnkgZGF0YS4KCiogKipBbmFseXNpcyBzdW1tYXJ5Kio6IFtXcml0ZSB1cCB0d28gdG8gdGhyZWUgc2VudGVuY2VzIGRlc2NyaWJpbmcgdGhlIHJlc3VsdHMgb2YgeW91ciBhbmFseXNpcy4gIFdlcmUgeW91IGFibGUgdG8gY29uZmlybSB0aGUgZmluZGluZz8gSWYgbm90LCB3aHkgbm90P10gCk9uY2Ugd2UgZmlndXJlZCBvdXQgdGhhdCB3ZSBuZWVkZWQgdG8gZmlsdGVyIGJ5IHRoZSAyMSBzdGF0ZXMgdGhhdCB3ZXJlIGxpc3RlZCBpbiB0aGUgc3ByZWFkc2hlZXQsIHdlIGNyZWF0ZWQgKHdpdGggaGVscCkgYSBmaWx0ZXJlZCBkYXRhc2V0LiBGcm9tIHRoZXJlLCB3ZSBjb3VsZCBzdW1tYXJpemUgdGhlIGstMTIgdG90YWwgYnkgeWVhciBhbmQgY29uZmlybSB0aGUgZGlmZmVyZW5jZSBpbiBlbnJvbGxtZW50IGFzIDcwNCw1OTMuCgpgYGB7cn0KcHVibGljXzIxIDwtIHB1YmxpYyB8PgpmaWx0ZXIoc3QgPT0iQ0EifCBzdD09Ik5ZIiB8IHN0PT0iTEEiIHwgc3Q9PSJOQyJ8IHN0PT0iV0EifCBzdD09IkNPIiB8IHN0PT0iR0EiIHwgc3Q9PSJNTiIgfCBzdD09IldJIiB8IHN0PT0iTkgiIHwgc3Q9PSJNQSIgfCBzdD09Ik1UIiB8IHN0PT0iREUifCBzdD09Ik5EIiB8IHN0PT0iREMiIHwgc3Q9PSJTRCIgfCBzdD09IlNDIiB8IHN0PT0iTkUiIHwgc3Q9PSJSSSIgfCBzdD09IlROIiB8IHN0PT0iUEEiIHwgc3Q9PSJGTCIpIHw+CiAgZ3JvdXBfYnkoc2NoX3llYXIpIHw+CiAgZmlsdGVyKGdyYWRlPT0ia18xMl90b3RhbCIpIHw+CiAgc3VtbWFyaXNlKHRvdGFsPXN1bShlbnJvbGxtZW50KSkKYGBgCgpgYGB7cn0KCnB1YmxpY18yMDE5IDwtIHB1YmxpY18yMSB8PgogIGZpbHRlcihzY2hfeWVhciA9PSAiMjAxOS0yMDIwIikKcHVibGljXzIwMTlfZW5yb2xsbWVudCA8LSBwdWJsaWNfMjAxOSR0b3RhbApwdWJsaWNfMjAxOV9lbnJvbGxtZW50CgojIyMKCnB1YmxpY18yMDIxIDwtIHB1YmxpY18yMSB8PgogIGZpbHRlcihzY2hfeWVhciA9PSIyMDIxLTIwMjIiKQpwdWJsaWNfMjAyMV9lbnJvbGxtZW50IDwtcHVibGljXzIwMjEkdG90YWwKcHVibGljXzIwMjFfZW5yb2xsbWVudAoKcHVibGljXzIwMjFfZW5yb2xsbWVudCAtIHB1YmxpY18yMDE5X2Vucm9sbG1lbnQKCmBgYAoKCiMjIyBTZW50ZW5jZSAyIAoKICoqU2VudGVuY2UgdGV4dCoqOiBTb21lIG9mIHRob3NlIHN0dWRlbnRzIGVucm9sbGVkIGluIHByaXZhdGUgc2Nob29scy4gQWNyb3NzIHRoZSBzdGF0ZXMgaW4gdGhlIGFuYWx5c2lzLCBwcml2YXRlLXNjaG9vbCBlbnJvbGxtZW50IGdyZXcgYnkgYWJvdXQgMTAzLDAwMCBzdHVkZW50cy4KCiAqKkFuYWx5c2lzIHN1bW1hcnkqKjogW1dyaXRlIHVwIHR3byB0byB0aHJlZSBzZW50ZW5jZXMgZGVzY3JpYmluZyB0aGUgcmVzdWx0cyBvZiB5b3VyIGFuYWx5c2lzLiAgV2VyZSB5b3UgYWJsZSB0byBjb25maXJtIHRoZSBmaW5kaW5nPyBJZiBub3QsIHdoeSBub3Q/XSAKV2UgZmlsdGVyZWQgYnkgdGhlIDIxIHN0YXRlcyB1c2VkIGluIHRoZWlyIGFuYWx5c2lzLCBhbmQgdGhlbiBmb3VuZCB0aGUgc3VtIG9mIHN0dWRlbnRzIGVucm9sbGVkIGluIHRoZSBzY2hvb2wgeWVhcnMgIjIwMjEtMjIiIGFuZCAiMjAxOS0yMDIwIiBhbmQgc3VidHJhY3RlZCB0aGUgZGlmZmVyZW5jZS4gT3VyIGFuc3dlciwgMTAyLDg0NyBvZiBzdHVkZW50cywgaXMgdGhlIHNhbWUgbnVtYmVyLCBpZiB3ZSByb3VuZGVkIHRvIDEwMywwMDAgc3R1ZGVudHMgZW5yb2xsZWQuCgpgYGB7cn0KZ2xpbXBzZShwcml2YXRlKQpgYGAKCmBgYHtyfQpwcml2YXRlX2FsbDIxIDwtIHByaXZhdGUgfD4KZmlsdGVyKHN0YXRlID09IkNBInwgc3RhdGU9PSJOWSIgfCBzdGF0ZT09IkxBIiB8IHN0YXRlPT0iTkMifCBzdGF0ZT09IldBInwgc3RhdGU9PSJDTyIgfCBzdGF0ZT09IkdBIiB8IHN0YXRlPT0iTU4iIHwgc3RhdGU9PSJXSSIgfCBzdGF0ZT09Ik5IIiB8IHN0YXRlPT0iTUEiIHwgc3RhdGU9PSJNVCIgfCBzdGF0ZT09IkRFInwgc3RhdGU9PSJORCIgfCBzdGF0ZT09IkRDIiB8IHN0YXRlPT0iU0QiIHwgc3RhdGU9PSJTQyIgfCBzdGF0ZT09Ik5FIiB8IHN0YXRlPT0iUkkiIHwgc3RhdGU9PSJUTiIgfCBzdGF0ZT09IlBBIiB8IHN0YXRlPT0iRkwiKQpgYGAKCiMjIyBTZW50ZW5jZSAzIAoKKiAqKlNlbnRlbmNlIHRleHQqKjogQSBtdWNoIGJpZ2dlciBncm91cCBvZiBzdHVkZW50cyBzd2l0Y2hlZCB0byBob21lLXNjaG9vbGluZy4gVGhlIG51bWJlciBvZiBjaGlsZHJlbiByZWdpc3RlcmVkIGZvciBob21lLXNjaG9vbGluZyBzdXJnZWQgYnkgYXJvdW5kIDE4NCwwMDAuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dIApZZXMsIHdlIGdvdCAxODQsMDQ3LiBJIGNvbnZlcnRlZCBjaGFyYWN0ZXIgdmFsdWVzIGluIHRoZSB0b3RhbCBjaGFuZ2UgY29sdW1uIGludG8gbnVtZXJpY2FsIHZhbHVlcy4gKEFsaXNoYSBkaWQgaXQgc2xpZ2h0bHkgZGlmZmVyZW50bHkgYnV0IHdpdGggdGhlIHNhbWUgcmVzdWx0LikKCmBgYHtyfQojRGlzY2xhaW1lciwgdXNlIG9mIENoYXQgQ1BUIHRvIGNyZWF0ZSBhIC5jc3YgZmlsZSBmcm9tIGEgdGFiIGluIGFuIGV4Y2VsIHNoZWV0CiNQcm9tcHQgPSAiaG93IGRvIHlvdSBjcmVhdGUgYSAuY3N2IGZpbGUgZnJvbSBhIHRhYiBpbiBhbiBleGNlbCBzaGVldCBpbiBSc3R1ZGlvPyIKCm1pc3NpbmdfaG9tZXNjaG9vbCA8LSByZWFkX2V4Y2VsKCIvVXNlcnMvbGF1cmFjZWNoL0Rlc2t0b3AvTWlzc2luZy1LaWRzLVN1bW1hcnktRmlsZSBjb3B5Lnhsc3giLCBzaGVldCA9ICJFbnJvbGxtZW50IENoYW5nZXMiKQoKd3JpdGUuY3N2KG1pc3NpbmdfaG9tZXNjaG9vbCwgIm1pc3NpbmdfaG9tZXNjaG9vbC5jc3YiLCByb3cubmFtZXMgPSBGQUxTRSkKCmdsaW1wc2UobWlzc2luZ19ob21lc2Nob29sKQoKI2hvbWVzY2hvb2xfYWxsMjEgPC0gbWlzc2luZ19ob21lc2Nob29sIHw+IAojZmlsdGVyKFN0YXRlID09IkNBInwgU3RhdGU9PSJOWSIgfCBTdGF0ZT09IkxBIiB8IFN0YXRlPT0iTkMifCBTdGF0ZT09IldBInwgU3RhdGU9PSJDTyIgfCBTdGF0ZT09IkdBIiB8IFN0YXRlPT0iTU4iIHwgI1N0YXRlPT0iV0kiIHwgU3RhdGU9PSJOSCIgfCBTdGF0ZT09Ik1BIiB8IFN0YXRlPT0iTVQiIHwgU3RhdGU9PSJERSJ8IFN0YXRlPT0iTkQiIHwgU3RhdGU9PSJEQyIgfCBTdGF0ZT09IlNEIiB8IFN0YXRlPT0iU0MiICN8IFN0YXRlPT0iTkUiIHwgU3RhdGU9PSJSSSIgfCBTdGF0ZT09IlROIiB8IFN0YXRlPT0iUEEiIHwgU3RhdGU9PSJGTCIpCgoKI2dsaW1wc2UoaG9tZXNjaG9vbF9hbGwyMSkKYGBgCmBgYHtyfQpob21lc2Nob29sX2FsbDIxIDwtIG1pc3NpbmdfaG9tZXNjaG9vbCB8PiAKZmlsdGVyKGBTdGF0ZSBhYmJyZXZgID09IkNBInwgYFN0YXRlIGFiYnJldmAgPT0iTlkiIHwgYFN0YXRlIGFiYnJldmA9PSJMQSIgfCBgU3RhdGUgYWJicmV2YD09Ik5DInwgYFN0YXRlIGFiYnJldmA9PSJXQSJ8IGBTdGF0ZSBhYmJyZXZgPT0iQ08iIHwgYFN0YXRlIGFiYnJldmA9PSJHQSIgfCBgU3RhdGUgYWJicmV2YD09Ik1OIiB8IGBTdGF0ZSBhYmJyZXZgPT0iV0kiIHwgYFN0YXRlIGFiYnJldmA9PSJOSCIgfCBgU3RhdGUgYWJicmV2YD09Ik1BIiB8IGBTdGF0ZSBhYmJyZXZgPT0iTVQiIHwgYFN0YXRlIGFiYnJldmA9PSJERSJ8IGBTdGF0ZSBhYmJyZXZgPT0iTkQiIHwgYFN0YXRlIGFiYnJldmA9PSJEQyIgfCBgU3RhdGUgYWJicmV2YD09IlNEIiB8IGBTdGF0ZSBhYmJyZXZgPT0iU0MiIHwgYFN0YXRlIGFiYnJldmA9PSJORSIgfCBgU3RhdGUgYWJicmV2YD09IlJJIiB8IGBTdGF0ZSBhYmJyZXZgPT0iVE4iIHwgYFN0YXRlIGFiYnJldmA9PSJQQSIgfCBgU3RhdGUgYWJicmV2YD09IkZMIikgfD4gCmZpbHRlcihgRW5yb2xsbWVudCB0eXBlYCA9PSAiSG9tZXNjaG9vbCBlbnJvbGxtZW50IiApIApgYGAKCmBgYHtyfQpob21lc2Nob29sX2FsbDIxIDwtIGhvbWVzY2hvb2xfYWxsMjEgJT4lCiAgbXV0YXRlKAogICAgbnVtX2NoYW5nZSA9IGFzLm51bWVyaWMoYFRvdGFsIGNoYW5nZWApKSB8PgogIHN1bW1hcmlzZShzdW1fY2hhbmdlID0gc3VtKG51bV9jaGFuZ2UsIG5hLnJtID0gVFJVRSkpCgoKCmBgYAoKCmBgYHtyfQpwcmludChob21lc2Nob29sX2FsbDIxKQpgYGAKCiogKipTZW50ZW5jZSA0IHRleHQqKjogU29tZSBmYW1pbGllcyBhbHNvIG1vdmVkIG91dCBvZiBzdGF0ZSwgYWNjb3VudGluZyBmb3Igc29tZSBlbnJvbGxtZW50IGRlY2xpbmUuIEFuZCBiaXJ0aCByYXRlcyBpbiBzb21lIHN0YXRlcyBhcmUgZmFsbGluZy4gVGhlIHBvcHVsYXRpb24gb2Ygc2Nob29sLWFnZSBraWRzIGluIHRoZSBzdGF0ZXMgd2Ugc3R1ZGllZCBmZWxsIGJ5IGFib3V0IDE4MywwMDAsIGFjY29yZGluZyB0byBjZW5zdXMgZXN0aW1hdGVzLgoKKiAqKkFuYWx5c2lzIHN1bW1hcnkqKjogW1dyaXRlIHVwIHR3byB0byB0aHJlZSBzZW50ZW5jZXMgZGVzY3JpYmluZyB0aGUgcmVzdWx0cyBvZiB5b3VyIGFuYWx5c2lzLiAgV2VyZSB5b3UgYWJsZSB0byBjb25maXJtIHRoZSBmaW5kaW5nPyBJZiBub3QsIHdoeSBub3Q/XSAKLTE4ODkzNgoKSGVyZSBhcmUgdGhlIHN0ZXBzOiAKRmlsdGVyIGZvciB0aGUgMjEgc3RhdGVzLgpJIGRvbid0IHRoaW5rIEkgbmVlZCB0byBmaWx0ZXIgdGhlIGRhdGFzZXQgZm9yIHRoZSBhZ2VzIDUtMTcgKHNjaG9vbC1hZ2Uga2lkcykgYmVjYXVzZSBpdCBsb29rcyBsaWtlIHRoYXQncyBhbHJlYWR5IGRvbmUsIGJ1dCB3ZSBkb3VibGUtY2hlY2tlZC4KQ2FsY3VsYXRlIHRoZSBwb3B1bGF0aW9uIHNoaWZ0IGZyb20gQXByaWwgMjAyMCB0byBKdWx5IDIwMjEgZm9yIGVhY2ggc3RhdGUuClN1bSB0aGUgcG9wdWxhdGlvbiBzaGlmdHMgdG8gZ2V0IHRoZSB0b3RhbCBzaGlmdCBmb3IgdGhlIDIxIHN0YXRlcy4KCgpgYGB7cn0KcG9wdWxhdGlvbl9ieV9hZ2UgPC0gcmVhZF9jc3YoIi9Vc2Vycy9sYXVyYWNlY2gvRG9jdW1lbnRzL0dpdEh1Yi9sYXVyYS1jZWNoLUpPVVI3NzIvcmV2ZXJzZV9lbmdpbmVlcmluZy9kYXRhL3BvcHVsYXRpb24tYnktYWdlLmNzdiIpCmBgYAoKYGBge3J9CmdsaW1wc2UocG9wdWxhdGlvbl9ieV9hZ2UpCmBgYAoKYGBge3J9CgpzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UgPC0gcG9wdWxhdGlvbl9ieV9hZ2VbCiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiQ0FMSUZPUk5JQSIgfAogICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gIk5FVyBZT1JLIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiTE9VSVNJQU5BIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiTk9SVEggQ0FST0xJTkEiIHwKICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09ICJXQVNISU5HVE9OIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiQ09MT1JBRE8iIHwKICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09ICJHRU9SR0lBIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiTUlOTkVTT1RBIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiV0lTQ09OU0lOIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiTkVXIEhBTVBTSElSRSIgfAogICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gIk1BU1NBQ0hVU0VUVFMiIHwKICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09ICJNT05UQU5BIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiREVMQVdBUkUiIHwKICAgIHBvcHVsYXRpb25fYnlfYWdlJHN0YXRlID09ICJESVNUUklDVCBPRiBDT0xVTUJJQSIgfAogICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gIlNPVVRIIERBS09UQSIgfAogICAgcG9wdWxhdGlvbl9ieV9hZ2Ukc3RhdGUgPT0gIk5FQlJBU0tBIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiUkhPREUgSVNMQU5EIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiVEVOTkVTU0VFIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiUEVOTlNZTFZBTklBIiB8CiAgICBwb3B1bGF0aW9uX2J5X2FnZSRzdGF0ZSA9PSAiRkxPUklEQSIsIF0KCmdsaW1wc2Uoc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlKQpgYGAKCgpgYGB7cn0KI2Fub3RoZXIgdHJ5IHdpdGggY2hhdCBncHQgaGVscAoKIyAxLiBGaWx0ZXIgdGhlIGRhdGEgZm9yIEFwcmlsIDIwMjAgYW5kIEp1bHkgMjAyMQphcHJpbF8yMDIwX2RhdGEgPC0gc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlW3NpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZSRlc3RfZGF0ZSA9PSAiMjAyMC0wNC0wMSIsIF0KanVseV8yMDIxX2RhdGEgPC0gc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlW3NpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZSRlc3RfZGF0ZSA9PSAiMjAyMS0wNy0wMSIsIF0KCiMgMi4gQ2FsY3VsYXRlIHRoZSBwb3B1bGF0aW9uIGRpZmZlcmVuY2UgZm9yIGVhY2ggc3RhdGUKcG9wdWxhdGlvbl9kaWZmIDwtIG1lcmdlKGFwcmlsXzIwMjBfZGF0YSwganVseV8yMDIxX2RhdGEsIGJ5ID0gYygic3RhdGUiLCAiYWdlIiksIHN1ZmZpeGVzID0gYygiXzIwMjAiLCAiXzIwMjEiKSkKcG9wdWxhdGlvbl9kaWZmJHBvcF9kaWZmIDwtIHBvcHVsYXRpb25fZGlmZiRwb3B1bGF0aW9uXzIwMjEgLSBwb3B1bGF0aW9uX2RpZmYkcG9wdWxhdGlvbl8yMDIwCgojIDMuIFN1bSB0aGUgZGlmZmVyZW5jZXMgdG8gZ2V0IHRoZSB0b3RhbCBwb3B1bGF0aW9uIHNoaWZ0IGZvciB0aGUgMjEgc3RhdGVzCnRvdGFsX3NoaWZ0IDwtIHN1bShwb3B1bGF0aW9uX2RpZmYkcG9wX2RpZmYpCgpwcmludCh0b3RhbF9zaGlmdCkKCmBgYAoKYGBge3J9CiNtYXliZSBpdCdzIGJldHRlciB0byBjb21wYXJlIGp1bHkgdG8ganVseT8KIyAxLiBGaWx0ZXIgdGhlIGRhdGEgZm9yIEp1bHkgMjAyMCBhbmQgSnVseSAyMDIxCmp1bHlfMjAyMF9kYXRhIDwtIHNpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZVtzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UkZXN0X2RhdGUgPT0gIjIwMjAtMDctMDEiLCBdCmp1bHlfMjAyMV9kYXRhIDwtIHNpbXBsZV9wb3B1bGF0aW9uX2J5X2FnZVtzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2UkZXN0X2RhdGUgPT0gIjIwMjEtMDctMDEiLCBdCgojIDIuIENhbGN1bGF0ZSB0aGUgcG9wdWxhdGlvbiBkaWZmZXJlbmNlIGZvciBlYWNoIHN0YXRlCnBvcHVsYXRpb25fZGlmZiA8LSBtZXJnZShqdWx5XzIwMjBfZGF0YSwganVseV8yMDIxX2RhdGEsIGJ5ID0gYygic3RhdGUiLCAiYWdlIiksIHN1ZmZpeGVzID0gYygiXzIwMjAiLCAiXzIwMjEiKSkKcG9wdWxhdGlvbl9kaWZmJHBvcF9kaWZmIDwtIHBvcHVsYXRpb25fZGlmZiRwb3B1bGF0aW9uXzIwMjEgLSBwb3B1bGF0aW9uX2RpZmYkcG9wdWxhdGlvbl8yMDIwCgojIDMuIFN1bSB0aGUgZGlmZmVyZW5jZXMgdG8gZ2V0IHRoZSB0b3RhbCBwb3B1bGF0aW9uIHNoaWZ0IGZvciB0aGUgMjEgc3RhdGVzCnRvdGFsX3NoaWZ0IDwtIHN1bShwb3B1bGF0aW9uX2RpZmYkcG9wX2RpZmYpCgpwcmludCh0b3RhbF9zaGlmdCkKCgpgYGAKCmBgYHtyfQojIEZpbHRlciBmb3IgYWdlcyA1LTE3CnNjaG9vbF9hZ2VfZGF0YSA8LSBzaW1wbGVfcG9wdWxhdGlvbl9ieV9hZ2Vbc2ltcGxlX3BvcHVsYXRpb25fYnlfYWdlJGFnZSAlaW4lIDU6MTcsIF0KCiMgMS4gRmlsdGVyIHRoZSBkYXRhIGZvciBKdWx5IDIwMjAgYW5kIEp1bHkgMjAyMQpqdWx5XzIwMjBfZGF0YSA8LSBzY2hvb2xfYWdlX2RhdGFbc2Nob29sX2FnZV9kYXRhJGVzdF9kYXRlID09ICIyMDIwLTA3LTAxIiwgXQpqdWx5XzIwMjFfZGF0YSA8LSBzY2hvb2xfYWdlX2RhdGFbc2Nob29sX2FnZV9kYXRhJGVzdF9kYXRlID09ICIyMDIxLTA3LTAxIiwgXQoKIyAyLiBDYWxjdWxhdGUgdGhlIHBvcHVsYXRpb24gZGlmZmVyZW5jZSBmb3IgZWFjaCBzdGF0ZQpwb3B1bGF0aW9uX2RpZmYgPC0gbWVyZ2UoanVseV8yMDIwX2RhdGEsIGp1bHlfMjAyMV9kYXRhLCBieSA9IGMoInN0YXRlIiwgImFnZSIpLCBzdWZmaXhlcyA9IGMoIl8yMDIwIiwgIl8yMDIxIikpCnBvcHVsYXRpb25fZGlmZiRwb3BfZGlmZiA8LSBwb3B1bGF0aW9uX2RpZmYkcG9wdWxhdGlvbl8yMDIxIC0gcG9wdWxhdGlvbl9kaWZmJHBvcHVsYXRpb25fMjAyMAoKIyAzLiBTdW0gdGhlIGRpZmZlcmVuY2VzIHRvIGdldCB0aGUgdG90YWwgcG9wdWxhdGlvbiBzaGlmdCBmb3IgdGhlIDIxIHN0YXRlcwp0b3RhbF9zaGlmdCA8LSBzdW0ocG9wdWxhdGlvbl9kaWZmJHBvcF9kaWZmKQoKcHJpbnQodG90YWxfc2hpZnQpCgpgYGAKCgpgYGAKKioqKlNlbnRlbmNlICM1OiBUaGF0IGxlYXZlcyBhbiBlc3RpbWF0ZWQgMjMwLDAwMCBzdHVkZW50cyBzdGlsbCB1bmFjY291bnRlZCBmb3IgaW4gdGhlIGRhdGEuIFRoZXNlIGFyZSBjaGlsZHJlbiB3aG8gZGlkbuKAmXQgc2lnbiB1cCBmb3IgcHJpdmF0ZSBzY2hvb2wgb3IgaG9tZS1zY2hvb2wgb3IgbW92ZSBvdXQgb2Ygc3RhdGUuIFRoZXkgYXJlIG1pc3NpbmcuCgoqICoqQW5hbHlzaXMgc3VtbWFyeSoqOiBbV3JpdGUgdXAgdHdvIHRvIHRocmVlIHNlbnRlbmNlcyBkZXNjcmliaW5nIHRoZSByZXN1bHRzIG9mIHlvdXIgYW5hbHlzaXMuICBXZXJlIHlvdSBhYmxlIHRvIGNvbmZpcm0gdGhlIGZpbmRpbmc/IElmIG5vdCwgd2h5IG5vdD9dCgoK</div>
 
 
 
