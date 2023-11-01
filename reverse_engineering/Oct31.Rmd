@@ -153,10 +153,14 @@ print(homeschool_all21)
 183,486
 
 Here are the steps: 
-I don't think I need to filter the dataset for the ages 5-17 (school-age kids) because it looks like that's already done, but we double-checked.
-Calculate the population shift from July 2020 to July 2021 for each state.
-Filter for the 21 states.
-Sum the population shifts to get the total shift for the 21 states.
+We don't need to filter the dataset for the ages 5-17 (school-age kids) because it's already done, but we double-checked.
+Filtered out the July 2020 data so we can compare April 2020 to July 2021;
+Removed columns we don't need;
+Grouped by state, year;
+Summarize population;
+Pivot data to create a row with each state showing 2020 and 2021 data;
+Calculate the population shift from July 2020 to July 2021 by creating a column that shows difference in 2020 to 2021;
+Mutate state column to lowercase and filter for the 21 states.
 
 
 ```{r}
