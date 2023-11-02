@@ -83,6 +83,7 @@ pgco_911_calls_by_month |>
 Describe the pattern of results; you may want to look at the data to dig into particular outliers.
 
 **A2.** 
+Most weeks the calls were in 20-30 range. The fewest calls were at the end of the year and the most were in July.
 
 
 ```{r}
@@ -103,10 +104,41 @@ calls_per_week <- pgco_911_calls %>%
 print(calls_per_week)
 ```
 ```{r}
-
+calls_per_week |>
+ ggplot() + 
+  geom_line(aes(x=week, y=total_calls))+
+   labs(
+    title="PG County 911 Calls by Week",
+    x = "week",
+    y = "total calls",
+    caption = "source: Prince George's County EMS")
+  
 ```
 
-**Q3.**  A scatterplot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatterplot puts a circle (or a "point") where the two variables intersect on a grid. 
+```{r}
+#asked chat gpt for how to look at outliers:
+library(ggplot2)
+
+ggplot(calls_per_week, aes(x = factor(1), y = total_calls)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Calls per Week",
+       x = "",
+       y = "Total Calls") +
+  theme_minimal()
+```
+```{r}
+Q1 <- quantile(calls_per_week$total_calls, 0.25)
+Q3 <- quantile(calls_per_week$total_calls, 0.75)
+IQR <- Q3 - Q1
+
+outliers <- calls_per_week %>%
+  filter(total_calls < Q1 - 1.5 * IQR | total_calls > Q3 + 1.5 * IQR)
+
+outliers
+```
+
+
+**Q3.**  A scatterplot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatterplot puts a circle (or a "point") where the two variables intersect on a grid.
 
 Statisticians use scatterplots to show graphically whether one variable is correlated -- related, in a statistical sense -- with another variable.  A classic example is the [relationship between ice cream sales and temperature](https://www.mathsisfun.com/data/scatter-xy-plots.html). The scatterplot below -- press play to load the image -- shows that relationship, that an increase in temperature is associated with an increase in ice cream sales. When it's 12C, sales are 200 dollars, and when it's hotter, 25C, sales are 600 dollars.
 
