@@ -170,4 +170,6 @@ pg_census <- get_acs(geography = "county",
               year = 2021)
 
 glimpse(pg_census)
+
+zip
 ```
