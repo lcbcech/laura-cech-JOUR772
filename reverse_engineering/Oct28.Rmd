@@ -32,6 +32,44 @@ missing <- read_excel("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reve
 
 full_state_names <- c("california", "new york", "louisiana", "north carolina", "washington", "colorado", "georgia", "minnesota", "wisconsin", "new hampshire", "massachusetts", "montana", "delaware", "north dakota", "district of columbia", "south dakota", "south carolina", "nebraska", "rhode island", "tennessee", "pennsylvania", "florida")
 
+#alisha's function
+full_to_abbrev <- function(state_name) {
+  match <- match(toupper(state_name), toupper(state.name))
+  if (!is.na(match)) {
+    return(state.abb[match])
+  } else {
+    return(state_name)  # Return the input unchanged if it's not a recognized state name
+  }
+}
+
+#creating an empty list to write the output of our function to
+abbrev_state_names <- c()
+
+#using a for loop to cycle through each of the names in our full_state_names list
+for (name in full_state_names){
+  
+  #handling dc, the function doesnt do it
+  if(name == "district of columbia"){
+    
+    #setting abbreviation for dc manually
+    abbrev_state_name == "DC"
+  
+  #letting the function get the abbreviation for every other state
+  } else {
+    
+     #use function to create the abbreviation
+    abbrev_state_name <- full_to_abbrev(name) 
+    
+  }
+  
+  #add that abbreviation to the blank list we created before the for loop
+  abbrev_state_names <- c(abbrev_state_names, abbrev_state_name)
+  
+}
+
+#lets see if it worked
+abbrev_state_names
+
 ```
 
 ```{r}
@@ -46,7 +84,8 @@ full_state_names <- c("california", "new york", "louisiana", "north carolina", "
 
 ```{r}
 public_21 <- public |>
-filter(st =="CA"| st=="NY" | st=="LA" | st=="NC"| st=="WA"| st=="CO" | st=="GA" | st=="MN" | st=="WI" | st=="NH" | st=="MA" | st=="MT" | st=="DE"| st=="ND" | st=="DC" | st=="SD" | st=="SC" | st=="NE" | st=="RI" | st=="TN" | st=="PA" | st=="FL") |>
+  filter(st %in% abbrev_state_name) |>
+#filter(st =="CA"| st=="NY" | st=="LA" | st=="NC"| st=="WA"| st=="CO" | st=="GA" | st=="MN" | st=="WI" | st=="NH" | st=="MA" | st=="MT" | st=="DE"| st=="ND" | st=="DC" | st=="SD" | st=="SC" | st=="NE" | st=="RI" | st=="TN" | st=="PA" | st=="FL") |>
   group_by(sch_year) |>
   filter(grade=="k_12_total") |>
   summarise(total=sum(enrollment))
