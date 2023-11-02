@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidycensus)
 library(tidyverse)
 library(lubridate)
+library(dplyr)
 
 ```
 
@@ -38,11 +39,13 @@ pgco_911_calls <- read_csv("data/prince_georges_2022_overdoses.csv")
 glimpse(pgco_911_calls)
 ```
 ```{r}
+#asked chat gpt how to get the month column
  pgco_911_calls_by_month <- pgco_911_calls |>
-  mutate(month = month(datetime, label=TRUE)) |> 
+mutate(month = month(datetime, label=TRUE)) |> 
   group_by(month) |> 
   summarize(total_calls = n()) |> 
   arrange(desc(total_calls))
+
 
 pgco_911_calls_by_month
 ```
@@ -58,9 +61,17 @@ pgco_911_calls_by_month
 
 Compare the results here to those from the pre_lab_08 bar chart - are there major differences in the months with the highest and lowest figures? Describe that below.
 
-**A1.** 
+**A1.** December is most in PG county; it's very different than Baltimore County where warmer months had more calls.
 
 ```{r}
+pgco_911_calls_by_month |>
+  ggplot() +
+  geom_bar(aes(x=reorder(month,total_calls), weight=total_calls))
+ labs(
+    title="PG County 911 Overdose Calls",
+    x = "month",
+    y = "total calls",
+    caption = "source: PG County")
 ```
 
 **Q2.** Let's visualize this data on a weekly basis using a line chart. As in Q1, generate a dataframe with the total number of calls for each week, and then create a line chart to show the distribution of calls over time. Your line chart must have:
@@ -75,6 +86,24 @@ Describe the pattern of results; you may want to look at the data to dig into pa
 
 
 ```{r}
+glimpse(pgco_911_calls)
+```
+```{r}
+#asked chat gpt for how to find convert using lubridate
+calls_per_week <- pgco_911_calls %>%
+  mutate(
+    date = as.Date(datetime),
+    year = year(date),
+    week = week(date)
+  ) %>%
+  group_by(year, week) %>%
+  summarize(total_calls = n()) %>%
+  arrange(desc(total_calls))
+
+print(calls_per_week)
+```
+```{r}
+
 ```
 
 **Q3.**  A scatterplot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatterplot puts a circle (or a "point") where the two variables intersect on a grid. 
