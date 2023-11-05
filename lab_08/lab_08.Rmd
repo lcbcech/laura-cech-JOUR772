@@ -191,7 +191,7 @@ calls_summary <- pgco_911_calls %>%
 # Join the summary with the census data
 calls_with_census_data <- left_join(calls_summary, pg_census, by = c("zipcode" = "GEOID"))
 
-# Now you can check the column names again
+# check the column names again
 colnames(calls_with_census_data)
 ```
 ```{r}
