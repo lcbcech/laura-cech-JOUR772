@@ -1,0 +1,202 @@
+---
+title: "final project"
+output: html_notebook
+authors: Laura Cech, Alisha Camacho
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook.
+
+## Introduction 
+
+In this notebook, we are reverse engineering the story, In the AP story "Thousands of kids are missing from school. Where did they go?" https://projects.apnews.com/features/2023/missing-children/index.html
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+library(tidyverse)
+library(refinr)
+library(janitor)
+library(lubridate)
+library(readxl)
+library(datasets)
+library(dplyr)
+```
+
+```{r}
+#Load data
+population <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/population-by-age.csv")
+private <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/private-enrollment-by-grade.csv")
+public <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/public-enrollment-by-grade.csv")
+missing <- read_excel("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/Missing-Kids-Summary-File.xlsx")
+
+full_state_names <- c("california", "new york", "louisiana", "north carolina", "washington", "colorado", "georgia", "minnesota", "wisconsin", "new hampshire", "massachusetts", "montana", "delaware", "north dakota", "district of columbia", "south dakota", "south carolina", "nebraska", "rhode island", "tennessee", "pennsylvania", "florida")
+```
+
+
+```{r}
+the_21 <- c("CA", "NY", "LA", "NC", "WA", "CO","GA", "MN", "WI", "NH", "MA", "MT", "DE", "ND", "DC", "SD", "SC", "NE", "RI", "TN", "PA", "FL") 
+```
+
+### Sentence 1
+
+* **Sentence text**: Overall, public school enrollment fell by over 700,000 students between the 2019-2020 and 2021-2022 school years in the 21 states plus Washington, D.C., that provided the necessary data.
+
+* **Analysis summary**: Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593.
+
+```{r}
+glimpse(public)
+
+public_21 <- public |>
+  filter(st %in% the_21) |>
+  group_by(sch_year) |>
+  filter(grade=="k_12_total") |>
+  summarise(total=sum(enrollment))
+
+##
+public_2021 <- public_21 |>
+  filter(sch_year =="2021-2022")
+public_2021_enrollment <-public_2021$total
+public_2021_enrollment
+
+public_2021_enrollment - public_2019_enrollment
+
+
+```
+
+### Sentence 2 
+
+* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+* **Analysis summary**: We filtered by the 21 states used in their analysis, and then found the sum of students enrolled in the school years "2021-22" and "2019-2020" and subtracted the difference. Our answer, 102,847 of students, is the same number, if we rounded to 103,000 students enrolled.
+
+```{r}
+glimpse(private)
+private_all21 <- private |>
+  filter(state %in% the_21) |>
+  group_by(sch_year) |>
+  filter(grade=="k_12_total") |>
+  summarise(total=sum(enrollment))
+
+glimpse(private_all21)
+
+```
+
+```{r}
+private_2021_2022 <-private_all21 |> 
+filter(sch_year == "2021-2022")
+
+###
+private_2019_2020 <- private_all21 |> 
+filter(sch_year == "2019-2020")
+
+###
+
+private_2021_2022$total - private_2019_2020$total
+
+
+```
+
+### Sentence 3 
+
+* **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
+
+* **Analysis summary**: We got 184,047. We created (with help) a .csv file from a tab in an excel spreadsheet.
+
+I converted character values in the total change column into numerical values. (Alisha did it slightly differently but with the same result.)
+
+```{r}
+#Disclaimer, use of Chat CPT to create a .csv file from a tab in an excel sheet
+#Prompt = "how do you create a .csv file from a tab in an excel sheet in Rstudio?"
+
+missing_homeschool <- read_excel("/Users/lauracech/Desktop/Missing-Kids-Summary-File copy.xlsx", sheet = "Enrollment Changes")
+
+write.csv(missing_homeschool, "missing_homeschool.csv", row.names = FALSE)
+
+glimpse(missing_homeschool)
+
+```
+```{r}
+#Filter 21 states + DC
+homeschool_all21 <- missing_homeschool |> 
+  mutate(State = str_to_lower(State)) |>
+  filter(State %in% full_state_names)
+
+glimpse(homeschool_all21)
+```
+```{r}
+homeschool_all21 <- homeschool_all21 %>%
+  mutate(`School Year 2019-20` = readr::parse_number(`School Year 2019-20`),
+         `School Year 2020-2021` = readr::parse_number(`School Year 2020-2021`),
+         `School Year 2021-22` = readr::parse_number(`School Year 2021-22`))
+
+# Filter and summarize the homeschool enrollment data
+homeschool_data <- homeschool_all21 %>%
+  filter(`Enrollment type` == "Homeschool enrollment") %>%
+  summarize(
+    Total_2019_20 = sum(`School Year 2019-20`, na.rm = TRUE),
+    Total_2021_22 = sum(`School Year 2021-22`, na.rm = TRUE)
+  )
+
+# Calculate the increase in homeschooling from 2019-20 to 2021-22
+increase <- homeschool_data$Total_2021_22 - homeschool_data$Total_2019_20
+
+# Print the increase 
+print(increase)
+```
+
+### Sentence 4 
+
+* **Sentence text**: Some families also moved out of state, accounting for some enrollment decline. And birth rates in some states are falling. The population of school-age kids in the states we studied fell by about 183,000, according to census estimates.
+
+* **Analysis summary**: Yes, we found the poplulation fell 183,486.
+
+We don't need to filter the dataset for the ages 5-17 (school-age kids) because it's already done, but we double-checked.
+Filtered out the July 2020 data so we can compare April 2020 to July 2021;
+Removed columns we don't need;
+Grouped by state, year;
+Summarize population;
+Pivot data to create a row with each state showing 2020 and 2021 data;
+Calculate the population shift from April 2020 to July 2021 by creating a column that shows difference in 2020 to 2021;
+Mutate state column to lowercase and filter for the 21 states.
+
+
+```{r}
+pop_shift <- population |>
+  filter(est_date != ymd("2020-07-01")) |>
+  mutate(year = year(est_date)) |>
+  select(-fips, -est_date) |>
+  group_by(state, year) |>
+  summarise(population = sum(population)) |>
+  pivot_wider(names_from = year, values_from = population) |>
+  clean_names() |>
+  mutate(difference = x2020-x2021)  |>
+  arrange((difference)) |>
+  mutate(state = str_to_lower(state))|>
+  filter(state %in% full_state_names) |>
+  adorn_totals()
+
+
+
+```
+
+
+
+### Conclusion: That leaves an estimated 230,000 students still unaccounted for in the data. These are children who didn’t sign up for private school or home-school or move out of state. They are missing.
+
+```{r}
+#public school enrollment fell by over 700,000 students
+public_2021_enrollment - public_2019_enrollment
+
+#Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+#The number of children registered for home-schooling surged by around 184,000.
+
+#Some families also moved out of state, accounting for some enrollment decline. And birth rates in some states are falling. The population of school-age kids in the states we studied fell by about 183,000, according to census estimates.
+
+
+
+
+#700-470= 230
+```
+

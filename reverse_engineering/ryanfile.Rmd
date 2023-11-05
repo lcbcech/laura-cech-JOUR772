@@ -1,0 +1,263 @@
+---
+title: "Redo reverse engineering through sentence 4"
+output: html_notebook
+---
+## Introduction 
+
+In this notebook, we are reverse engineering the story, In the AP story "Thousands of kids are missing from school. Where did they go?" https://projects.apnews.com/features/2023/missing-children/index.html
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+library(tidyverse)
+library(refinr)
+library(janitor)
+library(lubridate)
+library(readxl)
+library(datasets)
+library(dplyr)
+
+```
+```{r}
+#Load data
+population <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/population-by-age.csv")
+private <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/private-enrollment-by-grade.csv")
+public <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/public-enrollment-by-grade.csv")
+missing <- read_excel("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/Missing-Kids-Summary-File.xlsx")
+
+full_state_names <- c("california", "new york", "louisiana", "north carolina", "washington", "colorado", "georgia", "minnesota", "wisconsin", "new hampshire", "massachusetts", "montana", "delaware", "north dakota", "district of columbia", "south dakota", "south carolina", "nebraska", "rhode island", "tennessee", "pennsylvania", "florida")
+
+```
+
+```{r}
+
+```
+
+### Sentence 1
+
+* **Sentence text**: Overall, public school enrollment fell by over 700,000 students between the 2019-2020 and 2021-2022 school years in the 21 states plus Washington, D.C., that provided the necessary data.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+
+```{r}
+public_21 <- public |>
+filter(st =="CA"| st=="NY" | st=="LA" | st=="NC"| st=="WA"| st=="CO" | st=="GA" | st=="MN" | st=="WI" | st=="NH" | st=="MA" | st=="MT" | st=="DE"| st=="ND" | st=="DC" | st=="SD" | st=="SC" | st=="NE" | st=="RI" | st=="TN" | st=="PA" | st=="FL") |>
+  group_by(sch_year) |>
+  filter(grade=="k_12_total") |>
+  summarise(total=sum(enrollment))
+```
+
+```{r}
+
+public_2019 <- public_21 |>
+  filter(sch_year == "2019-2020")
+public_2019_enrollment <- public_2019$total
+public_2019_enrollment
+
+###
+
+public_2021 <- public_21 |>
+  filter(sch_year =="2021-2022")
+public_2021_enrollment <-public_2021$total
+public_2021_enrollment
+
+public_2021_enrollment - public_2019_enrollment
+
+```
+
+
+### Sentence 2 
+
+* **Sentence text**: Some of those students enrolled in private schools. Across the states in the analysis, private-school enrollment grew by about 103,000 students.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Once we figured out that we needed to filter by the 21 states that were listed in the spreadsheet, we created (with help) a filtered dataset. From there, we could summarize the k-12 total by year and confirm the difference in enrollment as 704,593
+
+```{r}
+glimpse(private)
+```
+
+```{r}
+private_all21 <- private |>
+filter(state =="CA"| state=="NY" | state=="LA" | state=="NC"| state=="WA"| state=="CO" | state=="GA" | state=="MN" | state=="WI" | state=="NH" | state=="MA" | state=="MT" | state=="DE"| state=="ND" | state=="DC" | state=="SD" | state=="SC" | state=="NE" | state=="RI" | state=="TN" | state=="PA" | state=="FL")
+```
+
+### Sentence 3 
+
+* **Sentence text**: A much bigger group of students switched to home-schooling. The number of children registered for home-schooling surged by around 184,000.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Yes, we got 184,047. I converted character values in the total change column into numerical values. (Alisha did it slightly differently
+
+```{r}
+#Disclaimer, use of Chat CPT to create a .csv file from a tab in an excel sheet
+#Prompt = "how do you create a .csv file from a tab in an excel sheet in Rstudio?"
+
+missing_homeschool <- read_excel("/Users/lauracech/Desktop/Missing-Kids-Summary-File copy.xlsx", sheet = "Enrollment Changes")
+
+write.csv(missing_homeschool, "missing_homeschool.csv", row.names = FALSE)
+
+glimpse(missing_homeschool)
+
+#homeschool_all21 <- missing_homeschool |> 
+#filter(State =="CA"| State=="NY" | State=="LA" | State=="NC"| State=="WA"| State=="CO" | State=="GA" | State=="MN" | #State=="WI" | State=="NH" | State=="MA" | State=="MT" | State=="DE"| State=="ND" | State=="DC" | State=="SD" | State=="SC" #| State=="NE" | State=="RI" | State=="TN" | State=="PA" | State=="FL")
+
+
+#glimpse(homeschool_all21)
+```
+```{r}
+homeschool_all21 <- missing_homeschool |> 
+filter(`State abbrev` =="CA"| `State abbrev` =="NY" | `State abbrev`=="LA" | `State abbrev`=="NC"| `State abbrev`=="WA"| `State abbrev`=="CO" | `State abbrev`=="GA" | `State abbrev`=="MN" | `State abbrev`=="WI" | `State abbrev`=="NH" | `State abbrev`=="MA" | `State abbrev`=="MT" | `State abbrev`=="DE"| `State abbrev`=="ND" | `State abbrev`=="DC" | `State abbrev`=="SD" | `State abbrev`=="SC" | `State abbrev`=="NE" | `State abbrev`=="RI" | `State abbrev`=="TN" | `State abbrev`=="PA" | `State abbrev`=="FL") |> 
+filter(`Enrollment type` == "Homeschool enrollment" ) 
+```
+
+```{r}
+homeschool_all21 <- homeschool_all21 %>%
+  mutate(
+    num_change = as.numeric(`Total change`)) |>
+  summarise(sum_change = sum(num_change, na.rm = TRUE))
+```
+
+* **Sentence text**: Some families also moved out of state, accounting for some enrollment decline. And birth rates in some states are falling. The population of school-age kids in the states we studied fell by about 183,000, according to census estimates.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?] Step 1: To analyze the population data, we needed to first change the all upper case of state names into abbrevations so that it would match the other data. We then neded to create a year column from the date.
+Step 2: We calculated the difference in population by filtering by year and subtracting.
+-184827	
+-27913470
+
+
+```{r}
+population_by_age <- read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/population-by-age.csv")
+```
+
+```{r}
+glimpse(population_by_age)
+```
+```{r}
+#disclaimer: we used chat gpt to find the shortcut to convert state names to abbrevations
+full_to_abbrev <- function(state_name) {
+  match <- match(toupper(state_name), toupper(state.name))
+  if (!is.na(match)) {
+    return(state.abb[match])
+  } else {
+    return(state_name)  # Return the input unchanged if it's not a recognized state name
+  }
+}
+```
+
+```{r}
+temp_population_by_age <- population_by_age %>%
+  mutate(state_abbrev = sapply(state, full_to_abbrev))
+
+
+```
+
+```{r}
+population_by_age <- temp_population_by_age |>
+ rename(state_full = "state") |> 
+  rename(state = "state_abbrev") |> 
+  filter(state =="CA"| state=="NY" | state=="LA" | state=="NC"| state=="WA"| state=="CO" | state=="GA" | state=="MN" | state=="WI" | state=="NH" | state=="MA" | state=="MT" | state=="DE"| state=="ND" | state=="DC" | state=="SD" | state=="SC" | state=="NE" | state=="RI" | state=="TN" | state=="PA" | state=="FL")
+
+
+
+
+```
+
+```{r}
+glimpse(population_by_age)
+
+```
+```{r}
+#we used chat gpt to remind us how to use lubridate to pull the year column from the est_date column
+#https://chat.openai.com/share/4ccd4ff1-103d-416b-910f-fc431202c3d3
+population_by_age$year <- year(population_by_age$est_date)
+glimpse(population_by_age)
+```
+```{r}
+#I used chat gpt to Filter the data for the year 2020 and aggregate the population for each state.
+#Filter the data for the year 2021 and aggregate the population for each state.
+#Combine the two aggregated datasets and calculate the population shift.
+
+# Step 1: Filter for 2020 and aggregate
+agg_2020 <- population_by_age %>%
+  filter(year(est_date) == 2020) %>%
+  group_by(state) %>%
+  summarize(total_population_2020 = sum(population))
+
+# Step 2: Filter for 2021 and aggregate
+agg_2021 <- population_by_age %>%
+  filter(year(est_date) == 2021) %>%
+  group_by(state) %>%
+  summarize(total_population_2021 = sum(population))
+
+# Step 3: Combine and calculate the shift
+shift_data <- left_join(agg_2020, agg_2021, by = "state") %>%
+  mutate(population_shift = total_population_2021 - total_population_2020)
+
+print(shift_data)
+
+
+```
+
+```{r}
+
+
+
+
+length(full_state_names)
+
+#temp <- 
+read_csv("/Users/lauracech/Documents/GitHub/laura-cech-JOUR772/reverse_engineering/data/population-by-age.csv") |>
+  filter(est_date != ymd("2020-07-01")) |>
+  mutate(year = year(est_date)) |>
+  select(-fips, -est_date) |>
+  group_by(state, year) |>
+  summarise(population = sum(population)) |>
+  pivot_wider(names_from = year, values_from = population) |>
+  clean_names() |>
+  mutate(difference = x2020-x2021)  |>
+  arrange((difference)) |>
+  mutate(state = str_to_lower(state))|>
+  filter(state %in% full_state_names)
+  #filter(state %in% c("california", "new york", "louisiana", "north carolina", "washington", "colorado", "georgia", "minnesota", "wisconsin", "new hampshire", "massachusetts", "montana", "delaware", "north dakota", "district of columbia", "south dakota", "south carolina", "nebraska", "rhode island", "tennessee", "pennsylvania", "florida"))
+
+
+|>
+  arrange(state)
+
+temp2 <- population_by_age |>
+  mutate(state_full = str_to_lower(state_full)) |>
+  group_by(state_full) |>
+  summarise(count = n())
+
+
+as.data.frame(full_state_names) |>
+  filter(full_state_names %notin% temp2$state_full)
+
+```
+
+
+
+
+
+
+
+```{r}
+total_shift <- sum(shift_data$population_shift)
+
+print(total_shift)
+```
+```{r}
+total_shift <- shift_data |>
+   summarise(total_shift_all = sum(population_shift))
+
+print(total_shift)
+```
+
+
+****Sentence #5: That leaves an estimated 230,000 students still unaccounted for in the data. These are children who didn’t sign up for private school or home-school or move out of state. They are missing.
+
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
