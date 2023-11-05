@@ -182,48 +182,52 @@ glimpse(calls_per_zipcode)
 ```
 
 ```{r}
-#Disclaimer: asked chatgpt for help dealing with the geoid and zipcode difference.
-
-pgco_911_calls <- mutate(pgco_911_calls, zipcode = as.character(zipcode))
-
-# Perform the join
-calls_with_census_data <- left_join(pgco_911_calls, pg_census, by = c("zipcode" = "GEOID"))
-
-# To see the result
-glimpse(calls_with_census_data)
-```
-```{r}
-#looked up scatterplot
-ggplot(calls_with_census_data, aes(x = estimate, y = number_of_calls)) +
-  geom_point() +
-  labs(x = "Median Income", y = "Total 911 Calls", title = "Scatterplot of 911 Calls vs Median Income") +
-  theme_minimal()
-```
-
-```{r}
-#asked chatgpt for help dealing with error
-calls_with_census_data <- pgco_911_calls %>%
+#trying to troubleshoot with chat gpt
+# Summarize the number of calls per zipcode
+calls_summary <- pgco_911_calls %>%
   group_by(zipcode) %>%
-  summarise(number_of_calls = n()) %>%
-  left_join(pg_census, by = c("zipcode" = "GEOID"))
+  summarise(number_of_calls = n())
 
-# Then, retry plotting with the correct column name:
-ggplot(calls_with_census_data, aes(x = estimate, y = number_of_calls)) +
-  geom_point() +
-  labs(x = "Median Income", y = "Total 911 Calls", title = "Scatterplot of 911 Calls vs Median Income") +
-  theme_minimal()
+# Join the summary with the census data
+calls_with_census_data <- left_join(calls_summary, pg_census, by = c("zipcode" = "GEOID"))
+
+# Now you can check the column names again
+colnames(calls_with_census_data)
 ```
 ```{r}
-#asked chatgpt for help dealing with error.
+
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+
 # Remove rows with missing values
-calls_with_census_data <- na.omit(calls_with_census_data)
+calls_with_census_data_complete <- calls_with_census_data %>%
+  filter(!is.na(estimate) & !is.na(number_of_calls))
+
+# Plotting without missing values
+ggplot(calls_with_census_data_complete, aes(x = estimate, y = number_of_calls)) +
+  geom_point() +
+  geom_text_repel(aes(label = zipcode), check_overlap = TRUE) +
+  labs(
+    title = "Relationship between 911 Calls and Median Income",
+    subtitle = "Each point represents a ZIP code area",
+    x = "Median Income",
+    y = "Total Number of 911 Calls",
+    caption = "Source: PG County 911 Calls & Census Data"
+  ) +
+  theme_minimal()
+
+
+
 
 ```
 
 ```{r}
-ggplot(calls_with_census_data, aes(x = estimate, y = number_of_calls)) +
-  geom_point() +
-  labs(x = "Median Income", y = "Total 911 Calls", title = "Scatterplot of 911 Calls vs Median Income") +
-  theme_minimal()
+
+
+```
+
+```{r}
+
 ```
 
