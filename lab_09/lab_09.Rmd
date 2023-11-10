@@ -38,8 +38,8 @@ You MUST do the following things when answering this question:
 * Publish your chart
 * Describe your thought process below - why you chose to make the chart you did - and add the URL of your chart.
 
-**A1.** https://datawrapper.dwcdn.net/QTKdw/1/
-I first tried to show all the candidates but realized that was too confusing. So, then I made a dataframe showing counties and Cox and Hogan's percentages of total votes. The side-by-side bar was the best way to show the difference.
+**A1.** https://datawrapper.dwcdn.net/6mT3W/1/
+I first tried to show all the candidates but realized that was too confusing. So, then I made a dataframe showing counties and Cox and Hogan's percentages of total votes. (I also first joined by county but St. Mary's was written slightly different so I joined by GEOID.) The side-by-side bar was the best way to show the difference.
 
 ```{r}
 #load data
@@ -70,14 +70,14 @@ coxwins <- cox |>
 
 
 ```{r}
-combinedwins <- full_join(hoganwins, coxwins, by = "County")
+combinedwins <- full_join(hoganwins, coxwins, by = "GEOID")
 
 ```
 
 
 ```{r}
 combinedwins |>
-  select(County, CoxPercent, HoganPercent) |>
+  select(County.x, County.y, CoxPercent, HoganPercent) |>
   write.csv(file = "selected_combinedwins_data.csv", row.names = FALSE)
 ```
 
@@ -129,4 +129,57 @@ What do you think the story here is, and what would you want to know more about?
 **A3.** 
 
 ```{r}
+overdose <- read_csv("data/montgomery_2022_overdoses.csv")
 ```
+```{r}
+glimpse(overdose)
+```
+```{r}
+
+overdose_by_zip <- overdose |>
+  group_by(zip) |>
+  mutate(Calls_in_Zip = n()) %>%
+  ungroup()
+
+glimpse(overdose_by_zip)
+
+```
+
+```{r}
+#try again with chat-gpt help
+
+library(tidyverse)
+
+# Assuming the dataframe is named 'overdose' and is already loaded in R.
+
+# Step 1 & 2: Group by zip and summarize to count calls per zip
+overdose_summary <- overdose %>%
+  group_by(zip) %>%
+  summarise(Calls_in_Zip = n())
+
+# Step 3: Calculate the total number of calls
+total_calls <- sum(overdose_summary$Calls_in_Zip)
+
+# Step 4: Calculate the percentage of calls for each zip code
+overdose_summary <- overdose_summary %>%
+  mutate(Percent_of_Calls = (Calls_in_Zip / total_calls) * 100)
+
+# Step 5: Select only the relevant columns
+overdose_summary <- overdose_summary %>%
+  select(zip, Calls_in_Zip, Percent_of_Calls)
+
+# Step 6: Write the data frame to a CSV file
+csv_file_path <- "overdose_zip_calls.csv"
+write_csv(overdose_summary, csv_file_path)
+
+# Print the path to the CSV file
+print(csv_file_path)
+
+
+
+
+```
+```{r}
+
+```
+
