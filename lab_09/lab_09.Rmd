@@ -87,9 +87,30 @@ HINT: In Datawrapper's "Check and Describe" tab, you can click on a column to ge
 
 What do you think the story here is? Put the answer below along with the URL of your chart.
 
-**A2.** 
+**A2.** During the pandemic, almost half of voters cast ballots by mail. After the pandemic, many decided to keep mailing their votes. The number of voters casting ballots more than doubled in 2022 from 2018 (before the pandemic).
+https://datawrapper.dwcdn.net/qOOBP/1/
 
 ```{r}
+md_votes <- read_csv("data/md_votes_by_type.csv")
+```
+```{r}
+glimpse(md_votes)
+```
+```{r}
+md_votes_mutated <- md_votes |>
+  mutate(`Early %` = Early / Total * 100) |>
+  mutate(`Election Day %` = `Election Day` / Total * 100) |>
+  mutate(`Mail %` = Mail / Total * 100) 
+
+# Display the updated dataframe
+print(md_votes_mutated) |>
+  write.csv(file = "md_votes_mutated.csv", row.names = FALSE)
+```
+
+```{r}
+  # Display the updated dataframe
+print(md_votes_mutated) |>
+  write.csv(file = "md_votes_mutated.csv", row.names = FALSE)
 ```
 
 
