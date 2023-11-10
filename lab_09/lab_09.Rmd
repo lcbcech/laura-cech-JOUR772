@@ -38,7 +38,8 @@ You MUST do the following things when answering this question:
 * Publish your chart
 * Describe your thought process below - why you chose to make the chart you did - and add the URL of your chart.
 
-**A1.** 
+**A1.** https://datawrapper.dwcdn.net/QTKdw/1/
+I first tried to show all the candidates but realized that was too confusing. So, then I made a dataframe showing counties and Cox and Hogan's percentages of total votes. The side-by-side bar was the best way to show the difference.
 
 ```{r}
 #load data
@@ -76,7 +77,7 @@ combinedwins <- full_join(hoganwins, coxwins, by = "County")
 
 ```{r}
 combinedwins |>
-  select(County, CoxPercent, HoganPercent) %>%
+  select(County, CoxPercent, HoganPercent) |>
   write.csv(file = "selected_combinedwins_data.csv", row.names = FALSE)
 ```
 
