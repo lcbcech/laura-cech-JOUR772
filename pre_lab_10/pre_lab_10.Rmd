@@ -245,7 +245,9 @@ library(tidyverse)
 library(sf)
 library(janitor)
 library(tidycensus)
-#census_api_key("549950d36c22ff16455fe196bbbd01d63cfbe6cf")
+census_api_key("77872777955b38b9334cbbae8eea25f316159387")
+
+
 ```
 
 For the rest of this chapter, we're going to work on building a map that will help us gain insight into geographic patterns in foreclosure notices by county in Maryland. What geographic patterns can we identify?
@@ -254,7 +256,8 @@ First, we'll go out and get the county foreclosure notices and population data f
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. **Answer**
+**Task** Run the following code. Describe the output in the space below. 
+**Answer** A dataframe with four columns, including each county and number of notices.
 
 ```{r}
 md_county_notices <- read_csv("data/Maryland_Foreclosure_Data_by_County.csv") |> slice(1) |> pivot_longer(cols=-c('Date', 'Type'), names_to='county', values_to = 'notices')
@@ -269,7 +272,8 @@ Ultimately, we're going to join this county table with population with foreclosu
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. **Answer**
+**Task** Run the following code. Describe the output in the space below. 
+**Answer** Dateframe with 6 columns, 25 rows that includes each county and Baltimore with GEOIDs, estimate, multipolygon, etc. 
 
 ```{r}
 md_county_population <- get_acs(geography = "county",
@@ -289,7 +293,8 @@ But there's a problem. The column in our population data that has county names i
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. **Answer**
+**Task** Run the following code. Describe the output in the space below. 
+**Answer**
 
 ```{r}
 md_county_population
@@ -350,7 +355,8 @@ Okay, now let's visualize. We're going to build a choropleth map, with the color
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. **Answer**
+**Task** Run the following code. Describe the output in the space below. 
+**Answer** We can now see the map showing the number of foreclosure notices per 1000 population. The highest number in bright blue is Charles County
 
 ```{r}
 
@@ -368,7 +374,8 @@ This map is okay, but the color scale makes it hard to draw fine-grained differe
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. **Answer**
+**Task** Run the following code. Describe the output in the space below. 
+**Answer** It's now easier to see the areas with the highest number (Charles) and the lowest number (Montomgery, Howard and Garrett counites)
 
 ```{r}
 ggplot() +
@@ -383,7 +390,8 @@ So let's change the color scale to a "log" scale, which will help us see those d
 
 ### Task: Run code
 
-**Task** Run the following code. Describe the output in the space below. What regional patterns do you see? **Answer**
+**Task** Run the following code. Describe the output in the space below. What regional patterns do you see? 
+**Answer** It seems the richest counties (Montgomery, Howard, Frederick, Talbot) have the lowest rates. But not sure what to make of Garrett or Wicomico. 
 
 ```{r}
 ggplot() +
