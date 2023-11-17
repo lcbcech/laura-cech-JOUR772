@@ -141,11 +141,6 @@ ggplot() +
   theme_minimal()
 
 ```
-```{r}
-
-
-
-```
 
 
 **Q3.** You've been assigned a story about the use of electric vehicles in Maryland and you want to make a map of the prevalence of electric vehicles in each county. Load the `ev_2020_2023.csv` file, which has the number of electric and hybrid vehicles per county from July 2020 and March 2023 and calculate a percentage change for each county (remember, that's `new-old/old`). Using the Maryland counties dataframe you made for Q1, make a county map showing the percentage change.What counties stand out to you? What questions do you have about the changes you're seeing?
@@ -157,7 +152,33 @@ Then, calculate a per capita rate of electric & hybrid vehicles using the March 
 Finally, make a second county map showing the per capita rate. What counties stand out on this map? How is it different from the first one you made?
 
 **A3.** 
+Caroline stood out initially with a 400 % change.
+
 
 ```{r}
+ev <- read_csv("data/ev_2020_2023.csv")
+```
+```{r}
+glimpse(ev)
+```
+```{r}
+ev <- ev |>
+  mutate(
+    percentage_change = ((march_2023 - july_2020) / july_2020) * 100
+  )
+
+glimpse(ev)
+```
+```{r}
+ev_statewide <- md_counties |> left_join(ev, join_by(name==county))
+
+glimpse(ev_statewide)
+```
+```{r}
+ggplot() +
+  geom_sf(data=ev_statewide, aes(fill=percentage_change)) +
+  scale_colour_viridis_b(option="magma") +
+   geom_text(aes(x = X, y = Y, label = NAME), data = county_centroids_df, size = 3, check_overlap = TRUE) +
+  theme_minimal()
 ```
 
