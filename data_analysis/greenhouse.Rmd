@@ -1,0 +1,51 @@
+---
+title: "Greenhouse Gas Reporting Program Data"
+author: "Laura Cech and Andrea Duran Liceaga"
+date: "2023-Fall"
+output: html_document
+---
+
+Intro: Given the ambitious goals of Maryland officials to reduce greenhouse gas emissions (by 60 percent by 2031), we propose to examine EPA data to answer fundamental questions:
+
+How do greenhouse gas emissions in MD compare/ rank nationally? 
+What are the locations of top greenhouse gas emitters?
+How do the hotspots of emissions match with sites being supervised by state and federal environmental authorities? 
+What are the demographics (median income, race) in areas with the most greenhouse emissions?
+What industries/ companies emit the most and what are their parent companies? 
+
+We believe these questions are newsworthy because they address some of the things people might want to know about how our state is doing regarding emissions.
+
+Datasets come from: https://www.epa.gov/ghgreporting/data-sets
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+Deliverable 2:
+Loads and cleans the core data set to prepare for analysis. 
+
+Shows basic exploratory analysis to demonstrate an understanding of the dataset, including the number of rows and columns, any obvious limitations or flaws and any reasons why it might not be able to answer the questions you've posed last week.
+
+Describe the limits of the data in terms of timeframe, what is and is not included and any codes or other information you'd need to find definitions for, and what you've done to better define it.
+
+## Load libraries and establish settings
+
+
+```{r}
+library(tidyverse)
+library(sf)
+library(janitor)
+library(tigris)
+
+```
+
+
+```{r}
+#asked chatgpt for code to load one sheet of a spreadsheet
+library(readxl)
+suppliers2022 <- read_excel("2022_data_summary_spreadsheets/ghgp_data_by_year_2022.xlsx", sheet = "Suppliers", skip = 3)
+
+glimpse(suppliers2022)
+```
+
+
