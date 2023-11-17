@@ -153,6 +153,7 @@ Finally, make a second county map showing the per capita rate. What counties sta
 
 **A3.** 
 Caroline stood out initially with a 400 % change.
+In the second map, Howard and Carroll County stand out. This is interesting because Howard County is suburban and affluent and would seemingly be more into EV cars than the more rural, politically conservative Carroll County. Is this because more people are commuting to DC and Baltimore from Carroll and looking to save on gas? 
 
 
 ```{r}
@@ -177,7 +178,55 @@ glimpse(ev_statewide)
 ```{r}
 ggplot() +
   geom_sf(data=ev_statewide, aes(fill=percentage_change)) +
-  scale_colour_viridis_b(option="magma") +
+  scale_colour_viridis_b(option="magma", trans = "log") +
+   geom_text(aes(x = X, y = Y, label = NAME), data = county_centroids_df, size = 3, check_overlap = TRUE) +
+  theme_minimal()
+```
+
+```{r}
+
+library(tidycensus)
+census_api_key("77872777955b38b9334cbbae8eea25f316159387")
+
+md_county_population <- get_acs(geography = "county",
+              variables = c(population = "B01001_001"),
+              year = 2021,
+              state = "MD",
+              geometry = TRUE)
+
+md_county_population
+```
+
+```{r}
+md_county_population <- md_county_population |>
+ clean_names()
+
+glimpse(md_county_population)
+```
+```{r}
+
+#chat gpt help with spatial join (still don't understand why I was getting error joining by geoid)
+ev_per_cap <- st_join(md_county_population, ev_statewide, left = TRUE)
+
+glimpse(ev_per_cap)
+```
+
+```{r}
+#chat gpt help in per capita rate
+ev_per_cap <- ev_per_cap |>
+  mutate(
+    per_capita_rate = (march_2023 / estimate) * 1000  
+  )
+```
+
+```{r}
+glimpse(ev_per_cap)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=ev_per_cap, aes(fill=per_capita_rate)) +
+  scale_colour_viridis_b(option="magma", trans = "log") +
    geom_text(aes(x = X, y = Y, label = NAME), data = county_centroids_df, size = 3, check_overlap = TRUE) +
   theme_minimal()
 ```
