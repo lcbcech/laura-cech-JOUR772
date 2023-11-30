@@ -99,7 +99,27 @@ When you finish scraping into a dataframe, write code to find the press releases
 **A2** 
 
 ```{r}
+public_defender_url <- "https://www.opd.state.md.us/press-releases"
+
+public_defender <- public_defender_url |>
+  read_html() |>
+  html_elements('span.wixui-rich-text__text') |>
+  html_text() |>
+  as_tibble()
+
+public_defender
+
+
 ```
+```{r}
+
+
+#<div data-testid="colorUnderlay" class="LWbAav Kv1aVt"></div>
+```
+```{r}
+releases <- osp_results |> html_elements('li.listing-item') 
+```
+
 
 **Q3** Sen. Ben Cardin, D-Maryland, has posted hundreds of press releases at https://www.cardin.senate.gov/?post_type=press-releases. It would be great to have all of them in a dataframe that has the following columns: date, title and url.
 
