@@ -207,6 +207,14 @@ When you're done, rename the columns so they make sense, then make sure the date
 Finally, tell me what questions you could ask of this data. Be creative.
 
 **A3** 
+How often does Cardin issue releases with other members of the Maryland delegation?
+How often does he brag about funding?
+What legislation does he introduce?
+How often does he talk about Chesapeake, defense, Republicans, and other hot button topics?
+Is there a pattern to when he issues releases-- example: typically Mondays, more around elections?
+How often does he "applaud," "call for," "urge," and "honor" -- the buzzwords of politics?
+
+
 
 ```{r}
 #cardin_url <- "https://www.cardin.senate.gov/?post_type=press-releases" 
@@ -263,5 +271,17 @@ press_releases_df <- bind_cols(dates_df, titles_df, filtered_urls_df)
 
 # View the resulting data frame
 print(press_releases_df)
+```
+
+```{r}
+cardin_releases <-press_releases_df |>
+  clean_names() |>
+  rename(link = x3)
+
+```
+
+```{r}
+cardin_releases <- cardin_releases |>
+  mutate(date = mdy(date))
 ```
 
