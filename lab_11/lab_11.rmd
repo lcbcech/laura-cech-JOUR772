@@ -209,4 +209,49 @@ Finally, tell me what questions you could ask of this data. Be creative.
 **A3** 
 
 ```{r}
+#cardin_url <- "https://www.cardin.senate.gov/?post_type=press-releases" 
+
+#cardin <- cardin_url |>
+ # read_html() |>
+  #html_element('span.customBlog_container') |> 
+  #html_text()
+
+# show the dataframe customBlog_container
+
+#cardin
+
+
+
+library(rvest)
+library(dplyr)
+
+
+# Scrape the webpage
+cardin <- read_html("https://www.cardin.senate.gov/?post_type=press-releases")
+
+# Extract dates, titles, and URLs
+dates <- cardin %>% html_elements("h5") %>% html_text()
+titles <- cardin %>% html_elements("h3") %>% html_text()
+urls <- cardin %>% html_elements("a") %>% html_attr("href")
+
+# Convert lists to data frames
+dates_df <- data.frame(date = dates)
+titles_df <- data.frame(title = titles)
+urls_df <- data.frame(url = urls)
+
+# Combine into a single data frame
+#press_releases_df <- bind_cols(dates_df, titles_df, urls_df)
+
+# View the resulting data frame
+#print(press_releases_df)
+
+
 ```
+```{r}
+filtered_urls_df <- urls_df %>% 
+  filter(str_detect(url, "^https://www.cardin.senate.gov/press-releases"))
+
+# View the resulting data frame
+print(filtered_urls_df)
+```
+
