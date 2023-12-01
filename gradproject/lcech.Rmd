@@ -1,0 +1,27 @@
+---
+title: "grad project"
+output: html_notebook
+---
+
+intro
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+```
+
+```{r}
+property_all <- read_csv("data/Baltimore_County_Real_Property_Assessments.csv")
+```
+
+```{r}
+property_all|>
+  clean_names()
+```
+
