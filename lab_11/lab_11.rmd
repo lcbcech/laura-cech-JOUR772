@@ -24,6 +24,8 @@ library(rvest)
 library(tidyverse)
 library(janitor)
 library(lubridate)
+library(dplyr)
+library(stringr)
 ```
 
 
@@ -96,7 +98,7 @@ grants_filtered
 
 When you finish scraping into a dataframe, write code to find the press releases that have the word "police" in the title. How many are there and when was the most recent one?
 
-**A2** 
+**A2** There are 8 press releases with police in the title; the most recent was 2021-06-21.
 
 ```{r}
 public_defender_url <- "https://www.opd.state.md.us/press-releases"
@@ -112,12 +114,85 @@ public_defender
 
 ```
 ```{r}
+#chat gpt helped code of cutting top blank lines
+public_defender_cut <- public_defender |>
+  slice(-1:-9)
 
+#split column 
+public_defender_split <- public_defender_cut |> 
+  separate(value, into = c("Date", "Text"), sep = ": ", extra = "merge") |>
+  mutate(Date = mdy(Date)) 
 
-#<div data-testid="colorUnderlay" class="LWbAav Kv1aVt"></div>
+# View 
+print(public_defender_split)
+
 ```
 ```{r}
-releases <- osp_results |> html_elements('li.listing-item') 
+#remove blank rows with chat gpt help
+public_defender_releases <- public_defender_split |>
+  remove_empty() |>
+  distinct()
+```
+
+```{r}
+# Check the column names in your DataFrame
+colnames(public_defender_releases)
+
+
+
+public_defender_releases <- public_defender_releases |> 
+  rename(release = Text) 
+  
+
+```
+
+
+```{r}
+public_defender_releases <- public_defender_releases |>
+  clean_names()
+```
+
+
+```{r}
+# Remove rows where the 'releases' column is NA
+public_defender_releases_filtered <- public_defender_releases[!is.na(public_defender_releases$releases), ]
+
+# View the modified data frame
+print(public_defender_releases_filtered)
+
+
+```
+```{r}
+# Check the structure of the DataFrame
+str(public_defender_releases)
+
+# Check the number of rows in the DataFrame
+nrow(public_defender_releases)
+
+# Check the column names
+colnames(public_defender_releases)
+
+```
+```{r}
+# Remove rows where the 'release' column is NA
+public_defender_releases_filtered <- public_defender_releases[!is.na(public_defender_releases$release), ]
+
+# View the modified data frame
+print(public_defender_releases_filtered)
+
+```
+
+```{r}
+
+
+# filter police
+police_releases <- public_defender_releases_filtered |>
+  filter(str_detect(release, "Police")) |>
+  arrange(desc(date))
+
+
+
+
 ```
 
 
