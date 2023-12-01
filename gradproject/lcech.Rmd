@@ -1,6 +1,7 @@
 ---
 title: "grad project"
 output: html_notebook
+author: Laura Cech
 ---
 
 intro
@@ -12,8 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(refinr)
 library(janitor)
 library(lubridate)
+library(readxl)
+library(datasets)
+library(dplyr)
 ```
 
 ```{r}
@@ -26,6 +31,8 @@ property_all <-property_all|>
 ```
 ```{r}
 property_filtered <- property_all %>% 
-  select(mappable_latitude_and_longitude)
+  select(mappable_latitude_and_longitude, mdp_street_address_mdp_field_address, mdp_street_address_city_mdp_field_city, mdp_street_address_zip_code_mdp_field_zipcode, land_use_code_mdp_field_lu_desclu_sdat_field_number_50, property_factors_utilities_water_mdp_field_pfuw_sdat_field_number_63, property_factors_utilities_sewer_mdp_field_pfus_sdat_field_number_64, property_factors_location_waterfront_mdp_field_pflw_sdat_field_number_65, property_factors_street_unpaved_mdp_field_pfsu_sdat_field_number_68, property_factors_influence_historical_mdp_field_pfih_sdat_field_number_70, sales_segment_1_grantor_name_mdp_field_grntnam1_sdat_field_number_80, sales_segment_3_how_conveyed_ind_sdat_field_number_127, 
+sales_segment_2_grantor_name_sdat_field_number_100, 
+sales_segment_3_grantor_name_sdat_field_number_120, additional_c_a_m_a_data_building_style_code_and_description_mdp_field_strustyl_descstyl_sdat_field_number_264  )
 ```
 
