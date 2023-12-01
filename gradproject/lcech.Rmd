@@ -21,7 +21,11 @@ property_all <- read_csv("data/Baltimore_County_Real_Property_Assessments.csv")
 ```
 
 ```{r}
-property_all|>
+property_all <-property_all|>
   clean_names()
+```
+```{r}
+property_filtered <- property_all %>% 
+  select(mappable_latitude_and_longitude)
 ```
 
