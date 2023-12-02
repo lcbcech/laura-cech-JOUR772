@@ -158,3 +158,69 @@ print(waterfront_landcodes)
 write.csv(waterfront_landcodes, "waterfront_landcodes.csv", row.names = FALSE)
 ```
 
+Let's look at land codes in general:
+81 percent of the transactions are residential. 
+
+Here's a visualization of landcodes that aren't residential: https://datawrapper.dwcdn.net/49Hc3/1/
+
+
+```{r}
+
+# count land code
+land_code_counts <- property_renamed |>
+  count(land_code)
+
+# total 
+total_records <- nrow(property_renamed)
+
+# percentages
+land_code_percentages <- land_code_counts |>
+  mutate(percentage = n / total_records * 100)
+
+# view
+print(land_code_percentages)
+
+#export
+write.csv(land_code_percentages, "land_code_percentages.csv", row.names = FALSE)
+
+```
+```{r}
+#see non-residential only
+
+non_residential <- property_renamed |>
+  filter(land_code != "Residential (R)" , land_code != "Residential Condominium (U)")
+
+# count
+land_code_counts_non <- non_residential |>
+  count(land_code)
+
+# number of non-residential records
+total_non_residential <- nrow(non_residential)
+
+# percentages
+land_code_percentages_non <- land_code_counts_non |>
+  mutate(percentage = n / total_non_residential * 100)
+
+# view the land code percentages
+print(land_code_percentages_non)
+
+#export
+write.csv(land_code_percentages_non, "land_code_percentages_non.csv", row.names = FALSE)
+
+```
+
+Let's see owner trends. Looking at most recent transactions first (sales3)
+
+```{r}
+
+# count properties per owner
+owners_count <- property_renamed |>
+  count(sales3) |>
+  filter(n > 1) |>
+  arrange(desc(n))
+
+# view
+print(owners_count)
+
+```
+
