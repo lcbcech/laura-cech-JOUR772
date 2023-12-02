@@ -5,6 +5,7 @@ author: Laura Cech
 ---
 
 intro
+https://opendata.maryland.gov/Business-and-Economy/Baltimore-County-Real-Property-Assessments-Hidden-/jpfc-qkxp
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -39,6 +40,7 @@ sales_segment_3_grantor_name_sdat_field_number_120, additional_c_a_m_a_data_buil
 #Note on the columns I pulled: I did not look at prices at this juncture and only looked at the type of the most recent sale. There are too many things to examine and the file is huge!
 
 ```{r}
+#rename columns
 property_renamed <-property_filtered |>
   rename(map_coordinates = mappable_latitude_and_longitude) |>
   rename(street = mdp_street_address_mdp_field_address) |>
@@ -62,6 +64,7 @@ What does the data look like by city?
 I can see that some places will show up as "Baltimore" because it's interchangable in some places like Catonsville.
 
 ```{r}
+#group by cities
 by_city <- property_renamed|>
    group_by(city) |>
   summarise(count = n()) |>
@@ -73,13 +76,19 @@ What percentage of this data involves properites with historical influence?
 I'm surprised only 4 are in this category, but sure makes it easy to find out more about them and see if there's a story there.
 
 ```{r}
+#see historical properties
 historical_count <- property_renamed |> 
   filter(!str_detect(historical, "No Historical Influence \\(0\\)")) 
+
+print(historical_count)
 ```
 
 Let's look at waterfront property.
 Only about 5,000 (less than 2 percent) of the 305,205 records are classified as waterfront.
 Obviously, the majority are in Eastern Baltimore County (Dundalk, Middle River, Essex).
+
+See the by-the-city visualization: https://datawrapper.dwcdn.net/eimgT/1/
+
 
 
 ```{r}
@@ -105,5 +114,47 @@ waterfront_counts_by_city <- property_renamed |>
 
 
 print(waterfront_counts_by_city)
+
+# Export csv
+write.csv(waterfront_counts_by_city, "waterfront_counts_by_city.csv", row.names = FALSE)
+
+```
+```{r}
+#see land code percentages by city
+
+waterfront_counts_by_city_landcode <- property_renamed |>
+  filter(!str_detect(waterfront, "None \\(0\\)")) |>
+  group_by(city, land_code) |>
+  summarise(count = n()) |>
+  arrange(desc(city))
+
+total_counts_by_city <- waterfront_counts_by_city_landcode |>
+  group_by(city) |>
+  summarise(total_count = sum(count))
+
+# calculate percentages
+waterfront_percentages <- waterfront_counts_by_city_landcode |>
+  left_join(total_counts_by_city, by = "city") |>
+  mutate(percentage = (count / total_count) * 100)
+
+# View the result
+print(waterfront_percentages)
+
+#export
+write.csv(waterfront_percentages, "waterfront_percentages.csv", row.names = FALSE)
+```
+I thought it would be cool to show pies for each city in datawrapper, but it didn't work. I'm going to see if it will work if I elimate the cities with only one landcode.
+update: It doesn't.
+
+```{r}
+waterfront_landcodes <- waterfront_percentages |>
+  group_by(city) |>
+  filter(n_distinct(land_code) > 1)
+
+# View the resulting DataFrame
+print(waterfront_landcodes)
+
+#export
+write.csv(waterfront_landcodes, "waterfront_landcodes.csv", row.names = FALSE)
 ```
 

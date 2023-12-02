@@ -1,0 +1,39 @@
+"city","land_code","count"
+"WINDSOR MILL","Industrial (I)",1
+"WHITE MARSH","Agricultural (A)",2
+"WHITE MARSH","Commercial (C)",2
+"WHITE MARSH","Exempt (E)",1
+"WHITE MARSH","Residential (R)",149
+"SPARROWS POINT","Commercial (C)",32
+"SPARROWS POINT","Commercial Residential (CR)",3
+"SPARROWS POINT","Exempt (E)",6
+"SPARROWS POINT","Residential (R)",771
+"ROSEDALE","Residential (R)",76
+"MIDDLE RIVER","Agricultural (A)",5
+"MIDDLE RIVER","Commercial (C)",47
+"MIDDLE RIVER","Commercial Residential (CR)",1
+"MIDDLE RIVER","Exempt (E)",22
+"MIDDLE RIVER","Industrial (I)",1
+"MIDDLE RIVER","Residential (R)",1711
+"MIDDLE RIVER","Residential Condominium (U)",4
+"LUTHERVILLE TIMONIUM","Commercial (C)",1
+"ESSEX","Agricultural (A)",1
+"ESSEX","Apartments (M)",1
+"ESSEX","Commercial (C)",50
+"ESSEX","Commercial Residential (CR)",3
+"ESSEX","Exempt (E)",11
+"ESSEX","Exempt Commercial (EC)",1
+"ESSEX","Residential (R)",1340
+"ELLICOTT CITY","Residential (R)",11
+"DUNDALK","Commercial (C)",19
+"DUNDALK","Exempt (E)",9
+"DUNDALK","Industrial (I)",8
+"DUNDALK","Residential (R)",759
+"CATONSVILLE","Commercial (C)",1
+"BALTIMORE-ESSEX","Residential (R)",1
+"BALTIMORE","Commercial (C)",3
+"BALTIMORE","Exempt Commercial (EC)",1
+"BALTIMORE","Industrial (I)",1
+"BALTIMORE","Residential (R)",2
+NA,"Commercial (C)",3
+NA,"Residential (R)",6
