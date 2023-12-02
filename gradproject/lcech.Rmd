@@ -36,3 +36,74 @@ sales_segment_2_grantor_name_sdat_field_number_100,
 sales_segment_3_grantor_name_sdat_field_number_120, additional_c_a_m_a_data_building_style_code_and_description_mdp_field_strustyl_descstyl_sdat_field_number_264  )
 ```
 
+#Note on the columns I pulled: I did not look at prices at this juncture and only looked at the type of the most recent sale. There are too many things to examine and the file is huge!
+
+```{r}
+property_renamed <-property_filtered |>
+  rename(map_coordinates = mappable_latitude_and_longitude) |>
+  rename(street = mdp_street_address_mdp_field_address) |>
+  rename(city = mdp_street_address_city_mdp_field_city) |>
+  rename(zip = mdp_street_address_zip_code_mdp_field_zipcode) |>
+  rename(land_code = land_use_code_mdp_field_lu_desclu_sdat_field_number_50) |>
+  rename(water = property_factors_utilities_water_mdp_field_pfuw_sdat_field_number_63) |>
+  rename(sewer = property_factors_utilities_sewer_mdp_field_pfus_sdat_field_number_64) |>
+  rename(waterfront = property_factors_location_waterfront_mdp_field_pflw_sdat_field_number_65) |>
+  rename(unpaved = property_factors_street_unpaved_mdp_field_pfsu_sdat_field_number_68) |>
+  rename(historical = property_factors_influence_historical_mdp_field_pfih_sdat_field_number_70) |>
+  rename(sales1 = sales_segment_1_grantor_name_mdp_field_grntnam1_sdat_field_number_80) |>
+  rename(sales2 = sales_segment_2_grantor_name_sdat_field_number_100) |>
+  rename(sales3 = sales_segment_3_grantor_name_sdat_field_number_120) |>
+  rename(conveyed3 = sales_segment_3_how_conveyed_ind_sdat_field_number_127) |>
+  rename(bldg = additional_c_a_m_a_data_building_style_code_and_description_mdp_field_strustyl_descstyl_sdat_field_number_264)
+  
+```
+
+What does the data look like by city?
+I can see that some places will show up as "Baltimore" because it's interchangable in some places like Catonsville.
+
+```{r}
+by_city <- property_renamed|>
+   group_by(city) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+```
+
+
+What percentage of this data involves properites with historical influence?
+I'm surprised only 4 are in this category, but sure makes it easy to find out more about them and see if there's a story there.
+
+```{r}
+historical_count <- property_renamed |> 
+  filter(!str_detect(historical, "No Historical Influence \\(0\\)")) 
+```
+
+Let's look at waterfront property.
+Only about 5,000 (less than 2 percent) of the 305,205 records are classified as waterfront.
+Obviously, the majority are in Eastern Baltimore County (Dundalk, Middle River, Essex).
+
+
+```{r}
+waterfront_total <- property_renamed |>
+  filter(!str_detect(waterfront, "None \\(0\\)")) |>
+  nrow()
+
+#total records
+total_records <- nrow(property_renamed )
+
+#get percentage 
+percentage_waterfront <- (waterfront_total / total_records) * 100
+
+print(percentage_waterfront)
+```
+
+```{r}
+waterfront_counts_by_city <- property_renamed |>
+  filter(!str_detect(waterfront, "None \\(0\\)")) |>
+  group_by(city, land_code) |>
+  summarise(count = n()) |>
+  arrange(desc(city))
+
+
+print(waterfront_counts_by_city)
+```
+

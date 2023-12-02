@@ -1804,9 +1804,107 @@ sales_segment_3_grantor_name_sdat_field_number_120, additional_c_a_m_a_data_buil
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>#Note on the columns I pulled: I did not look at prices at this
+juncture and only looked at the type of the most recent sale. There are
+too many things to examine and the file is huge!</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvcGVydHlfcmVuYW1lZCA8LXByb3BlcnR5X2ZpbHRlcmVkIHw+XG4gIHJlbmFtZShtYXBfY29vcmRpbmF0ZXMgPSBtYXBwYWJsZV9sYXRpdHVkZV9hbmRfbG9uZ2l0dWRlKSB8PlxuICByZW5hbWUoc3RyZWV0ID0gbWRwX3N0cmVldF9hZGRyZXNzX21kcF9maWVsZF9hZGRyZXNzKSB8PlxuICByZW5hbWUoY2l0eSA9IG1kcF9zdHJlZXRfYWRkcmVzc19jaXR5X21kcF9maWVsZF9jaXR5KSB8PlxuICByZW5hbWUoemlwID0gbWRwX3N0cmVldF9hZGRyZXNzX3ppcF9jb2RlX21kcF9maWVsZF96aXBjb2RlKSB8PlxuICByZW5hbWUobGFuZF9jb2RlID0gbGFuZF91c2VfY29kZV9tZHBfZmllbGRfbHVfZGVzY2x1X3NkYXRfZmllbGRfbnVtYmVyXzUwKSB8PlxuICByZW5hbWUod2F0ZXIgPSBwcm9wZXJ0eV9mYWN0b3JzX3V0aWxpdGllc193YXRlcl9tZHBfZmllbGRfcGZ1d19zZGF0X2ZpZWxkX251bWJlcl82MykgfD5cbiAgcmVuYW1lKHNld2VyID0gcHJvcGVydHlfZmFjdG9yc191dGlsaXRpZXNfc2V3ZXJfbWRwX2ZpZWxkX3BmdXNfc2RhdF9maWVsZF9udW1iZXJfNjQpIHw+XG4gIHJlbmFtZSh3YXRlcmZyb250ID0gcHJvcGVydHlfZmFjdG9yc19sb2NhdGlvbl93YXRlcmZyb250X21kcF9maWVsZF9wZmx3X3NkYXRfZmllbGRfbnVtYmVyXzY1KSB8PlxuICByZW5hbWUodW5wYXZlZCA9IHByb3BlcnR5X2ZhY3RvcnNfc3RyZWV0X3VucGF2ZWRfbWRwX2ZpZWxkX3Bmc3Vfc2RhdF9maWVsZF9udW1iZXJfNjgpIHw+XG4gIHJlbmFtZShoaXN0b3JpY2FsID0gcHJvcGVydHlfZmFjdG9yc19pbmZsdWVuY2VfaGlzdG9yaWNhbF9tZHBfZmllbGRfcGZpaF9zZGF0X2ZpZWxkX251bWJlcl83MCkgfD5cbiAgcmVuYW1lKHNhbGVzMSA9IHNhbGVzX3NlZ21lbnRfMV9ncmFudG9yX25hbWVfbWRwX2ZpZWxkX2dybnRuYW0xX3NkYXRfZmllbGRfbnVtYmVyXzgwKSB8PlxuICByZW5hbWUoc2FsZXMyID0gc2FsZXNfc2VnbWVudF8yX2dyYW50b3JfbmFtZV9zZGF0X2ZpZWxkX251bWJlcl8xMDApIHw+XG4gIHJlbmFtZShzYWxlczMgPSBzYWxlc19zZWdtZW50XzNfZ3JhbnRvcl9uYW1lX3NkYXRfZmllbGRfbnVtYmVyXzEyMCkgfD5cbiAgcmVuYW1lKGNvbnZleWVkMyA9IHNhbGVzX3NlZ21lbnRfM19ob3dfY29udmV5ZWRfaW5kX3NkYXRfZmllbGRfbnVtYmVyXzEyNykgfD5cbiAgcmVuYW1lKGJsZGcgPSBhZGRpdGlvbmFsX2NfYV9tX2FfZGF0YV9idWlsZGluZ19zdHlsZV9jb2RlX2FuZF9kZXNjcmlwdGlvbl9tZHBfZmllbGRfc3RydXN0eWxfZGVzY3N0eWxfc2RhdF9maWVsZF9udW1iZXJfMjY0KVxuICBcbmBgYCJ9 -->
+<pre class="r"><code>property_renamed &lt;-property_filtered |&gt;
+  rename(map_coordinates = mappable_latitude_and_longitude) |&gt;
+  rename(street = mdp_street_address_mdp_field_address) |&gt;
+  rename(city = mdp_street_address_city_mdp_field_city) |&gt;
+  rename(zip = mdp_street_address_zip_code_mdp_field_zipcode) |&gt;
+  rename(land_code = land_use_code_mdp_field_lu_desclu_sdat_field_number_50) |&gt;
+  rename(water = property_factors_utilities_water_mdp_field_pfuw_sdat_field_number_63) |&gt;
+  rename(sewer = property_factors_utilities_sewer_mdp_field_pfus_sdat_field_number_64) |&gt;
+  rename(waterfront = property_factors_location_waterfront_mdp_field_pflw_sdat_field_number_65) |&gt;
+  rename(unpaved = property_factors_street_unpaved_mdp_field_pfsu_sdat_field_number_68) |&gt;
+  rename(historical = property_factors_influence_historical_mdp_field_pfih_sdat_field_number_70) |&gt;
+  rename(sales1 = sales_segment_1_grantor_name_mdp_field_grntnam1_sdat_field_number_80) |&gt;
+  rename(sales2 = sales_segment_2_grantor_name_sdat_field_number_100) |&gt;
+  rename(sales3 = sales_segment_3_grantor_name_sdat_field_number_120) |&gt;
+  rename(conveyed3 = sales_segment_3_how_conveyed_ind_sdat_field_number_127) |&gt;
+  rename(bldg = additional_c_a_m_a_data_building_style_code_and_description_mdp_field_strustyl_descstyl_sdat_field_number_264)
+  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>What does the data look like by city? I can see that some places will
+show up as “Baltimore” because it’s interchangable in some places like
+Catonsville.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnlfY2l0eSA8LSBwcm9wZXJ0eV9yZW5hbWVkfD5cbiAgIGdyb3VwX2J5KGNpdHkpIHw+XG4gIHN1bW1hcmlzZShjb3VudCA9IG4oKSkgfD5cbiAgYXJyYW5nZShkZXNjKGNvdW50KSlcbmBgYCJ9 -->
+<pre class="r"><code>by_city &lt;- property_renamed|&gt;
+   group_by(city) |&gt;
+  summarise(count = n()) |&gt;
+  arrange(desc(count))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>What percentage of this data involves properites with historical
+influence? I’m surprised only 4 are in this category, but sure makes it
+easy to find out more about them and see if there’s a story there.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlzdG9yaWNhbF9jb3VudCA8LSBwcm9wZXJ0eV9yZW5hbWVkIHw+IFxuICBmaWx0ZXIoIXN0cl9kZXRlY3QoaGlzdG9yaWNhbCwgXCJObyBIaXN0b3JpY2FsIEluZmx1ZW5jZSBcXFxcKDBcXFxcKVwiKSkgXG5gYGAifQ== -->
+<pre class="r"><code>historical_count &lt;- property_renamed |&gt; 
+  filter(!str_detect(historical, &quot;No Historical Influence \\(0\\)&quot;)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Let’s look at waterfront property. Only about 5,000 (less than 2
+percent) of the 305,205 records are classified as waterfront. Obviously,
+the majority are in Eastern Baltimore County (Dundalk, Middle River,
+Essex).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2F0ZXJmcm9udF90b3RhbCA8LSBwcm9wZXJ0eV9yZW5hbWVkIHw+XG4gIGZpbHRlcighc3RyX2RldGVjdCh3YXRlcmZyb250LCBcIk5vbmUgXFxcXCgwXFxcXClcIikpIHw+XG4gIG5yb3coKVxuXG4jdG90YWwgcmVjb3Jkc1xudG90YWxfcmVjb3JkcyA8LSBucm93KHByb3BlcnR5X3JlbmFtZWQgKVxuXG4jZ2V0IHBlcmNlbnRhZ2UgXG5wZXJjZW50YWdlX3dhdGVyZnJvbnQgPC0gKHdhdGVyZnJvbnRfdG90YWwgLyB0b3RhbF9yZWNvcmRzKSAqIDEwMFxuXG5wcmludChwZXJjZW50YWdlX3dhdGVyZnJvbnQpXG5gYGAifQ== -->
+<pre class="r"><code>waterfront_total &lt;- property_renamed |&gt;
+  filter(!str_detect(waterfront, &quot;None \\(0\\)&quot;)) |&gt;
+  nrow()
+
+#total records
+total_records &lt;- nrow(property_renamed )
+
+#get percentage 
+percentage_waterfront &lt;- (waterfront_total / total_records) * 100
+
+print(percentage_waterfront)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEuNjU5ODY4XG4ifQ== -->
+<pre><code>[1] 1.659868</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2F0ZXJmcm9udF9jb3VudHNfYnlfY2l0eSA8LSBwcm9wZXJ0eV9yZW5hbWVkIHw+XG4gIGZpbHRlcighc3RyX2RldGVjdCh3YXRlcmZyb250LCBcIk5vbmUgXFxcXCgwXFxcXClcIikpIHw+XG4gIGdyb3VwX2J5KGNpdHksIGxhbmRfY29kZSkgfD5cbiAgc3VtbWFyaXNlKGNvdW50ID0gbigpKSB8PlxuICBhcnJhbmdlKGRlc2MoY2l0eSkpXG5gYGAifQ== -->
+<pre class="r"><code>waterfront_counts_by_city &lt;- property_renamed |&gt;
+  filter(!str_detect(waterfront, &quot;None \\(0\\)&quot;)) |&gt;
+  group_by(city, land_code) |&gt;
+  summarise(count = n()) |&gt;
+  arrange(desc(city))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ2NpdHknLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG4ifQ== -->
+<pre><code>`summarise()` has grouped output by &#39;city&#39;. You can override using the `.groups` argument.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQod2F0ZXJmcm9udF9jb3VudHNfYnlfY2l0eSlcbmBgYCJ9 -->
+<pre class="r"><code>print(waterfront_counts_by_city)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjM4LCJuY29sIjozLCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjM4IMOXIDMiXSwiR3JvdXBzIjpbImNpdHkgWzEzXSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE4V1Z6Mi9UTUJUSDNaK2pLV3lWaG5iWkpTZFVEaTNTNExBRGw1QVkxU0pwSmlkZHl3bUZKR3dSaVZQbGh4ZzMvZ24rRHY0Zi9oRnVnNWZVTGxtMVZyUlFVY2w5ejU4OFA3K3Y0OWhVbXoyWFpoSkNxSUdhalJwcXRNQkZyWW45ZW5DT1VMTU9uUnBxb2s1aGJ5RG91SXhFcUFmdENYL3djRXJHbW1WUzJTQzZ6bGwzT2lJMmxnMkZXcU8vUllmV2hVS3BPYlhrQzVPTTdYOUdIMURUd3BxaVk2SERJSnFtWTVtU1Mwei9NM3VzVCt3UnBwZXdvbGkyaVdHT3ljVGd6MXJZc3ZCc0w1MUhXTmVKYXRxMnJCTDdMWWNIMm1RTXkvUm1sMjVYVld4emJKVTZPRHA2cGVpRklvb0gxYWs3Uzd3TGdNNVArRlZzZFljZUV1YmxhWllFVGlqM3lWTk9lOHBWRXJoNW1PVkp3UlhCRDlVNGl2ekVMYU5WUVNWODQwZnpUTzVqUVk2b253YWV6N0l5a0c0ZWZscWhkOGFwZE9zWjF1RHQ5T3hVMFAwTHVhYWUweXBXWStiRlVjQ0NQSkw3azgybHJSV2l6SjBraXlCakt2ZU5QY2c3NGFTYUVhdTd2WTAvM1VWYkxlbjlTYmNLM3F4eEg5WEFzVkoraThWVmdsQ2R0OEwvQ2szbU4wb2JUR0gxNGt5QzlvekhuQ3hzK3h2WUptZWluZkd4M1VXLzlaTDd4UzFWbnZBdzFZOUtmS1BpMTMvUGUrZWFhN21oazZiOEFCRlE4cHpNR1g1SW5NaGZDZThrOGFjaEE1NXluZlV2OEFkSDBQZlZ2Q0tvVjA2OGdFMDN5RDZMVEtIRHZIZHU3UG5MU3VLY1plRGNycVE2aU9kWkVETklWajllS0VCU1JWbTE4RnF5QW5vNUt3cnhCdTUxemo0T3psNVVCaU11b2NaZmwvQWJpL21iNGxodGkrcDk5enJtZnR0blZ3RmJsaDQ2Ny8xUWJCTllvbEw4Y0o0RUlJZ3ZLZEIwbU1XWkkrSWtOdzRGS1VXajIxK2tQN2ZqbndnQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["city"],"name":[1],"type":["chr"],"align":["left"]},{"label":["land_code"],"name":[2],"type":["chr"],"align":["left"]},{"label":["count"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"WINDSOR MILL","2":"Industrial (I)","3":"1"},{"1":"WHITE MARSH","2":"Agricultural (A)","3":"2"},{"1":"WHITE MARSH","2":"Commercial (C)","3":"2"},{"1":"WHITE MARSH","2":"Exempt (E)","3":"1"},{"1":"WHITE MARSH","2":"Residential (R)","3":"149"},{"1":"SPARROWS POINT","2":"Commercial (C)","3":"32"},{"1":"SPARROWS POINT","2":"Commercial Residential (CR)","3":"3"},{"1":"SPARROWS POINT","2":"Exempt (E)","3":"6"},{"1":"SPARROWS POINT","2":"Residential (R)","3":"771"},{"1":"ROSEDALE","2":"Residential (R)","3":"76"},{"1":"MIDDLE RIVER","2":"Agricultural (A)","3":"5"},{"1":"MIDDLE RIVER","2":"Commercial (C)","3":"47"},{"1":"MIDDLE RIVER","2":"Commercial Residential (CR)","3":"1"},{"1":"MIDDLE RIVER","2":"Exempt (E)","3":"22"},{"1":"MIDDLE RIVER","2":"Industrial (I)","3":"1"},{"1":"MIDDLE RIVER","2":"Residential (R)","3":"1711"},{"1":"MIDDLE RIVER","2":"Residential Condominium (U)","3":"4"},{"1":"LUTHERVILLE TIMONIUM","2":"Commercial (C)","3":"1"},{"1":"ESSEX","2":"Agricultural (A)","3":"1"},{"1":"ESSEX","2":"Apartments (M)","3":"1"},{"1":"ESSEX","2":"Commercial (C)","3":"50"},{"1":"ESSEX","2":"Commercial Residential (CR)","3":"3"},{"1":"ESSEX","2":"Exempt (E)","3":"11"},{"1":"ESSEX","2":"Exempt Commercial (EC)","3":"1"},{"1":"ESSEX","2":"Residential (R)","3":"1340"},{"1":"ELLICOTT CITY","2":"Residential (R)","3":"11"},{"1":"DUNDALK","2":"Commercial (C)","3":"19"},{"1":"DUNDALK","2":"Exempt (E)","3":"9"},{"1":"DUNDALK","2":"Industrial (I)","3":"8"},{"1":"DUNDALK","2":"Residential (R)","3":"759"},{"1":"CATONSVILLE","2":"Commercial (C)","3":"1"},{"1":"BALTIMORE-ESSEX","2":"Residential (R)","3":"1"},{"1":"BALTIMORE","2":"Commercial (C)","3":"3"},{"1":"BALTIMORE","2":"Exempt Commercial (EC)","3":"1"},{"1":"BALTIMORE","2":"Industrial (I)","3":"1"},{"1":"BALTIMORE","2":"Residential (R)","3":"2"},{"1":"NA","2":"Commercial (C)","3":"3"},{"1":"NA","2":"Residential (R)","3":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[38]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiZ3JhZCBwcm9qZWN0IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKYXV0aG9yOiBMYXVyYSBDZWNoCi0tLQoKaW50cm8KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShyZWZpbnIpCmxpYnJhcnkoamFuaXRvcikKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkocmVhZHhsKQpsaWJyYXJ5KGRhdGFzZXRzKQpsaWJyYXJ5KGRwbHlyKQpgYGAKCmBgYHtyfQpwcm9wZXJ0eV9hbGwgPC0gcmVhZF9jc3YoImRhdGEvQmFsdGltb3JlX0NvdW50eV9SZWFsX1Byb3BlcnR5X0Fzc2Vzc21lbnRzLmNzdiIpCmBgYAoKYGBge3J9CnByb3BlcnR5X2FsbCA8LXByb3BlcnR5X2FsbHw+CiAgY2xlYW5fbmFtZXMoKQpgYGAKYGBge3J9CnByb3BlcnR5X2ZpbHRlcmVkIDwtIHByb3BlcnR5X2FsbCAlPiUgCiAgc2VsZWN0KG1hcHBhYmxlX2xhdGl0dWRlX2FuZF9sb25naXR1ZGUsIG1kcF9zdHJlZXRfYWRkcmVzc19tZHBfZmllbGRfYWRkcmVzcywgbWRwX3N0cmVldF9hZGRyZXNzX2NpdHlfbWRwX2ZpZWxkX2NpdHksIG1kcF9zdHJlZXRfYWRkcmVzc196aXBfY29kZV9tZHBfZmllbGRfemlwY29kZSwgbGFuZF91c2VfY29kZV9tZHBfZmllbGRfbHVfZGVzY2x1X3NkYXRfZmllbGRfbnVtYmVyXzUwLCBwcm9wZXJ0eV9mYWN0b3JzX3V0aWxpdGllc193YXRlcl9tZHBfZmllbGRfcGZ1d19zZGF0X2ZpZWxkX251bWJlcl82MywgcHJvcGVydHlfZmFjdG9yc191dGlsaXRpZXNfc2V3ZXJfbWRwX2ZpZWxkX3BmdXNfc2RhdF9maWVsZF9udW1iZXJfNjQsIHByb3BlcnR5X2ZhY3RvcnNfbG9jYXRpb25fd2F0ZXJmcm9udF9tZHBfZmllbGRfcGZsd19zZGF0X2ZpZWxkX251bWJlcl82NSwgcHJvcGVydHlfZmFjdG9yc19zdHJlZXRfdW5wYXZlZF9tZHBfZmllbGRfcGZzdV9zZGF0X2ZpZWxkX251bWJlcl82OCwgcHJvcGVydHlfZmFjdG9yc19pbmZsdWVuY2VfaGlzdG9yaWNhbF9tZHBfZmllbGRfcGZpaF9zZGF0X2ZpZWxkX251bWJlcl83MCwgc2FsZXNfc2VnbWVudF8xX2dyYW50b3JfbmFtZV9tZHBfZmllbGRfZ3JudG5hbTFfc2RhdF9maWVsZF9udW1iZXJfODAsIHNhbGVzX3NlZ21lbnRfM19ob3dfY29udmV5ZWRfaW5kX3NkYXRfZmllbGRfbnVtYmVyXzEyNywgCnNhbGVzX3NlZ21lbnRfMl9ncmFudG9yX25hbWVfc2RhdF9maWVsZF9udW1iZXJfMTAwLCAKc2FsZXNfc2VnbWVudF8zX2dyYW50b3JfbmFtZV9zZGF0X2ZpZWxkX251bWJlcl8xMjAsIGFkZGl0aW9uYWxfY19hX21fYV9kYXRhX2J1aWxkaW5nX3N0eWxlX2NvZGVfYW5kX2Rlc2NyaXB0aW9uX21kcF9maWVsZF9zdHJ1c3R5bF9kZXNjc3R5bF9zZGF0X2ZpZWxkX251bWJlcl8yNjQgICkKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiZ3JhZCBwcm9qZWN0IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKYXV0aG9yOiBMYXVyYSBDZWNoCi0tLQoKaW50cm8KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShyZWZpbnIpCmxpYnJhcnkoamFuaXRvcikKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkocmVhZHhsKQpsaWJyYXJ5KGRhdGFzZXRzKQpsaWJyYXJ5KGRwbHlyKQpgYGAKCmBgYHtyfQpwcm9wZXJ0eV9hbGwgPC0gcmVhZF9jc3YoImRhdGEvQmFsdGltb3JlX0NvdW50eV9SZWFsX1Byb3BlcnR5X0Fzc2Vzc21lbnRzLmNzdiIpCmBgYAoKYGBge3J9CnByb3BlcnR5X2FsbCA8LXByb3BlcnR5X2FsbHw+CiAgY2xlYW5fbmFtZXMoKQpgYGAKYGBge3J9CnByb3BlcnR5X2ZpbHRlcmVkIDwtIHByb3BlcnR5X2FsbCAlPiUgCiAgc2VsZWN0KG1hcHBhYmxlX2xhdGl0dWRlX2FuZF9sb25naXR1ZGUsIG1kcF9zdHJlZXRfYWRkcmVzc19tZHBfZmllbGRfYWRkcmVzcywgbWRwX3N0cmVldF9hZGRyZXNzX2NpdHlfbWRwX2ZpZWxkX2NpdHksIG1kcF9zdHJlZXRfYWRkcmVzc196aXBfY29kZV9tZHBfZmllbGRfemlwY29kZSwgbGFuZF91c2VfY29kZV9tZHBfZmllbGRfbHVfZGVzY2x1X3NkYXRfZmllbGRfbnVtYmVyXzUwLCBwcm9wZXJ0eV9mYWN0b3JzX3V0aWxpdGllc193YXRlcl9tZHBfZmllbGRfcGZ1d19zZGF0X2ZpZWxkX251bWJlcl82MywgcHJvcGVydHlfZmFjdG9yc191dGlsaXRpZXNfc2V3ZXJfbWRwX2ZpZWxkX3BmdXNfc2RhdF9maWVsZF9udW1iZXJfNjQsIHByb3BlcnR5X2ZhY3RvcnNfbG9jYXRpb25fd2F0ZXJmcm9udF9tZHBfZmllbGRfcGZsd19zZGF0X2ZpZWxkX251bWJlcl82NSwgcHJvcGVydHlfZmFjdG9yc19zdHJlZXRfdW5wYXZlZF9tZHBfZmllbGRfcGZzdV9zZGF0X2ZpZWxkX251bWJlcl82OCwgcHJvcGVydHlfZmFjdG9yc19pbmZsdWVuY2VfaGlzdG9yaWNhbF9tZHBfZmllbGRfcGZpaF9zZGF0X2ZpZWxkX251bWJlcl83MCwgc2FsZXNfc2VnbWVudF8xX2dyYW50b3JfbmFtZV9tZHBfZmllbGRfZ3JudG5hbTFfc2RhdF9maWVsZF9udW1iZXJfODAsIHNhbGVzX3NlZ21lbnRfM19ob3dfY29udmV5ZWRfaW5kX3NkYXRfZmllbGRfbnVtYmVyXzEyNywgCnNhbGVzX3NlZ21lbnRfMl9ncmFudG9yX25hbWVfc2RhdF9maWVsZF9udW1iZXJfMTAwLCAKc2FsZXNfc2VnbWVudF8zX2dyYW50b3JfbmFtZV9zZGF0X2ZpZWxkX251bWJlcl8xMjAsIGFkZGl0aW9uYWxfY19hX21fYV9kYXRhX2J1aWxkaW5nX3N0eWxlX2NvZGVfYW5kX2Rlc2NyaXB0aW9uX21kcF9maWVsZF9zdHJ1c3R5bF9kZXNjc3R5bF9zZGF0X2ZpZWxkX251bWJlcl8yNjQgICkKYGBgCgojTm90ZSBvbiB0aGUgY29sdW1ucyBJIHB1bGxlZDogSSBkaWQgbm90IGxvb2sgYXQgcHJpY2VzIGF0IHRoaXMganVuY3R1cmUgYW5kIG9ubHkgbG9va2VkIGF0IHRoZSB0eXBlIG9mIHRoZSBtb3N0IHJlY2VudCBzYWxlLiBUaGVyZSBhcmUgdG9vIG1hbnkgdGhpbmdzIHRvIGV4YW1pbmUgYW5kIHRoZSBmaWxlIGlzIGh1Z2UhCgpgYGB7cn0KcHJvcGVydHlfcmVuYW1lZCA8LXByb3BlcnR5X2ZpbHRlcmVkIHw+CiAgcmVuYW1lKG1hcF9jb29yZGluYXRlcyA9IG1hcHBhYmxlX2xhdGl0dWRlX2FuZF9sb25naXR1ZGUpIHw+CiAgcmVuYW1lKHN0cmVldCA9IG1kcF9zdHJlZXRfYWRkcmVzc19tZHBfZmllbGRfYWRkcmVzcykgfD4KICByZW5hbWUoY2l0eSA9IG1kcF9zdHJlZXRfYWRkcmVzc19jaXR5X21kcF9maWVsZF9jaXR5KSB8PgogIHJlbmFtZSh6aXAgPSBtZHBfc3RyZWV0X2FkZHJlc3NfemlwX2NvZGVfbWRwX2ZpZWxkX3ppcGNvZGUpIHw+CiAgcmVuYW1lKGxhbmRfY29kZSA9IGxhbmRfdXNlX2NvZGVfbWRwX2ZpZWxkX2x1X2Rlc2NsdV9zZGF0X2ZpZWxkX251bWJlcl81MCkgfD4KICByZW5hbWUod2F0ZXIgPSBwcm9wZXJ0eV9mYWN0b3JzX3V0aWxpdGllc193YXRlcl9tZHBfZmllbGRfcGZ1d19zZGF0X2ZpZWxkX251bWJlcl82MykgfD4KICByZW5hbWUoc2V3ZXIgPSBwcm9wZXJ0eV9mYWN0b3JzX3V0aWxpdGllc19zZXdlcl9tZHBfZmllbGRfcGZ1c19zZGF0X2ZpZWxkX251bWJlcl82NCkgfD4KICByZW5hbWUod2F0ZXJmcm9udCA9IHByb3BlcnR5X2ZhY3RvcnNfbG9jYXRpb25fd2F0ZXJmcm9udF9tZHBfZmllbGRfcGZsd19zZGF0X2ZpZWxkX251bWJlcl82NSkgfD4KICByZW5hbWUodW5wYXZlZCA9IHByb3BlcnR5X2ZhY3RvcnNfc3RyZWV0X3VucGF2ZWRfbWRwX2ZpZWxkX3Bmc3Vfc2RhdF9maWVsZF9udW1iZXJfNjgpIHw+CiAgcmVuYW1lKGhpc3RvcmljYWwgPSBwcm9wZXJ0eV9mYWN0b3JzX2luZmx1ZW5jZV9oaXN0b3JpY2FsX21kcF9maWVsZF9wZmloX3NkYXRfZmllbGRfbnVtYmVyXzcwKSB8PgogIHJlbmFtZShzYWxlczEgPSBzYWxlc19zZWdtZW50XzFfZ3JhbnRvcl9uYW1lX21kcF9maWVsZF9ncm50bmFtMV9zZGF0X2ZpZWxkX251bWJlcl84MCkgfD4KICByZW5hbWUoc2FsZXMyID0gc2FsZXNfc2VnbWVudF8yX2dyYW50b3JfbmFtZV9zZGF0X2ZpZWxkX251bWJlcl8xMDApIHw+CiAgcmVuYW1lKHNhbGVzMyA9IHNhbGVzX3NlZ21lbnRfM19ncmFudG9yX25hbWVfc2RhdF9maWVsZF9udW1iZXJfMTIwKSB8PgogIHJlbmFtZShjb252ZXllZDMgPSBzYWxlc19zZWdtZW50XzNfaG93X2NvbnZleWVkX2luZF9zZGF0X2ZpZWxkX251bWJlcl8xMjcpIHw+CiAgcmVuYW1lKGJsZGcgPSBhZGRpdGlvbmFsX2NfYV9tX2FfZGF0YV9idWlsZGluZ19zdHlsZV9jb2RlX2FuZF9kZXNjcmlwdGlvbl9tZHBfZmllbGRfc3RydXN0eWxfZGVzY3N0eWxfc2RhdF9maWVsZF9udW1iZXJfMjY0KQogIApgYGAKCldoYXQgZG9lcyB0aGUgZGF0YSBsb29rIGxpa2UgYnkgY2l0eT8KSSBjYW4gc2VlIHRoYXQgc29tZSBwbGFjZXMgd2lsbCBzaG93IHVwIGFzICJCYWx0aW1vcmUiIGJlY2F1c2UgaXQncyBpbnRlcmNoYW5nYWJsZSBpbiBzb21lIHBsYWNlcyBsaWtlIENhdG9uc3ZpbGxlLgoKYGBge3J9CmJ5X2NpdHkgPC0gcHJvcGVydHlfcmVuYW1lZHw+CiAgIGdyb3VwX2J5KGNpdHkpIHw+CiAgc3VtbWFyaXNlKGNvdW50ID0gbigpKSB8PgogIGFycmFuZ2UoZGVzYyhjb3VudCkpCmBgYAoKCldoYXQgcGVyY2VudGFnZSBvZiB0aGlzIGRhdGEgaW52b2x2ZXMgcHJvcGVyaXRlcyB3aXRoIGhpc3RvcmljYWwgaW5mbHVlbmNlPwpJJ20gc3VycHJpc2VkIG9ubHkgNCBhcmUgaW4gdGhpcyBjYXRlZ29yeSwgYnV0IHN1cmUgbWFrZXMgaXQgZWFzeSB0byBmaW5kIG91dCBtb3JlIGFib3V0IHRoZW0gYW5kIHNlZSBpZiB0aGVyZSdzIGEgc3RvcnkgdGhlcmUuCgpgYGB7cn0KaGlzdG9yaWNhbF9jb3VudCA8LSBwcm9wZXJ0eV9yZW5hbWVkIHw+IAogIGZpbHRlcighc3RyX2RldGVjdChoaXN0b3JpY2FsLCAiTm8gSGlzdG9yaWNhbCBJbmZsdWVuY2UgXFwoMFxcKSIpKSAKYGBgCgpMZXQncyBsb29rIGF0IHdhdGVyZnJvbnQgcHJvcGVydHkuCk9ubHkgYWJvdXQgNSwwMDAgKGxlc3MgdGhhbiAyIHBlcmNlbnQpIG9mIHRoZSAzMDUsMjA1IHJlY29yZHMgYXJlIGNsYXNzaWZpZWQgYXMgd2F0ZXJmcm9udC4KT2J2aW91c2x5LCB0aGUgbWFqb3JpdHkgYXJlIGluIEVhc3Rlcm4gQmFsdGltb3JlIENvdW50eSAoRHVuZGFsaywgTWlkZGxlIFJpdmVyLCBFc3NleCkuCgoKYGBge3J9CndhdGVyZnJvbnRfdG90YWwgPC0gcHJvcGVydHlfcmVuYW1lZCB8PgogIGZpbHRlcighc3RyX2RldGVjdCh3YXRlcmZyb250LCAiTm9uZSBcXCgwXFwpIikpIHw+CiAgbnJvdygpCgojdG90YWwgcmVjb3Jkcwp0b3RhbF9yZWNvcmRzIDwtIG5yb3cocHJvcGVydHlfcmVuYW1lZCApCgojZ2V0IHBlcmNlbnRhZ2UgCnBlcmNlbnRhZ2Vfd2F0ZXJmcm9udCA8LSAod2F0ZXJmcm9udF90b3RhbCAvIHRvdGFsX3JlY29yZHMpICogMTAwCgpwcmludChwZXJjZW50YWdlX3dhdGVyZnJvbnQpCmBgYAoKYGBge3J9CndhdGVyZnJvbnRfY291bnRzX2J5X2NpdHkgPC0gcHJvcGVydHlfcmVuYW1lZCB8PgogIGZpbHRlcighc3RyX2RldGVjdCh3YXRlcmZyb250LCAiTm9uZSBcXCgwXFwpIikpIHw+CiAgZ3JvdXBfYnkoY2l0eSwgbGFuZF9jb2RlKSB8PgogIHN1bW1hcmlzZShjb3VudCA9IG4oKSkgfD4KICBhcnJhbmdlKGRlc2MoY2l0eSkpCgoKcHJpbnQod2F0ZXJmcm9udF9jb3VudHNfYnlfY2l0eSkKYGBgCgo=</div>
 
 
 
