@@ -1,11 +1,39 @@
 ---
 title: "grad project"
 output: html_notebook
-author: Laura Cech
+author: "Laura Cech"
+date: "Dec. 4, 2023"
+
 ---
 
-intro
+I looked at the data 
 https://opendata.maryland.gov/Business-and-Economy/Baltimore-County-Real-Property-Assessments-Hidden-/jpfc-qkxp
+based on SDAT (State Department of Assessments and Taxation) and MDP (Maryland Department of Planning) records.
+It is updated monthly.
+There are 220 columns and more than 11,000 records.
+
+There are dates included, but the data is organized by Sales 1, Sales 2 and Sales 3, showing the most recent transactions, the transactions before that and the one before that.
+
+The most impressive part of my analysis is that when I cleaned "Ryland," I didn't erroneously get "Maryland."
+
+You should explore the data to find at least 3 potential story ideas, and conduct enough analysis to describe the three best ideas you have in pitches. To do this, you should join it with one other source of information - that could be Census data or some other type of information that is related to the data you are working with.
+
+Pitch 1: Baltimore County is known as a suburb but a surprising number of properties are sold without access to public services such as water and sewer. Some of the land will remained undeveloped, but some will be connected to public water and sewer. What's involved in connecting to the public works grid? Is there a cost to all taxpayers? Are there any houses left with just outhouses? 
+See data visualization: https://datawrapper.dwcdn.net/Zl4fY/1/
+
+Pitch 2: While most property transactions are by individuals and corporations, there are some companies and agencies who make more than few purchases. Any one of them could be a potential story. For example, are the Secretary of Housing transactions really just mortgages? Are they clustered in a certain area? 
+We could also look at the campaign contributions made by developers.
+
+Of the most recent transactions, top buyers were: NVR (1462), RYLAND (1455), SECRETARY OF HOUSING (1,300)
+See visualization: https://datawrapper.dwcdn.net/Y7QBW/1/
+
+Pitch 3: George Washington didn't sleep in any of the townhouses in Dundalk, or stop at an industrial space in Middle River. But they are among four properties listed as having significant historical influence in property records. An office building in Lutherville-Timonium was built in 1924, but if the building's age qualifies it as "historic" then hundreds, maybe thousands more, should be on the list. Why doesn't the historical influence data doesn't seem accurate?
+
+Note:
+My waterfront analysis didn't really turn up anything interesting. See the by-the-city visualization: https://datawrapper.dwcdn.net/eimgT/1/ But if I analyzed by date, I might have been able to show how Baltimore County's waterfront is changing.
+
+
+#intial set up, load libraries
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -20,11 +48,13 @@ library(lubridate)
 library(readxl)
 library(datasets)
 library(dplyr)
+library(stringr)
 ```
 
 ```{r}
 property_all <- read_csv("data/Baltimore_County_Real_Property_Assessments.csv")
 ```
+# initial clean; refining of owners on line 352
 
 ```{r}
 property_all <-property_all|>
@@ -60,20 +90,20 @@ property_renamed <-property_filtered |>
   
 ```
 
-What does the data look like by city?
+# What does the data look like by city?
 I can see that some places will show up as "Baltimore" because it's interchangable in some places like Catonsville.
 
 ```{r}
 #group by cities
-by_city <- property_renamed|>
+by_city <- property_renamed |>
    group_by(city) |>
   summarise(count = n()) |>
   arrange(desc(count))
 ```
 
+# What percentage of this data involves properites with historical influence?
+I'm surprised only 4 are in this category, but it made it easy to research the properties to see if there's a story there. It appears those listed as historical influence are typos. They don't seem to be historic at all.
 
-What percentage of this data involves properites with historical influence?
-I'm surprised only 4 are in this category, but sure makes it easy to find out more about them and see if there's a story there.
 
 ```{r}
 #see historical properties
@@ -83,12 +113,12 @@ historical_count <- property_renamed |>
 print(historical_count)
 ```
 
-Let's look at waterfront property.
+# Where is Baltimore County's waterfront?
+
 Only about 5,000 (less than 2 percent) of the 305,205 records are classified as waterfront.
 Obviously, the majority are in Eastern Baltimore County (Dundalk, Middle River, Essex).
 
 See the by-the-city visualization: https://datawrapper.dwcdn.net/eimgT/1/
-
 
 
 ```{r}
@@ -143,8 +173,29 @@ print(waterfront_percentages)
 #export
 write.csv(waterfront_percentages, "waterfront_percentages.csv", row.names = FALSE)
 ```
-I thought it would be cool to show pies for each city in datawrapper, but it didn't work. I'm going to see if it will work if I elimate the cities with only one landcode.
-update: It doesn't.
+```{r}
+#asked chat gpt for code to show zip codes too
+waterfront_counts_by_city2 <- property_renamed |>
+  filter(!str_detect(waterfront, "None \\(0\\)")) |>
+  group_by(city, land_code) |>
+  summarise(
+    count = n(),
+    zip = paste(unique(zip), collapse = ", "),
+    .groups = 'drop'
+  ) |>
+  arrange(desc(city))
+
+glimpse(waterfront_counts_by_city2)
+```
+```{r}
+#export
+write.csv(waterfront_counts_by_city2, "waterfront_counts_by_city2.csv", row.names = FALSE)
+```
+
+See new visualization:
+
+# What are landcodes of waterfront properties?
+I thought it would be cool to show pies for each city in datawrapper, but it didn't work even after I eliminated the cities with only one landcode. I think maybe the reason is that most of the sales types (90percent-ish) are residential.
 
 ```{r}
 waterfront_landcodes <- waterfront_percentages |>
@@ -158,7 +209,7 @@ print(waterfront_landcodes)
 write.csv(waterfront_landcodes, "waterfront_landcodes.csv", row.names = FALSE)
 ```
 
-Let's look at land codes in general:
+# What can landcode data tell us in general? 
 81 percent of the transactions are residential. 
 
 Here's a visualization of landcodes that aren't residential: https://datawrapper.dwcdn.net/49Hc3/1/
@@ -209,7 +260,105 @@ write.csv(land_code_percentages_non, "land_code_percentages_non.csv", row.names 
 
 ```
 
-Let's see owner trends. Looking at most recent transactions first (sales3)
+# Do some residential properties not have public services like sewer, water and paved roads?
+245,798 have unpaved roads, 68,050 have no public sewer, and 245,798 don't have public water.
+It would be nice to have a comparison with other counties for this, but my computer is puny and can't handle the data.
+
+```{r}
+#roads
+count_not_unpaved <- property_renamed |>
+  filter(unpaved != "No Paved Street (0)", land_code == "Residential (R)") |>
+  nrow()
+
+print(count_not_unpaved)
+
+not_unpaved <- property_renamed |>
+  filter(unpaved != "No Paved Street (0)", land_code == "Residential (R)") 
+```
+
+```{r}
+#sewer
+count_no_sewer <- property_renamed |>
+  filter(sewer != "Public Sewer (1)", land_code == "Residential (R)") |>
+  nrow()
+
+print(count_no_sewer)
+
+no_sewer <- property_renamed |>
+  filter(sewer != "Public Sewer (1)", land_code == "Residential (R)")
+```
+
+```{r}
+#water
+count_no_water <- property_renamed |>
+  filter(sewer != "Public Water (1)", land_code == "Residential (R)") |>
+  nrow()
+
+print(count_no_water)
+
+no_water <- property_renamed |>
+  filter(sewer != "Public Water (1)", land_code == "Residential (R)")
+
+```
+
+```{r}
+no_service <- bind_rows(no_water, no_sewer, not_unpaved)
+
+glimpse(no_service)
+```
+
+```{r}
+no_service_filtered <- no_service |>
+group_by(zip) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+```
+
+
+```{r}
+#export
+write.csv(no_service_filtered, "no_service_filtered.csv", row.names = FALSE)
+```
+
+See visualization: https://datawrapper.dwcdn.net/Zl4fY/1/
+
+Owner trends
+#How are properties conveyed? (arms length, etc.)
+When I created the visualization https://datawrapper.dwcdn.net/GRILY/1/, I realized it would be more valuable to see the "Unknown" and "NA" together and all the non-arms length transactions together: https://datawrapper.dwcdn.net/WT3sk/1/
+
+Next I examined the most transactions first (sales3) to see what companies/ government agencies emerged as large land owners.
+
+```{r}
+conveyed <- property_renamed |>
+group_by(conveyed3) |>
+ summarise(count = n())
+
+glimpse(conveyed)
+```
+```{r}
+#chat gpt help in how to mutate "No Data" and "NA" into an "Unkown" result and all the arms-length together.
+
+
+conveyed1 <- conveyed %>%
+  mutate(
+    conveyed3 = case_when(
+      conveyed3 %in% c("No Data", "na") ~ "Combined No Data/na",
+      grepl("Private Non-Arms-Length", conveyed3, ignore.case = TRUE) ~ "Private Non-Arms-Length",
+      grepl("Private Arms-Length", conveyed3, ignore.case = TRUE) ~ "Private Arms-Length",
+      TRUE ~ "Unknown"
+    )
+  ) %>%
+  group_by(conveyed3) %>%
+  summarize(count = sum(count))
+
+print(conveyed1)
+
+
+#export
+write.csv(conveyed1, "conveyed1.csv", row.names = FALSE)
+```
+
+
 
 ```{r}
 
@@ -221,6 +370,303 @@ owners_count <- property_renamed |>
 
 # view
 print(owners_count)
+
+```
+
+
+```{r}
+#checking dupes (note: I also tried n_gram_merge() but it made the data worse. I also tried open refine and it didn't find clusters.)
+owners_count_dupes <-owners_count |>
+   get_dupes() 
+
+glimpse(owners_count_dupes)
+
+#clean names
+  cleaned_owners_count <- owners_count |>
+  mutate(owners_clean=key_collision_merge(sales3)) |>
+  select(sales3, owners_clean, everything())
+
+cleaned_owners_count
+```
+
+```{r}
+#export for open refine
+write.csv(cleaned_owners_count, "cleaned_owners_count.csv", row.names = FALSE)
+```
+
+
+
+```{r}
+#grouping nvr
+nvr <- cleaned_owners_count |>
+  filter(str_detect(owners_clean, "NVR")) 
+         
+glimpse(nvr)
+```
+```{r}
+#standardize nvr
+cleaned_owners <- cleaned_owners_count |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, "NVR"), "NVR", owners_clean))
+
+```
+
+```{r}
+#standardize Ryland without getting "Maryland" in the mix with the help of chat gpt
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, "\\bRyland\\b"), "RYLAND", owners_clean))
+
+```
+
+```{r}
+#standardize Veterans Affairs
+cleaned_owners <-cleaned_owners |>
+  mutate(owners_clean = ifelse(
+    str_detect(owners_clean, "ADMINISTRATOR OF VETERANS AFFAIRS|SECRETARY OF VETERANS AFFAIRS|THE SECRETARY OF VETERANS"), 
+    "VETERANS AFFAIRS", 
+    owners_clean))
+
+```
+
+```{r}
+#standardize TITO INC and TITO REALTY LLC
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, "TITO INC|TITO REALTY LLC"), "TITO", owners_clean))
+
+```
+
+```{r}
+#standardize SECRETARY OF HOUSING
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+     "SECRETARY OF HOUSING( AND| &)?( URBAN( DEV)?)?|THE SECRETARY OF HOUSING( AND| &)?( URBAN( DEV)?)?"), 
+                               "SECRETARY OF HOUSING", 
+                               owners_clean))
+
+```
+
+
+```{r}
+#standardize HIGHPOINT BUSINESS TRUST and HIGHPOINTE BUSINESS TRUST
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, "HIGHPOINTE? BUSINESS TRUST"), 
+                               "Highpoint Business Trust", 
+                               owners_clean))
+```
+
+
+```{r}
+#standardize HSBC BANK USA, HSBC BANK USA N A, HSBC BANK USA N A TRUSTEE, HSBC BANK USA N A,TRUSTEE, HSBC BANK USA NA TRUSTEE, HSBC BANK USA NATIONAL, HSBC BANK USA NATIONAL ASSOCIATION, HSBC BANK USA TRUSTEE
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                               "HSBC BANK USA( N A| NATIONAL ASSOCIATION|,? TRUSTEE| NA TRUSTEE| NATIONAL)?"), 
+                               "HSBC Bank USA", 
+                               owners_clean))
+```
+
+```{r}
+#standardize JOHNNYCAKE DEVEL OPMENT CORP, JOHNNYCAKE DEVEL OPMENT CORPORATIO, JOHNNYCAKE DEVELOPMENT CORP, JOHNNYCAKE DEVELOPMENT CORPORATION
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                               "JOHNNYCAKE DEVEL\\s?OPMENT\\s?(CORP(ORATION)?)?"), 
+                               "Johnnycake Development Corp", 
+                               owners_clean))
+
+```
+
+
+```{r}
+#standardize K HOVNANIAN AT EDEN TERRACE, K HOVNANIAN HOMES, K HOVNANIAN HOMES OF, K HOVNANIAN HOMES OF MARYLAND, K HOVNANIAN HOMES OF MARYLAND I LL, K HOVNANIAN HOMES OF MARYLAND L L, K HOVNANIAN HOMES OF MARYLAND LLC
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                               "K HOVNANIAN (AT EDEN TERRACE|HOMES( OF( MARYLAND( I LL| L L| LLC)?)?)?)"), 
+                               "K Hovnanian", 
+                               owners_clean))
+
+```
+
+```{r}
+#standardize WELLS FARGO BANK, WELLS FARGO BANK MINNESOTA NA, WELLS FARGO BANK MINNESOTA,TRUSTEE, WELLS FARGO BANK N A, WELLS FARGO BANK N A TRUSTEE, WELLS FARGO BANK N A TRUSTEE, WELLS FARGO BANK NA, WELLS FARGO BANK NA TRUSTEE, WELLS FARGO BANK NATIONAL, WELLS FARGO BANK NATIONAL ASSOCIAT, WELLS FARGO BANK TRUSTEE, WELLS FARGO BANK, NA, WELLS FARGO BANK NA, WELLS FARGO BANK,NA,TRUSTEE, WELLS FARGO BANK NA TRUSTEE, WELLS FARGO FINANCIAL MARYLAND, WELLS FARGO FINANCIAL MARYLAND INC
+cleaned_owners <- cleaned_owners |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                               "WELLS FARGO BANK( MINNESOTA( NA)?,?| N A| NA| NATIONAL( ASSOCIAT)?|,? NA|,?TRUSTEE| NA TRUSTEE)?|WELLS FARGO FINANCIAL MARYLAND( INC)?"), 
+                               "WELLS FARGO",  
+                               owners_clean))
+
+
+```
+
+```{r}
+#standardize BALTIMORE COUNTY, BALTIMORE COUNTY  MARYLAND, BALTIMORE COUNTY  MD, BALTIMORE COUNTY MARYLAND, BALTIMORE COUNTY MD.,BALTIMORE COUNTY, MARYLAND
+
+cleaned_owners <- cleaned_owners |>
+   mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                                         "BALTIMORE COUNTY(,? MARYLAND|,? MD|,? MD\\.|)?$"), 
+                               "Baltimore County", 
+                               owners_clean))
+
+```
+
+
+```{r}
+owners_most <- cleaned_owners |>
+  group_by(owners_clean) |>
+  summarise(total_n = sum(n, na.rm = TRUE)) |>
+  arrange(desc(total_n))
+
+```
+
+
+```{r}
+glimpse(owners_most)
+```
+
+```{r}
+#standardize more to fix Ryland but not get Maryland
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+          "\\bRYLAND GROUP\\b|\\bRYLAND GROUP INC ORPORATED\\b|\\bRYLAND GROUP INC THE\\b"), 
+          "RYLAND", 
+          owners_clean))
+
+```
+
+```{r}
+#standardize more to fix Pulte
+
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+         "PULTE HOME CORP|PULTE HOME CORPO RATION|PULTE LAND OF MA RYLAND CORPORATIO"), 
+         "PULTE", 
+          owners_clean))
+
+```
+
+
+```{r}
+#standardize to fix Baltco again
+
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+                                          "(?i)\\bBALTIMORE COUNTY\\b\\s*(MD|MARYLAND)?$"), 
+                               "BALTIMORE COUNTY", 
+                               owners_clean))
+
+
+```
+
+```{r}
+#standardize Ashland
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+           "ASHLAND JOINT VENTURE|ASHLEY CUSTOM HOMES INC|ASHLEY GROUP LIM ITED|ASHLEY GROUP LTD"), 
+           "ASHLEY GROUP", 
+                               owners_clean))
+
+```
+
+```{r}
+#standardize Associated
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+          "ASSOCIATED JEWIS H CHARITIES &|ASSOCIATED JEWISH CHARITIES"), 
+          "ASSOCIATED JEWISH", 
+           owners_clean))
+
+```
+
+
+```{r}
+#standardize Bancroft
+owners_most <- owners_most |>
+   mutate(owners_clean = ifelse(str_detect(owners_clean, 
+     "BANCROFT HOMES|BANCROFT HOMES O F|BANCROFT HOMES O F HUNT VALLEY INC|BANCROFT HOMES O F JONES VALLEY IN|BANCROFT PROPERT IES|BANCROFT PROPERTIES"), 
+                               "BANCROFT HOMES", 
+                               owners_clean))
+```
+
+
+
+```{r}
+#standardize Bank of America
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+         "BANK OF AMERICA( N A| N\\.A\\.| NA| NATIONAL| NATIONAL ASSOCIATI|, N A)?"), 
+         "BANK OF AMERICA", 
+          owners_clean))
+```
+
+```{r}
+#standardize Bank of New York
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+         "BANK OF AMERICA( N A| N\\.A\\.| NA| NATIONAL| NATIONAL ASSOCIATI|, N A)?"), 
+         "BANK OF AMERICA", 
+                               owners_clean))
+```
+
+```{r}
+#standardize Beazer
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+          "BEAZER HOME CORP|BEAZER HOMES CORP|BEAZER HOMES CORPORATION|BEAZER HOMES LLC"), 
+          "BEAZER HOMES", 
+          owners_clean))
+```
+
+```{r}
+#standardize DEUTSCHE BANK
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, "DEUTSCHE"), 
+                               "DEUTSCHE", 
+                               owners_clean))
+  
+```
+
+```{r}
+#standardize federal home
+owners_most <- owners_most |>
+   mutate(owners_clean = ifelse(str_detect(owners_clean, 
+            "FEDERAL HOME( LOAN( MORTGAGE( CORP(ORA)?)?)?)?\\b"), 
+             "FEDERAL HOME", 
+               owners_clean))
+  
+```
+
+```{r}
+#standardize federal national
+owners_most <- owners_most |>
+  mutate(owners_clean = ifelse(str_detect(owners_clean, 
+ "FEDERAL NATIONAL( MORGAGE ASSOCIATI| MORTAGE ASSOCIATI| MORTG ASSN| MORTGAGE| MORTGAGE ASSN| MORTGAGE ASSOC| MORTGAGE ASSOCIAT)?"), 
+  "FEDERAL NATIONAL", 
+  owners_clean))
+ 
+```
+
+
+
+```{r}
+#re-run count
+owners_most_again <- owners_most |>
+  group_by(owners_clean) |>
+  summarise(total_sum = sum(total_n, na.rm = TRUE)) %>%
+  arrange(desc(total_sum))
+
+glimpse(owners_most_again)
+
+#remove na
+owners_most_again  <- owners_most_again |>
+  filter(!is.na(owners_clean))
+
+#only show 200 and more
+top_owners  <- owners_most_again |>
+   filter(total_sum > 200)
+  
+#export 
+write.csv(top_owners, "top_owners.csv", row.names = FALSE)
+```
+
+```{r}
+
 
 ```
 
